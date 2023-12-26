@@ -20,7 +20,7 @@ export default function TabViewExample() {
       style={{ flex: 1, backgroundColor: "white" }}
       showsVerticalScrollIndicator={false}
       scrollEventThrottle={5}
-      bounces={false}
+      alwaysBounceVertical={false}
     >
       <View className="px-5 py-8 space-y-5">
         <Text className="text-xl">Indispensable, meilleures ventes...</Text>
