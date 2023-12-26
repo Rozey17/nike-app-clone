@@ -1,4 +1,4 @@
-import { AntDesign, Feather } from "@expo/vector-icons";
+import { AntDesign, Feather, SimpleLineIcons } from "@expo/vector-icons";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import {
   DarkTheme,
@@ -6,7 +6,7 @@ import {
   ThemeProvider,
 } from "@react-navigation/native";
 import { useFonts } from "expo-font";
-import { SplashScreen, Stack } from "expo-router";
+import { SplashScreen, Stack, router } from "expo-router";
 import { useEffect } from "react";
 import { TouchableOpacity, useColorScheme } from "react-native";
 import { View } from "../components/Themed";
@@ -65,8 +65,8 @@ function RootLayoutNav() {
                   <TouchableOpacity>
                     <AntDesign name="search1" size={24} color="black" />
                   </TouchableOpacity>
-                  <TouchableOpacity>
-                    <Feather name="shopping-bag" size={24} color="black" />
+                  <TouchableOpacity onPress={() => router.push("/cart")}>
+                    <SimpleLineIcons name="bag" size={24} color="black" />
                   </TouchableOpacity>
                 </View>
               );
@@ -82,8 +82,8 @@ function RootLayoutNav() {
                   <TouchableOpacity>
                     <AntDesign name="search1" size={24} color="black" />
                   </TouchableOpacity>
-                  <TouchableOpacity>
-                    <Feather name="shopping-bag" size={24} color="black" />
+                  <TouchableOpacity onPress={() => router.push("/cart")}>
+                    <SimpleLineIcons name="bag" size={24} color="black" />
                   </TouchableOpacity>
                 </View>
               );
@@ -91,6 +91,14 @@ function RootLayoutNav() {
           }}
         />
         <Stack.Screen name="modal" options={{ presentation: "modal" }} />
+        <Stack.Screen
+          name="sizesModal"
+          options={{
+            presentation: "modal",
+            animation: "slide_from_bottom",
+            headerShown: false,
+          }}
+        />
       </Stack>
     </ThemeProvider>
   );

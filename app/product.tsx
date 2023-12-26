@@ -9,6 +9,7 @@ import {
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { AntDesign, Entypo, MaterialIcons } from "@expo/vector-icons";
+import { router } from "expo-router";
 
 const product = () => {
   return (
@@ -47,10 +48,13 @@ const product = () => {
         </Text>
         <View className="space-y-3">
           <TouchableOpacity className="rounded-full p-4 border border-gray-300 flex-row justify-center">
-            <View className="flex-row space-x-1 items-center">
+            <TouchableOpacity
+              onPress={() => router.push("/sizesModal")}
+              className="flex-row space-x-1 items-center"
+            >
               <Text className="text-center font-semibold">Taille EU 42</Text>
               <Entypo name="chevron-small-down" size={24} color="black" />
-            </View>
+            </TouchableOpacity>
           </TouchableOpacity>
           <Pressable className="bg-black p-4 rounded-full">
             <Text className="text-white text-center">Ajouter au panier</Text>
@@ -59,9 +63,9 @@ const product = () => {
             <TouchableOpacity className="rounded-full p-4 border border-gray-300 flex-1">
               <Text className="text-center font-semibold">Acheter</Text>
             </TouchableOpacity>
-            <View className="rounded-full p-4 border border-gray-300 items-center flex-1">
+            <TouchableOpacity className="rounded-full p-4 border border-gray-300 items-center flex-1">
               <MaterialIcons name="favorite-outline" size={20} color="black" />
-            </View>
+            </TouchableOpacity>
           </View>
         </View>
       </View>
