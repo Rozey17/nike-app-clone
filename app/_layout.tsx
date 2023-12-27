@@ -6,7 +6,7 @@ import {
   ThemeProvider,
 } from "@react-navigation/native";
 import { useFonts } from "expo-font";
-import { SplashScreen, Stack, router } from "expo-router";
+import { SplashScreen, Stack, router, useLocalSearchParams } from "expo-router";
 import { useEffect } from "react";
 import { TextInput, TouchableOpacity, useColorScheme } from "react-native";
 import { View } from "../components/Themed";
@@ -49,8 +49,6 @@ export default function RootLayout() {
 }
 
 function RootLayoutNav() {
-  const colorScheme = useColorScheme();
-
   return (
     <NativeBaseProvider>
       <Stack screenOptions={{ headerShadowVisible: false }}>

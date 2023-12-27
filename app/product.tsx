@@ -1,9 +1,18 @@
 import { View, Text, ScrollView, Image, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
 import { Entypo, MaterialIcons } from "@expo/vector-icons";
-import { router } from "expo-router";
+import {
+  Stack,
+  router,
+  useLocalSearchParams,
+  useNavigation,
+  useRouter,
+} from "expo-router";
 import SelectDropdown from "react-native-select-dropdown";
 import { useToast } from "native-base";
+import useCartStore from "../store/cartStore";
+import { useRoute } from "@react-navigation/native";
+import { Product } from "../store/interfaces";
 
 const product = () => {
   const toast = useToast();
@@ -31,7 +40,12 @@ const product = () => {
     "EU 45.5",
     "EU 46",
   ];
+
+  const { addProduct, removeProduct, products } = useCartStore();
   const [selected, setSelected] = useState(false);
+  const router = useRouter();
+  const params = useLocalSearchParams();
+
   return (
     <ScrollView
       className="bg-white"
@@ -39,33 +53,28 @@ const product = () => {
       alwaysBounceVertical={false}
       scrollEventThrottle={5}
     >
+      <Stack.Screen
+        options={{
+          title: params.name as string,
+        }}
+      />
+
       <Image
         source={{
-          uri: "https://www.snipes.fr/dw/image/v2/BDCB_PRD/on/demandware.static/-/Sites-snse-master-eu/default/dw59a79e6c/2280990_P.jpg?sw=1560&sh=1560&sm=fit&sfrm=png",
+          uri: params.image as string,
         }}
         className="object-cover h-96"
       />
       <View className="px-5 py-10 space-y-5">
         <View>
-          <Text className="text-[16px]">Chaussure pour femme</Text>
-          <Text className="text-2xl font-bold capitalize">Nike V2K Run</Text>
+          <Text className="text-[16px]">
+            Chaussure pour {params.gender === "male" ? "homme" : "femme"}
+          </Text>
+          <Text className="text-2xl font-bold capitalize">{params.name}</Text>
         </View>
 
-        <Text className="text-[16px]">119,99€</Text>
-        <Text className="text-[16px]">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis
-          error, velit eos quaerat facere veritatis minima autem voluptatibus
-          nam, eaque non dolor, perspiciatis sunt fugit id corrupti libero!
-          Aliquid harum corrupti ex, iusto numquam minus nam accusamus adipisci
-          nisi laborum placeat voluptates, debitis obcaecati magnam
-          perspiciatis. Ab dolor esse, voluptate error atque enim suscipit dicta
-          fuga. Totam, molestias voluptas. Laboriosam, voluptates nulla sapiente
-          magni aliquid, nihil quam velit esse modi magnam incidunt. Totam
-          repudiandae distinctio odit incidunt temporibus accusantium repellat
-          hic neque necessitatibus corporis, officia quisquam at ex
-          exercitationem, officiis, amet nulla odio labore facere sit laudantium
-          possimus. Quo, corporis.
-        </Text>
+        <Text className="text-[16px]">{params.price}€</Text>
+        <Text className="text-[16px]">{params.description}</Text>
         <View className="pt-5 space-y-3">
           <SelectDropdown
             data={DATA}
