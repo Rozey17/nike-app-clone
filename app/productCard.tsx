@@ -42,13 +42,13 @@ const productCard = ({
       />
       <View className="p-4 space-y-3">
         <View>
-          <Text className="text-[16px]">{name}</Text>
-          <Text className="text-gray-500 text-[16px]">
+          <Text className="">{name}</Text>
+          <Text className="text-gray-500 ">
             Chaussure pour {gender === "male" ? "homme" : "femme"}
           </Text>
         </View>
 
-        <Text className="font-bold text-[16px]">{price}€</Text>
+        <Text className="font-bold ">{price}€</Text>
       </View>
     </TouchableOpacity>
   );
