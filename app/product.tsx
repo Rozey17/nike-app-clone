@@ -145,7 +145,7 @@ const product = () => {
               className="items-center flex-1 justify-center border border-gray-300 rounded-full h-[65px]"
             >
               {selected ? (
-                <MaterialIcons name="favorite" size={26} color="#ec4899" />
+                <MaterialIcons name="favorite" size={26} color="black" />
               ) : (
                 <MaterialIcons
                   name="favorite-outline"
