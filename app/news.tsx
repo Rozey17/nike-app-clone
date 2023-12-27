@@ -1,9 +1,8 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
 
-const news = () => {
+const News = () => {
   const router = useRouter();
   return (
     <View className="flex-1 bg-white">
@@ -37,4 +36,4 @@ const news = () => {
   );
 };
 
-export default news;
+export default News;

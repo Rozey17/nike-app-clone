@@ -1,20 +1,12 @@
 import { View, Text, ScrollView, Image, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
 import { Entypo, MaterialIcons } from "@expo/vector-icons";
-import {
-  Stack,
-  router,
-  useLocalSearchParams,
-  useNavigation,
-  useRouter,
-} from "expo-router";
+import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import SelectDropdown from "react-native-select-dropdown";
 import { useToast } from "native-base";
 import useCartStore from "../store/cartStore";
-import { useRoute } from "@react-navigation/native";
-import { Product } from "../store/interfaces";
 
-const product = () => {
+const Product = () => {
   const toast = useToast();
   const DATA = [
     "EU 35.5",
@@ -58,7 +50,6 @@ const product = () => {
           title: params.name as string,
         }}
       />
-
       <Image
         source={{
           uri: params.image as string,
@@ -174,4 +165,4 @@ const product = () => {
   );
 };
 
-export default product;
+export default Product;

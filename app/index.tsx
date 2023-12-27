@@ -15,7 +15,6 @@ export default function TabViewExample() {
   const router = useRouter();
 
   const FirstRoute = () => (
-    // const router = useRouter()
     <ScrollView
       style={{ flex: 1, backgroundColor: "white" }}
       showsVerticalScrollIndicator={false}
