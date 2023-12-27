@@ -40,7 +40,7 @@ const SizesModal = () => {
   ];
   return (
     <SafeAreaView className="flex-1 overflow-hidden bg-white">
-      <View className="p-5 flex-row justify-between items-center border-b border-gray-300">
+      <View className="flex-row items-center justify-between p-5 border-b border-gray-300">
         <Text>Tailles</Text>
         <Pressable onPress={() => router.back()}>
           <Text className="text-gray-400">Annuler</Text>
@@ -50,13 +50,13 @@ const SizesModal = () => {
         {DATA.map((x) => (
           <Pressable
             key={x.value}
-            className="p-5  border-b border-gray-300 "
+            className="p-5 border-b border-gray-300 "
             onPress={() => {
               setSelected(!selected), router.back();
             }}
           >
             <View className="flex-row justify-between">
-              <Text className="uppercase font-semibold">{x.key}</Text>
+              <Text className="font-semibold uppercase">{x.key}</Text>
               {selected ? (
                 <Feather name="check" size={24} color="black" />
               ) : null}

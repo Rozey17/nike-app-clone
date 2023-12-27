@@ -1,23 +1,12 @@
-import {
-  View,
-  Text,
-  ScrollView,
-  Image,
-  Pressable,
-  TouchableOpacity,
-} from "react-native";
-import React from "react";
-import { SafeAreaView } from "react-native-safe-area-context";
-import {
-  AntDesign,
-  Entypo,
-  FontAwesome,
-  MaterialIcons,
-} from "@expo/vector-icons";
+import { View, Text, ScrollView, Image, TouchableOpacity } from "react-native";
+import React, { useState } from "react";
+import { Entypo, MaterialIcons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import SelectDropdown from "react-native-select-dropdown";
+import { useToast } from "native-base";
 
 const product = () => {
+  const toast = useToast();
   const DATA = [
     "EU 35.5",
     "EU 36",
@@ -42,13 +31,13 @@ const product = () => {
     "EU 45.5",
     "EU 46",
   ];
+  const [selected, setSelected] = useState(false);
   return (
-    // <SafeAreaView>
     <ScrollView
       className="bg-white"
       showsVerticalScrollIndicator={false}
-      bounces={false}
       alwaysBounceVertical={false}
+      scrollEventThrottle={5}
     >
       <Image
         source={{
@@ -58,12 +47,12 @@ const product = () => {
       />
       <View className="px-5 py-10 space-y-5">
         <View>
-          <Text>Chaussure pour femme</Text>
-          <Text className="text-xl font-bold capitalize">Nike V2K Run</Text>
+          <Text className="text-[16px]">Chaussure pour femme</Text>
+          <Text className="text-2xl font-bold capitalize">Nike V2K Run</Text>
         </View>
 
-        <Text>119,99€</Text>
-        <Text>
+        <Text className="text-[16px]">119,99€</Text>
+        <Text className="text-[16px]">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis
           error, velit eos quaerat facere veritatis minima autem voluptatibus
           nam, eaque non dolor, perspiciatis sunt fugit id corrupti libero!
@@ -77,7 +66,7 @@ const product = () => {
           exercitationem, officiis, amet nulla odio labore facere sit laudantium
           possimus. Quo, corporis.
         </Text>
-        <View className="space-y-3">
+        <View className="pt-5 space-y-3">
           <SelectDropdown
             data={DATA}
             // defaultValueByIndex={1} // use default value by index or default value
@@ -89,14 +78,14 @@ const product = () => {
             buttonTextAfterSelection={(selectedItem, index) => {
               return `Taille ${selectedItem} `;
             }}
-            buttonTextStyle={{ fontSize: 16 }}
+            buttonTextStyle={{ fontSize: 18, fontWeight: "600" }}
             buttonStyle={{
               borderRadius: 9999,
-
               borderColor: "#d1d5db",
               justifyContent: "space-between",
               borderWidth: 1,
               width: "100%",
+              height: 65,
               backgroundColor: "white",
             }}
             dropdownIconPosition={"right"}
@@ -109,33 +98,70 @@ const product = () => {
               return item;
             }}
             rowTextStyle={{ textAlign: "left" }}
+            // renderCustomizedRowChild={(item, index) => {
+            //   return (
+            //     <View className="flex-row items-center justify-between">
+            //       <Text>{item}</Text>
+            //       <Ionicons name="checkmark" size={24} color="black" />
+            //     </View>
+            //   );
+            // }}
           />
-          {/* <TouchableOpacity className="flex-row justify-center p-4 border border-gray-300 rounded-full">
-            <TouchableOpacity
-              onPress={() => router.push("/sizesModal")}
-              className="flex-row items-center space-x-1"
-            >
-              <Text className="font-semibold text-center">Taille EU 42</Text>
-              <Entypo name="chevron-small-down" size={24} color="black" />
-            </TouchableOpacity>
 
-            
-          </TouchableOpacity> */}
-          <Pressable className="p-4 bg-black rounded-full">
-            <Text className="text-center text-white">Ajouter au panier</Text>
-          </Pressable>
+          <TouchableOpacity
+            onPress={() => router.push("/addedToCartModal")}
+            className="justify-center bg-black rounded-full h-[65px]"
+          >
+            <Text className="text-lg font-semibold text-center text-white">
+              Ajouter au panier
+            </Text>
+          </TouchableOpacity>
           <View className="flex-row items-center space-x-2">
-            <TouchableOpacity className="flex-1 p-4 border border-gray-300 rounded-full">
-              <Text className="font-semibold text-center">Acheter</Text>
+            <TouchableOpacity className="flex-1 justify-center border border-gray-300 rounded-full h-[65px]">
+              <Text className="text-lg font-semibold text-center">Acheter</Text>
             </TouchableOpacity>
-            <TouchableOpacity className="items-center flex-1 p-4 border border-gray-300 rounded-full">
-              <MaterialIcons name="favorite-outline" size={20} color="black" />
+            <TouchableOpacity
+              onPress={() => {
+                setSelected(!selected),
+                  toast.show({
+                    placement: "bottom",
+                    render: () => {
+                      return (
+                        <View className="p-4 bg-gray-800 rounded w-96">
+                          {selected ? (
+                            <Text className="font-semibold text-white">
+                              Supprimé des favoris
+                            </Text>
+                          ) : (
+                            <Text className="font-semibold text-white">
+                              Ajouté aux favoris
+                            </Text>
+                          )}
+                        </View>
+                      );
+                    },
+                  });
+              }}
+              className="items-center flex-1 justify-center border border-gray-300 rounded-full h-[65px]"
+            >
+              {selected ? (
+                <MaterialIcons name="favorite" size={26} color="#ec4899" />
+              ) : (
+                <MaterialIcons
+                  name="favorite-outline"
+                  size={26}
+                  color="black"
+                />
+              )}
             </TouchableOpacity>
           </View>
         </View>
+
+        <Text className="text-[16px] leading-loose text-center text-gray-400 p-14">
+          Ce produit est exclus de toutes les promotions et réductions.
+        </Text>
       </View>
     </ScrollView>
-    // </SafeAreaView>
   );
 };
 

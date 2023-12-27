@@ -6,16 +6,34 @@ import { useRouter } from "expo-router";
 const news = () => {
   const router = useRouter();
   return (
-    <SafeAreaView className="bg-white">
-      <View className="p-10 divide-y divide-gray-400">
-        <TouchableOpacity onPress={() => router.push("/productList")}>
+    <View className="flex-1 bg-white">
+      <View className="px-5 divide-y divide-gray-300">
+        <TouchableOpacity
+          onPress={() => router.push("/productList")}
+          className="py-8"
+        >
           <Text>Nouveautés cadeaux</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => router.push("/productList")}>
+        <TouchableOpacity
+          onPress={() => router.push("/productList")}
+          className="py-8"
+        >
+          <Text>Nouveautés cadeaux</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => router.push("/productList")}
+          className="py-8"
+        >
+          <Text>Nouveautés cadeaux</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => router.push("/productList")}
+          className="py-8"
+        >
           <Text>Nouveautés cadeaux</Text>
         </TouchableOpacity>
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 

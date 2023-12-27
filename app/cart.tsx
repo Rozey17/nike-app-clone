@@ -8,10 +8,10 @@ const Cart = () => {
     <View className="justify-between h-full px-5 py-2 bg-white">
       <View></View>
       <View className="items-center space-y-2 ">
-        <View className="items-center p-3 border rounded-full h-14 w-14">
+        <View className="items-center p-3 mb-3 border rounded-full h-14 w-14">
           <SimpleLineIcons name="bag" size={24} color="black" />
         </View>
-        <Text className="text-center">Ton panier est vide</Text>
+        <Text className="text-center">Ton panier est vide.</Text>
         <Text className="text-center">
           Les produits ajoutés apparaîtront ici.
         </Text>

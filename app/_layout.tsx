@@ -8,9 +8,9 @@ import {
 import { useFonts } from "expo-font";
 import { SplashScreen, Stack, router } from "expo-router";
 import { useEffect } from "react";
-import { TouchableOpacity, useColorScheme } from "react-native";
+import { TextInput, TouchableOpacity, useColorScheme } from "react-native";
 import { View } from "../components/Themed";
-
+import { NativeBaseProvider, Box } from "native-base";
 export {
   // Catch any errors thrown by the Layout component.
   ErrorBoundary,
@@ -52,17 +52,36 @@ function RootLayoutNav() {
   const colorScheme = useColorScheme();
 
   return (
-    <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="index" options={{}} />
+    <NativeBaseProvider>
+      <Stack screenOptions={{ headerShadowVisible: false }}>
+        <Stack.Screen
+          name="index"
+          options={{
+            title: "Boutique",
+
+            headerRight: () => {
+              return (
+                <View className="flex-row items-center space-x-4">
+                  <TouchableOpacity onPress={() => router.push("/search")}>
+                    <AntDesign name="search1" size={24} color="black" />
+                  </TouchableOpacity>
+                  <TouchableOpacity onPress={() => router.push("/cart")}>
+                    <SimpleLineIcons name="bag" size={24} color="black" />
+                  </TouchableOpacity>
+                </View>
+              );
+            },
+          }}
+        />
         <Stack.Screen name="news" options={{}} />
         <Stack.Screen
           name="productList"
           options={{
+            title: "Chaussures",
             headerRight: () => {
               return (
                 <View className="flex-row items-center space-x-4">
-                  <TouchableOpacity>
+                  <TouchableOpacity onPress={() => router.push("/search")}>
                     <AntDesign name="search1" size={24} color="black" />
                   </TouchableOpacity>
                   <TouchableOpacity onPress={() => router.push("/cart")}>
@@ -79,10 +98,13 @@ function RootLayoutNav() {
             headerRight: () => {
               return (
                 <View className="flex-row items-center space-x-4">
-                  <TouchableOpacity>
+                  <TouchableOpacity onPress={() => router.push("/search")}>
                     <AntDesign name="search1" size={24} color="black" />
                   </TouchableOpacity>
-                  <TouchableOpacity onPress={() => router.push("/cart")}>
+                  <TouchableOpacity
+                    onPress={() => router.push("/cart")}
+                    className="relative"
+                  >
                     <SimpleLineIcons name="bag" size={24} color="black" />
                   </TouchableOpacity>
                 </View>
@@ -92,14 +114,35 @@ function RootLayoutNav() {
         />
         <Stack.Screen name="modal" options={{ presentation: "modal" }} />
         <Stack.Screen
-          name="sizesModal"
+          name="addedToCartModal"
           options={{
             presentation: "modal",
             animation: "slide_from_bottom",
             headerShown: false,
           }}
         />
+        <Stack.Screen
+          name="search"
+          options={{
+            title: "",
+
+            headerRight: () => {
+              return (
+                <TextInput
+                  className="w-[85%] border-0 text-[16px]"
+                  placeholder="Rechercher un produit"
+                />
+              );
+            },
+          }}
+        />
+        <Stack.Screen
+          name="cart"
+          options={{
+            title: "Panier",
+          }}
+        />
       </Stack>
-    </ThemeProvider>
+    </NativeBaseProvider>
   );
 }
