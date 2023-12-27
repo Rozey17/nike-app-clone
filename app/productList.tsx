@@ -89,7 +89,7 @@ const ProductList = () => {
       image={product.image}
       gender={product.gender}
       description={product.description}
-      item={product}
+      // item={product}
     />
   ));
   return (
@@ -101,7 +101,7 @@ const ProductList = () => {
         // style={styles.gridView}
         // staticDimension={300}
         // fixed
-        spacing={14}
+        spacing={15}
         renderItem={({ item }) => item}
         showsVerticalScrollIndicator={false}
       />

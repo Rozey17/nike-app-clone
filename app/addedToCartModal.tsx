@@ -5,7 +5,7 @@ import { router } from "expo-router";
 
 const addedToCartModal = () => {
   useEffect(() => {
-    setTimeout(() => router.back(), 2000);
+    setTimeout(() => router.back(), 1500);
   }, []);
 
   return (
