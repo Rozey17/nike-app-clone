@@ -16,7 +16,7 @@ const productCard = ({
   const [selected, setSelected] = useState(false);
   return (
     <TouchableOpacity
-      className="relative w-48 "
+      className="relative w-1/2"
       onPress={() =>
         router.push({
           pathname: "/product",
@@ -42,13 +42,13 @@ const productCard = ({
       />
       <View className="p-4 space-y-3">
         <View>
-          <Text>{name}</Text>
-          <Text className="text-gray-500">
+          <Text className="text-[16px]">{name}</Text>
+          <Text className="text-gray-500 text-[16px]">
             Chaussure pour {gender === "male" ? "homme" : "femme"}
           </Text>
         </View>
 
-        <Text className="font-bold">{price}€</Text>
+        <Text className="font-bold text-[16px]">{price}€</Text>
       </View>
     </TouchableOpacity>
   );

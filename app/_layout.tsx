@@ -51,7 +51,13 @@ export default function RootLayout() {
 function RootLayoutNav() {
   return (
     <NativeBaseProvider>
-      <Stack screenOptions={{ headerShadowVisible: false }}>
+      <Stack
+        screenOptions={{
+          headerShadowVisible: false,
+          animation: "slide_from_right",
+          headerTitleStyle: { fontSize: 16 },
+        }}
+      >
         <Stack.Screen
           name="index"
           options={{

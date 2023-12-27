@@ -1,5 +1,4 @@
-import { View } from "react-native";
-import { FlatGrid } from "react-native-super-grid";
+import { FlatList, View } from "react-native";
 import ProductCard from "./productCard";
 
 const products = [
@@ -57,15 +56,7 @@ const products = [
     gender: "female",
     description: `Revendique ton côté rebelle avec ce modèle Air novateur qui offre une stabilité optimale et un amorti exceptionnel. Avec son style classique des années 90, son mesh respirant et ses lignes inspirées de la nature, cette chaussure affiche un style provocant et confortable.`,
   },
-  {
-    id: 7,
-    name: "Nike Air Max Solo",
-    price: 76.97,
-    image:
-      "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/44e4b484-51d9-441f-9ba5-1a70f0789948/chaussure-air-max-solo-pour-xrWkBj.png",
-    gender: "male",
-    description: `Cette sneaker est parfaite pour les fans absolus de Air Max. On a associé des éléments des précédents modèles Air Max (comme la coque au talon inspirée de la AM90), pour créer un tout nouveau look. On retrouve l'influence de la AM180 dans l'unité Air texturée, qui assure juste le bon niveau d'amorti. Style maximal, pour tout donner.`,
-  },
+
   {
     id: 8,
     name: "Nike Full Force Low",
@@ -75,8 +66,26 @@ const products = [
     gender: "male",
     description: `Une nouvelle chaussure avec un esprit rétro : le rêve est devenu réalité. Le design épuré renvoie à la AF1 classique, avec des coutures visibles et des couleurs inspirées de l'université qui lui donnent un style années 80. Mais qui dit qu'on doit rester rétro jusqu'au bout ? Confortable et résistante comme les modèles d'aujourd'hui, elle te suivra partout, tout le temps. C'est parti !`,
   },
-  // { id: 9, name: "", price: 9, image: "", gender: "" },
-  // { id: 10, name: "", price: 10, image: "", gender: "" },
+  {
+    id: 9,
+    name: "Nike Air Force 1 Mid By You",
+    price: 149.99,
+    image:
+      "https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/fdded470-0ac5-4bd7-b41b-1bb63e161438/custom-nike-air-force-1-mid-by-you-shoes.png",
+    gender: "male",
+    description:
+      "Fais briller ton modèle avec du satin, reste classique avec du tissu, ou opte pour le luxe avec du cuir. Peu importe ce que tu choisis, ces AF1 sont faites pour toi. Avec ses 12 couleurs au choix et sa semelle en caoutchouc supplémentaire en option, ce modèle est conçu pour être unique, comme toi.",
+  },
+  {
+    id: 10,
+    name: "Nike Air Force 1 '07 LV8",
+    price: 129.99,
+    image:
+      "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/8773c4a4-602a-445e-9f2e-24f77676fa7a/chaussure-air-force-1-07-lv8-pour-ggb31G.png",
+    gender: "male",
+    description:
+      "La légende perdure avec la Nike Air Force 1 '07 LV8. Alliant le confort d'une sneaker taillée pour les parquets et le style d'une chaussure du quotidien, ce modèle revisite un classique du basket. Les renforts en daim doux s'associent à la conception des années 80 et aux Swoosh réfléchissants pour vous offrir un style résolument basket, et les unités Air dissimulées sur toute la longueur apportent le confort légendaire que vous connaissez et aimez tant.",
+  },
 ];
 
 const ProductList = () => {
@@ -89,25 +98,22 @@ const ProductList = () => {
       image={product.image}
       gender={product.gender}
       description={product.description}
-      // item={product}
     />
   ));
   return (
     <View className="bg-white">
-      <FlatGrid
-        // itemDimension={130}
-        data={itemData}
-        style={{ paddingHorizontal: 0 }}
-        // style={styles.gridView}
-        // staticDimension={300}
-        // fixed
-        spacing={15}
-        renderItem={({ item }) => item}
+      <FlatList
         showsVerticalScrollIndicator={false}
+        data={itemData}
+        renderItem={({ item }) => item}
+        numColumns={2}
+        columnWrapperStyle={{
+          flexDirection: "row",
+          gap: 5,
+          paddingVertical: 15,
+        }}
       />
     </View>
-
-    // </ScrollView>
   );
 };
 

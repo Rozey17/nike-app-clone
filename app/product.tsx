@@ -56,7 +56,7 @@ const Product = () => {
         }}
         className="object-cover h-96"
       />
-      <View className="px-5 py-10 space-y-5">
+      <View className="px-6 py-10 space-y-5">
         <View>
           <Text className="text-[16px]">
             Chaussure pour {params.gender === "male" ? "homme" : "femme"}
