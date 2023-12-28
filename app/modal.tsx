@@ -1,35 +1,73 @@
 import { StatusBar } from 'expo-status-bar';
-import { Platform, StyleSheet } from 'react-native';
+import {
+  Platform,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import useCartStore from "../store/cartStore";
+import { useRouter } from "expo-router";
+import { ProductType } from "../store/interfaces";
 
-import EditScreenInfo from '../components/EditScreenInfo';
-import { Text, View } from '../components/Themed';
+export default function ModalScreen({
+  id,
+  name,
+  price,
+  description,
+  gender,
+  category,
+  sub_category,
+  image,
+  size,
+  quantity,
+}: ProductType & { quantity: number }) {
+  const router = useRouter();
 
-export default function ModalScreen() {
+  const { products, clearCart, addProduct, removeProduct } = useCartStore();
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Modal</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="app/modal.tsx" />
-
-      {/* Use a light status bar on iOS to account for the black space above the modal */}
-      <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
+    <View>
+      <View className="flex-row items-center justify-between">
+        <TouchableOpacity
+          onPress={() =>
+            removeProduct({
+              id,
+              category,
+              size,
+              description,
+              gender,
+              image,
+              name,
+              price,
+              sub_category,
+            })
+          }
+          className="border border-gray-200 rounded-md"
+        >
+          <Text className="">-</Text>
+        </TouchableOpacity>
+        <Text>{quantity}</Text>
+        <TouchableOpacity
+          onPress={() =>
+            addProduct({
+              id,
+              category,
+              size,
+              description,
+              gender,
+              image,
+              name,
+              price,
+              sub_category,
+            })
+          }
+          className="border border-gray-200 rounded-md"
+        >
+          <Text className="">+</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
-  },
-});
+

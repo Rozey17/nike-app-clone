@@ -1,4 +1,9 @@
-import { FontAwesome, Ionicons, SimpleLineIcons } from "@expo/vector-icons";
+import {
+  AntDesign,
+  FontAwesome,
+  Ionicons,
+  SimpleLineIcons,
+} from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import {
   FlatList,
@@ -17,8 +22,7 @@ import { FadeInUp } from "react-native-reanimated";
 
 const Cart = () => {
   const router = useRouter();
-  const { addProduct, removeProduct, products, items, clearCart } =
-    useCartStore();
+  const { addProduct, removeProduct, products, clearCart } = useCartStore();
   const subtotal = (price: number, quantity: number) => {
     const sub = price * quantity;
     return sub.toFixed(2);
@@ -28,20 +32,20 @@ const Cart = () => {
     item,
   }) => (
     <Pressable
-      onPress={() =>
-        router.push({
-          pathname: "/product",
-          params: {
-            id: item.id,
-            name: item.name,
-            gender: item.gender,
-            price: item.price,
-            image: item.image,
-            description: item.description,
-            // size: item.size as number,
-          },
-        })
-      }
+      // onPress={() =>
+      //   router.push({
+      //     pathname: "/product",
+      //     params: {
+      //       id: item.id,
+      //       name: item.name,
+      //       gender: item.gender,
+      //       price: item.price,
+      //       image: item.image,
+      //       description: item.description,
+      //       // size: item.size as number,
+      //     },
+      //   })
+      // }
       className="py-5 space-y-3 border-b border-gray-200"
     >
       <View className="flex-row space-x-3">
@@ -60,7 +64,19 @@ const Cart = () => {
         </View>
       </View>
       <View className="flex-row items-center justify-between">
-        <Text className="font-medium">Qté {item.quantity}</Text>
+        <View className="flex-row items-center space-x-5">
+          <TouchableOpacity onPress={() => removeProduct(item)}>
+            {item.quantity === 1 ? (
+              <AntDesign name="delete" size={20} color="black" />
+            ) : (
+              <Text className="text-lg">-</Text>
+            )}
+          </TouchableOpacity>
+          <Text className="font-medium">Qté {item.quantity}</Text>
+          <TouchableOpacity onPress={() => addProduct(item)}>
+            <Text className="text-lg">+</Text>
+          </TouchableOpacity>
+        </View>
         <Text className="font-medium text-green-700">
           {subtotal(item.price, item.quantity)}€
         </Text>
