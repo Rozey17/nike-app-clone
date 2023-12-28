@@ -16,7 +16,7 @@ const Cart = () => {
   const router = useRouter();
   const { addProduct, removeProduct, products, items, clearCart } =
     useCartStore();
-  const subtotal = (price: number, quantity: number): any => {
+  const subtotal = (price: number, quantity: number) => {
     const sub = price * quantity;
     return sub.toFixed(2);
   };
