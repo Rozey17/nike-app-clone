@@ -3,11 +3,11 @@ export interface ProductType {
   name: string;
   price: number;
   description: string;
-  // category: string;
   image: string;
-  // rating: Rating;
   gender: string;
-  size?: number;
+  size?: string | number;
+  category: string;
+  sub_category: string;
 }
 
 export interface Rating {

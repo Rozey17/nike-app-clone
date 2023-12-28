@@ -9,7 +9,7 @@ import { ProductType } from "../store/interfaces";
 
 const Product = () => {
   const toast = useToast();
-  const DATA = [
+  const shoeSizes = [
     { title: "EU 35.5", value: 35.5 },
     { title: "EU 36", value: 36 },
     { title: "EU 36.5", value: 36.5 },
@@ -34,12 +34,18 @@ const Product = () => {
     { title: "EU 46", value: 46 },
   ];
 
+  const clothSizes = ["XS", "S", "M", "L", "XL", "XXL", "XXXL"];
+
   const { addProduct } = useCartStore();
   const [selected, setSelected] = useState(false);
   const router = useRouter();
   const params = useLocalSearchParams();
-  const [size, setSize] = useState(null);
 
+  const [size, setSize] = useState(null);
+  let productSize: number;
+  if (size !== null) {
+    productSize = size;
+  }
   return (
     <ScrollView
       className="bg-white"
@@ -64,7 +70,8 @@ const Product = () => {
       <View className="px-6 py-10 space-y-5">
         <View>
           <Text className="text-[16px]">
-            Chaussure pour {params.gender === "male" ? "homme" : "femme"}
+            {params.sub_category as string} pour{" "}
+            {params.gender === "male" ? "homme" : "femme"}
           </Text>
           <Text className="text-2xl font-bold capitalize">{params.name}</Text>
         </View>
@@ -73,13 +80,17 @@ const Product = () => {
         <Text className="text-[16px]">{params.description}</Text>
         <View className="pt-5 space-y-3">
           <SelectDropdown
-            data={DATA}
+            data={params.category === "shoe" ? shoeSizes : clothSizes}
             onSelect={(selectedItem, index) => {
-              setSize(selectedItem.value);
+              setSize(
+                params.category === "shoe" ? selectedItem.value : selectedItem
+              );
             }}
             defaultButtonText={"Taille"}
             buttonTextAfterSelection={(selectedItem, index) => {
-              return `Taille ${selectedItem.title} `;
+              return `Taille ${
+                params.category === "shoe" ? selectedItem.title : selectedItem
+              } `;
             }}
             buttonTextStyle={{ fontSize: 18, fontWeight: "600" }}
             buttonStyle={{
@@ -98,7 +109,7 @@ const Product = () => {
               );
             }}
             rowTextForSelection={(item, index) => {
-              return item.title;
+              return params.category === "shoe" ? item.title : item;
             }}
             rowTextStyle={{ textAlign: "left" }}
             // renderCustomizedRowChild={(item, index) => {
@@ -132,8 +143,10 @@ const Product = () => {
                   gender: params.gender as string,
                   image: params.image as string,
                   name: params.name as string,
-                  size: size as any,
+                  size: productSize,
                   price: params.price as any,
+                  category: params.category as string,
+                  sub_category: params.sub_category as string,
                 }),
                   router.push("/addedToCartModal");
             }}

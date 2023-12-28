@@ -82,9 +82,57 @@ function RootLayoutNav() {
         />
         <Stack.Screen name="news" options={{}} />
         <Stack.Screen
-          name="productList"
+          name="clothes"
+          options={{
+            title: "Vêtements",
+            headerRight: () => {
+              return (
+                <View className="">
+                  <TouchableOpacity onPress={() => router.push("/search")}>
+                    <AntDesign name="search1" size={24} color="black" />
+                  </TouchableOpacity>
+                </View>
+              );
+            },
+          }}
+        />
+        <Stack.Screen
+          name="shoes"
           options={{
             title: "Chaussures",
+            headerRight: () => {
+              return (
+                <View className="">
+                  <TouchableOpacity onPress={() => router.push("/search")}>
+                    <AntDesign name="search1" size={24} color="black" />
+                  </TouchableOpacity>
+                </View>
+              );
+            },
+          }}
+        />
+        <Stack.Screen
+          name="shoesList"
+          options={{
+            title: "Toutes les chaussures",
+            headerRight: () => {
+              return (
+                <View className="flex-row items-center space-x-4">
+                  <TouchableOpacity onPress={() => router.push("/search")}>
+                    <AntDesign name="search1" size={24} color="black" />
+                  </TouchableOpacity>
+                  <TouchableOpacity onPress={() => router.push("/cart")}>
+                    <SimpleLineIcons name="bag" size={24} color="black" />
+                  </TouchableOpacity>
+                </View>
+              );
+            },
+          }}
+        />
+        <Stack.Screen
+          name="clothesList"
+          options={{
+            title: "Tous les vêtements",
             headerRight: () => {
               return (
                 <View className="flex-row items-center space-x-4">

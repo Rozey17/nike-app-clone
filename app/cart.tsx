@@ -38,7 +38,7 @@ const Cart = () => {
             price: item.price,
             image: item.image,
             description: item.description,
-            size: item.size as number,
+            // size: item.size as number,
           },
         })
       }
@@ -49,9 +49,14 @@ const Cart = () => {
         <View className="space-y-2">
           <Text className="font-semibold font">{item.name}</Text>
           <Text className="text-gray-400">
-            Chaussure pour {item.gender === "male" ? "homme" : "femme"}
+            {item.sub_category} pour{" "}
+            {item.gender === "male" ? "homme" : "femme"}
           </Text>
-          <Text className="text-gray-400">Pointure {item.size}</Text>
+          <Text className="text-gray-400">
+            {item.category === "shoe"
+              ? `Pointure ${item.size}`
+              : `Taille ${item.size}`}
+          </Text>
         </View>
       </View>
       <View className="flex-row items-center justify-between">
@@ -102,7 +107,7 @@ const Cart = () => {
             <Text>clear cart</Text>
           </TouchableOpacity>
           <Animated.View
-            entering={FadeInUp.duration(1000).easing(Easing.ease)}
+            // entering={FadeInUp.duration(1000).easing(Easing.ease)}
             className="p-5 border-t border-gray-200"
           >
             <TouchableOpacity

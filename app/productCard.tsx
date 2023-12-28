@@ -11,6 +11,8 @@ const productCard = ({
   price,
   image,
   description,
+  category,
+  sub_category,
 }: ProductType) => {
   const router = useRouter();
   const [selected, setSelected] = useState(false);
@@ -20,7 +22,16 @@ const productCard = ({
       onPress={() =>
         router.push({
           pathname: "/product",
-          params: { id, name, gender, price, image, description },
+          params: {
+            id,
+            name,
+            gender,
+            price,
+            image,
+            description,
+            category,
+            sub_category,
+          },
         })
       }
     >
@@ -44,7 +55,7 @@ const productCard = ({
         <View>
           <Text className="">{name}</Text>
           <Text className="text-gray-500 ">
-            Chaussure pour {gender === "male" ? "homme" : "femme"}
+            {sub_category} pour {gender === "male" ? "homme" : "femme"}
           </Text>
         </View>
 
