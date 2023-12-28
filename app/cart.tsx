@@ -37,8 +37,8 @@ const Cart = () => {
           </View>
         </View>
         <View className="flex-row items-center justify-between">
-          <Text>Qté {item.quantity}</Text>
-          <Text className="text-green-700">
+          <Text className="font-medium">Qté {item.quantity}</Text>
+          <Text className="font-medium text-green-700">
             {subtotal(item.price, item.quantity)}€
           </Text>
         </View>
@@ -70,20 +70,21 @@ const Cart = () => {
           </TouchableOpacity>
         </View>
       ) : (
-        <SafeAreaView className="flex-1 px-5 bg-white">
+        <View className="flex-1 bg-white">
           <FlatList
+            className="p-5"
             showsVerticalScrollIndicator={false}
             data={products}
             renderItem={renderItem}
           />
-          <View className="flex-row items-center justify-between pt-10">
+          {/* <View className="flex-row items-center justify-between pt-10">
             <Text className="font-semibold">Total estimé</Text>
             <Text className="font-semibold">{items}</Text>
-          </View>
-          <TouchableOpacity onPress={() => clearCart()}>
+          </View> */}
+          {/* <TouchableOpacity onPress={() => clearCart()}>
             <Text>clear cart</Text>
-          </TouchableOpacity>
-          <View className="py-5">
+          </TouchableOpacity> */}
+          <View className="p-5 border-t border-gray-200">
             <TouchableOpacity
               onPress={() => router.push("/")}
               className="p-5 bg-black rounded-full"
@@ -93,7 +94,7 @@ const Cart = () => {
               </Text>
             </TouchableOpacity>
           </View>
-        </SafeAreaView>
+        </View>
       )}
     </>
   );
