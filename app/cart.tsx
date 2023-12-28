@@ -14,7 +14,12 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 const Cart = () => {
   const router = useRouter();
-  const { addProduct, removeProduct, products } = useCartStore();
+  const { addProduct, removeProduct, products, items, clearCart } =
+    useCartStore();
+  const subtotal = (price: number, quantity: number): any => {
+    const sub = price * quantity;
+    return sub.toFixed(2);
+  };
 
   const renderItem: ListRenderItem<ProductType & { quantity: number }> = ({
     item,
@@ -33,12 +38,10 @@ const Cart = () => {
         </View>
         <View className="flex-row items-center justify-between">
           <Text>Qté {item.quantity}</Text>
-          <Text className="text-green-700">{item.price * item.quantity}€</Text>
+          <Text className="text-green-700">
+            {subtotal(item.price, item.quantity)}€
+          </Text>
         </View>
-      </View>
-      <View className="flex-row items-center justify-between pt-10">
-        <Text className="font-semibold">Total estimé</Text>
-        <Text className="font-semibold"></Text>
       </View>
     </View>
   );
@@ -73,6 +76,13 @@ const Cart = () => {
             data={products}
             renderItem={renderItem}
           />
+          <View className="flex-row items-center justify-between pt-10">
+            <Text className="font-semibold">Total estimé</Text>
+            <Text className="font-semibold">{items}</Text>
+          </View>
+          <TouchableOpacity onPress={() => clearCart()}>
+            <Text>clear cart</Text>
+          </TouchableOpacity>
           <View className="py-5">
             <TouchableOpacity
               onPress={() => router.push("/")}

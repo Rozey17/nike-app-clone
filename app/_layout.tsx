@@ -11,6 +11,7 @@ import { useEffect } from "react";
 import { TextInput, TouchableOpacity, useColorScheme } from "react-native";
 import { View } from "../components/Themed";
 import { NativeBaseProvider, Box } from "native-base";
+import useCartStore from "../store/cartStore";
 export {
   // Catch any errors thrown by the Layout component.
   ErrorBoundary,
@@ -49,6 +50,8 @@ export default function RootLayout() {
 }
 
 function RootLayoutNav() {
+  const { addProduct, removeProduct, products, items } = useCartStore();
+
   return (
     <NativeBaseProvider>
       <Stack
