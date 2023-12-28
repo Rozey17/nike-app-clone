@@ -3,52 +3,42 @@ import React, { useEffect, useState } from "react";
 import { Entypo, MaterialIcons } from "@expo/vector-icons";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import SelectDropdown from "react-native-select-dropdown";
-import { useToast } from "native-base";
+import { Toast, useToast } from "native-base";
 import useCartStore from "../store/cartStore";
 import { ProductType } from "../store/interfaces";
 
 const Product = () => {
   const toast = useToast();
   const DATA = [
-    "EU 35.5",
-    "EU 36",
-    "EU 36.5",
-    "EU 37",
-    "EU 37.5",
-    "EU 38",
-    "EU 38.5",
-    "EU 39",
-    "EU 39.5",
-    "EU 40",
-    "EU 40.5",
-    "EU 41",
-    "EU 41.5",
-    "EU 42",
-    "EU 42.5",
-    "EU 43",
-    "EU 43.5",
-    "EU 44",
-    "EU 44.5",
-    "EU 45",
-    "EU 45.5",
-    "EU 46",
+    { title: "EU 35.5", value: 35.5 },
+    { title: "EU 36", value: 36 },
+    { title: "EU 36.5", value: 36.5 },
+    { title: "EU 37", value: 37 },
+    { title: "EU 37.5", value: 37.5 },
+    { title: "EU 38", value: 38 },
+    { title: "EU 38.5", value: 38.5 },
+    { title: "EU 39", value: 39 },
+    { title: "EU 39.5", value: 39.5 },
+    { title: "EU 40", value: 40 },
+    { title: "EU 40.5", value: 40.5 },
+    { title: "EU 41", value: 41 },
+    { title: "EU 41.5", value: 41.5 },
+    { title: "EU 42", value: 42 },
+    { title: "EU 42.5", value: 42.5 },
+    { title: "EU 43", value: 43 },
+    { title: "EU 43.5", value: 43.5 },
+    { title: "EU 44", value: 44 },
+    { title: "EU 44.5", value: 44.5 },
+    { title: "EU 45", value: 45 },
+    { title: "EU 45.5", value: 45.5 },
+    { title: "EU 46", value: 46 },
   ];
 
-  const { addProduct, removeProduct, products } = useCartStore();
+  const { addProduct } = useCartStore();
   const [selected, setSelected] = useState(false);
   const router = useRouter();
   const params = useLocalSearchParams();
-  // const [product, setProduct] = useState<ProductType>();
-  // useEffect(() => {
-  //   setProduct({
-  //     name: params.name as string,
-  //     description: params.description as string,
-  //     gender: params.genre as string,
-  //     image: params.image as string,
-  //     //@ts-ignore
-  //     price: params.price,
-  //   });
-  // }, []);
+  const [size, setSize] = useState(null);
 
   return (
     <ScrollView
@@ -57,11 +47,14 @@ const Product = () => {
       alwaysBounceVertical={false}
       scrollEventThrottle={5}
     >
+      {/* Display the name of the product as header title */}
+
       <Stack.Screen
         options={{
           title: params.name as string,
         }}
       />
+      {/* Product image */}
       <Image
         source={{
           uri: params.image as string,
@@ -81,14 +74,12 @@ const Product = () => {
         <View className="pt-5 space-y-3">
           <SelectDropdown
             data={DATA}
-            // defaultValueByIndex={1} // use default value by index or default value
-            // defaultValue={'Canada'} // use default value by index or default value
             onSelect={(selectedItem, index) => {
-              console.log(selectedItem, index);
+              setSize(selectedItem.value);
             }}
             defaultButtonText={"Taille"}
             buttonTextAfterSelection={(selectedItem, index) => {
-              return `Taille ${selectedItem} `;
+              return `Taille ${selectedItem.title} `;
             }}
             buttonTextStyle={{ fontSize: 18, fontWeight: "600" }}
             buttonStyle={{
@@ -107,7 +98,7 @@ const Product = () => {
               );
             }}
             rowTextForSelection={(item, index) => {
-              return item;
+              return item.title;
             }}
             rowTextStyle={{ textAlign: "left" }}
             // renderCustomizedRowChild={(item, index) => {
@@ -122,18 +113,29 @@ const Product = () => {
 
           <TouchableOpacity
             onPress={() => {
-              router.push("/addedToCartModal"),
+              if (size === null) {
+                Toast.show({
+                  render: () => {
+                    return (
+                      <View className="p-4 bg-gray-800 rounded w-96">
+                        <Text className="font-semibold text-white">
+                          Veuillez choisir une taille
+                        </Text>
+                      </View>
+                    );
+                  },
+                });
+              } else
                 addProduct({
-                  //@ts-ignore
-                  id: params.id,
+                  id: params.id as any,
                   description: params.description as string,
                   gender: params.gender as string,
                   image: params.image as string,
                   name: params.name as string,
-                  //@ts-ignore
-
-                  price: params.price,
-                });
+                  size: size as any,
+                  price: params.price as any,
+                }),
+                  router.push("/addedToCartModal");
             }}
             className="justify-center bg-black rounded-full h-[65px]"
           >

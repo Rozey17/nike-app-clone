@@ -4,6 +4,7 @@ import {
   FlatList,
   Image,
   ListRenderItem,
+  Pressable,
   Text,
   TouchableOpacity,
   View,
@@ -11,6 +12,8 @@ import {
 import useCartStore from "../store/cartStore";
 import { ProductType } from "../store/interfaces";
 import { SafeAreaView } from "react-native-safe-area-context";
+import Animated, { Easing } from "react-native-reanimated";
+import { FadeInUp } from "react-native-reanimated";
 
 const Cart = () => {
   const router = useRouter();
@@ -24,26 +27,40 @@ const Cart = () => {
   const renderItem: ListRenderItem<ProductType & { quantity: number }> = ({
     item,
   }) => (
-    <View className="pb-10">
-      <View className="py-5 space-y-3 border-b border-gray-200">
-        <View className="flex-row space-x-3">
-          <Image source={{ uri: item.image }} className="w-28 h-28" />
-          <View className="space-y-2">
-            <Text className="font-semibold font">{item.name}</Text>
-            <Text className="text-gray-400">
-              Chaussure pour {item.gender === "male" ? "homme" : "femme"}
-            </Text>
-            <Text className="text-gray-400">Pointure</Text>
-          </View>
-        </View>
-        <View className="flex-row items-center justify-between">
-          <Text className="font-medium">Qté {item.quantity}</Text>
-          <Text className="font-medium text-green-700">
-            {subtotal(item.price, item.quantity)}€
+    <Pressable
+      onPress={() =>
+        router.push({
+          pathname: "/product",
+          params: {
+            id: item.id,
+            name: item.name,
+            gender: item.gender,
+            price: item.price,
+            image: item.image,
+            description: item.description,
+            size: item.size as number,
+          },
+        })
+      }
+      className="py-5 space-y-3 border-b border-gray-200"
+    >
+      <View className="flex-row space-x-3">
+        <Image source={{ uri: item.image }} className="w-28 h-28" />
+        <View className="space-y-2">
+          <Text className="font-semibold font">{item.name}</Text>
+          <Text className="text-gray-400">
+            Chaussure pour {item.gender === "male" ? "homme" : "femme"}
           </Text>
+          <Text className="text-gray-400">Pointure {item.size}</Text>
         </View>
       </View>
-    </View>
+      <View className="flex-row items-center justify-between">
+        <Text className="font-medium">Qté {item.quantity}</Text>
+        <Text className="font-medium text-green-700">
+          {subtotal(item.price, item.quantity)}€
+        </Text>
+      </View>
+    </Pressable>
   );
 
   return (
@@ -72,7 +89,7 @@ const Cart = () => {
       ) : (
         <View className="flex-1 bg-white">
           <FlatList
-            className="p-5"
+            className="px-5"
             showsVerticalScrollIndicator={false}
             data={products}
             renderItem={renderItem}
@@ -81,10 +98,13 @@ const Cart = () => {
             <Text className="font-semibold">Total estimé</Text>
             <Text className="font-semibold">{items}</Text>
           </View> */}
-          {/* <TouchableOpacity onPress={() => clearCart()}>
+          <TouchableOpacity onPress={() => clearCart()}>
             <Text>clear cart</Text>
-          </TouchableOpacity> */}
-          <View className="p-5 border-t border-gray-200">
+          </TouchableOpacity>
+          <Animated.View
+            entering={FadeInUp.duration(1000).easing(Easing.ease)}
+            className="p-5 border-t border-gray-200"
+          >
             <TouchableOpacity
               onPress={() => router.push("/")}
               className="p-5 bg-black rounded-full"
@@ -93,7 +113,7 @@ const Cart = () => {
                 Paiement
               </Text>
             </TouchableOpacity>
-          </View>
+          </Animated.View>
         </View>
       )}
     </>

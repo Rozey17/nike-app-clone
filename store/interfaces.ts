@@ -7,6 +7,7 @@ export interface ProductType {
   image: string;
   // rating: Rating;
   gender: string;
+  size?: number;
 }
 
 export interface Rating {

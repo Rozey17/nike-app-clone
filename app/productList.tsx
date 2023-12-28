@@ -89,9 +89,9 @@ const products = [
 ];
 
 const ProductList = () => {
-  const itemData = products.map((product) => (
+  const itemData = products.map((product, index) => (
     <ProductCard
-      key={product.id}
+      key={index}
       id={product.id}
       name={product.name}
       price={product.price}

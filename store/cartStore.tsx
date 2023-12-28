@@ -15,11 +15,13 @@ const useCartStore = create<CartState>((set) => ({
   addProduct: (product: ProductType) =>
     set((state) => {
       state.items++;
-      const hasProduct = state.products.find((p) => p.id === product.id);
+      const hasProduct = state.products.find(
+        (p) => p.id === product.id && p.size === product.size
+      );
       if (hasProduct) {
         return {
           products: state.products.map((p) => {
-            if (p.id === product.id) {
+            if (p.id === product.id && p.size === product.size) {
               return { ...p, quantity: p.quantity + 1 };
             }
             return p;
@@ -36,7 +38,7 @@ const useCartStore = create<CartState>((set) => ({
       return {
         products: state.products
           .map((p) => {
-            if (p.id === product.id) {
+            if (p.id === product.id && p.size === product.size) {
               state.items--;
               return { ...p, quantity: p.quantity - 1 };
             }
