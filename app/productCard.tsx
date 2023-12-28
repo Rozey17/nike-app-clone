@@ -2,7 +2,7 @@ import { View, Text, Image, Pressable, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
-import { Product } from "../store/interfaces";
+import { ProductType } from "../store/interfaces";
 
 const productCard = ({
   id,
@@ -11,7 +11,7 @@ const productCard = ({
   price,
   image,
   description,
-}: Product) => {
+}: ProductType) => {
   const router = useRouter();
   const [selected, setSelected] = useState(false);
   return (

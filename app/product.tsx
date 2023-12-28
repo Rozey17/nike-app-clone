@@ -1,10 +1,11 @@
 import { View, Text, ScrollView, Image, TouchableOpacity } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Entypo, MaterialIcons } from "@expo/vector-icons";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import SelectDropdown from "react-native-select-dropdown";
 import { useToast } from "native-base";
 import useCartStore from "../store/cartStore";
+import { ProductType } from "../store/interfaces";
 
 const Product = () => {
   const toast = useToast();
@@ -37,6 +38,17 @@ const Product = () => {
   const [selected, setSelected] = useState(false);
   const router = useRouter();
   const params = useLocalSearchParams();
+  // const [product, setProduct] = useState<ProductType>();
+  // useEffect(() => {
+  //   setProduct({
+  //     name: params.name as string,
+  //     description: params.description as string,
+  //     gender: params.genre as string,
+  //     image: params.image as string,
+  //     //@ts-ignore
+  //     price: params.price,
+  //   });
+  // }, []);
 
   return (
     <ScrollView
@@ -109,7 +121,20 @@ const Product = () => {
           />
 
           <TouchableOpacity
-            onPress={() => router.push("/addedToCartModal")}
+            onPress={() => {
+              router.push("/addedToCartModal"),
+                addProduct({
+                  //@ts-ignore
+                  id: params.id,
+                  description: params.description as string,
+                  gender: params.gender as string,
+                  image: params.image as string,
+                  name: params.name as string,
+                  //@ts-ignore
+
+                  price: params.price,
+                });
+            }}
             className="justify-center bg-black rounded-full h-[65px]"
           >
             <Text className="text-lg font-semibold text-center text-white">

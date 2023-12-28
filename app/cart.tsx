@@ -1,30 +1,91 @@
 import { FontAwesome, Ionicons, SimpleLineIcons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
-import { Text, TouchableOpacity, View } from "react-native";
+import {
+  FlatList,
+  Image,
+  ListRenderItem,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import useCartStore from "../store/cartStore";
+import { ProductType } from "../store/interfaces";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const Cart = () => {
   const router = useRouter();
-  return (
-    <View className="justify-between h-full px-5 py-2 bg-white">
-      <View></View>
-      <View className="items-center space-y-2 ">
-        <View className="items-center p-3 mb-3 border rounded-full h-14 w-14">
-          <SimpleLineIcons name="bag" size={24} color="black" />
+  const { addProduct, removeProduct, products } = useCartStore();
+
+  const renderItem: ListRenderItem<ProductType & { quantity: number }> = ({
+    item,
+  }) => (
+    <View className="pb-10">
+      <View className="py-5 space-y-3 border-b border-gray-200">
+        <View className="flex-row space-x-3">
+          <Image source={{ uri: item.image }} className="w-28 h-28" />
+          <View className="space-y-2">
+            <Text className="font-semibold font">{item.name}</Text>
+            <Text className="text-gray-400">
+              Chaussure pour {item.gender === "male" ? "homme" : "femme"}
+            </Text>
+            <Text className="text-gray-400">Pointure</Text>
+          </View>
         </View>
-        <Text className="text-center">Ton panier est vide.</Text>
-        <Text className="text-center">
-          Les produits ajoutés apparaîtront ici.
-        </Text>
+        <View className="flex-row items-center justify-between">
+          <Text>Qté {item.quantity}</Text>
+          <Text className="text-green-700">{item.price * item.quantity}€</Text>
+        </View>
       </View>
-      <TouchableOpacity
-        onPress={() => router.push("/")}
-        className="p-5 bg-black rounded-full"
-      >
-        <Text className="text-lg font-semibold text-center text-white">
-          Acheter
-        </Text>
-      </TouchableOpacity>
+      <View className="flex-row items-center justify-between pt-10">
+        <Text className="font-semibold">Total estimé</Text>
+        <Text className="font-semibold"></Text>
+      </View>
     </View>
+  );
+
+  return (
+    <>
+      {products.length === 0 ? (
+        <View className="justify-between h-full px-5 py-2 bg-white">
+          <View></View>
+          <View className="items-center space-y-2 ">
+            <View className="items-center p-3 mb-3 border rounded-full h-14 w-14">
+              <SimpleLineIcons name="bag" size={24} color="black" />
+            </View>
+            <Text className="text-center">Ton panier est vide.</Text>
+            <Text className="text-center">
+              Les produits ajoutés apparaîtront ici.
+            </Text>
+          </View>
+          <TouchableOpacity
+            onPress={() => router.push("/")}
+            className="p-5 bg-black rounded-full"
+          >
+            <Text className="text-lg font-semibold text-center text-white">
+              Acheter
+            </Text>
+          </TouchableOpacity>
+        </View>
+      ) : (
+        <SafeAreaView className="flex-1 px-5 bg-white">
+          <FlatList
+            showsVerticalScrollIndicator={false}
+            data={products}
+            renderItem={renderItem}
+          />
+          <View className="py-5">
+            <TouchableOpacity
+              onPress={() => router.push("/")}
+              className="p-5 bg-black rounded-full"
+            >
+              <Text className="text-lg font-semibold text-center text-white">
+                Paiement
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </SafeAreaView>
+      )}
+    </>
   );
 };
 

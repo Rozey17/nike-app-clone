@@ -1,10 +1,10 @@
 import { create } from "zustand";
-import { Product } from "./interfaces";
+import { ProductType } from "./interfaces";
 
 export interface CartState {
-  products: Array<Product & { quantity: number }>;
-  addProduct: (product: Product) => void;
-  removeProduct: (product: Product) => void;
+  products: Array<ProductType & { quantity: number }>;
+  addProduct: (product: ProductType) => void;
+  removeProduct: (product: ProductType) => void;
   clearCart: () => void;
   items: number;
 }
@@ -12,7 +12,7 @@ export interface CartState {
 const useCartStore = create<CartState>((set) => ({
   products: [],
   items: 0,
-  addProduct: (product: Product) =>
+  addProduct: (product: ProductType) =>
     set((state) => {
       state.items++;
       const hasProduct = state.products.find((p) => p.id === product.id);
@@ -31,7 +31,7 @@ const useCartStore = create<CartState>((set) => ({
         };
       }
     }),
-  removeProduct: (product: Product) =>
+  removeProduct: (product: ProductType) =>
     set((state) => {
       return {
         products: state.products

@@ -1,4 +1,4 @@
-export interface Product {
+export interface ProductType {
   id: number;
   name: string;
   price: number;
@@ -7,7 +7,6 @@ export interface Product {
   image: string;
   // rating: Rating;
   gender: string;
-  // item: any;
 }
 
 export interface Rating {
