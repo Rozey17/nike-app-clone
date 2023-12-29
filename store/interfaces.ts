@@ -8,6 +8,7 @@ export interface ProductType {
   size?: string | number;
   category: string;
   sub_category: string;
+  quantity?: number;
 }
 
 export interface Rating {
