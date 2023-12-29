@@ -12,6 +12,7 @@ import { TextInput, TouchableOpacity, useColorScheme } from "react-native";
 import { View } from "../components/Themed";
 import { NativeBaseProvider, Box } from "native-base";
 import useCartStore from "../store/cartStore";
+import CartIcon from "../components/CartIcon";
 export {
   // Catch any errors thrown by the Layout component.
   ErrorBoundary,
@@ -72,9 +73,7 @@ function RootLayoutNav() {
                   <TouchableOpacity onPress={() => router.push("/search")}>
                     <AntDesign name="search1" size={24} color="black" />
                   </TouchableOpacity>
-                  <TouchableOpacity onPress={() => router.push("/cart")}>
-                    <SimpleLineIcons name="bag" size={24} color="black" />
-                  </TouchableOpacity>
+                  <CartIcon />
                 </View>
               );
             },
@@ -121,9 +120,7 @@ function RootLayoutNav() {
                   <TouchableOpacity onPress={() => router.push("/search")}>
                     <AntDesign name="search1" size={24} color="black" />
                   </TouchableOpacity>
-                  <TouchableOpacity onPress={() => router.push("/cart")}>
-                    <SimpleLineIcons name="bag" size={24} color="black" />
-                  </TouchableOpacity>
+                  <CartIcon />
                 </View>
               );
             },
@@ -139,9 +136,7 @@ function RootLayoutNav() {
                   <TouchableOpacity onPress={() => router.push("/search")}>
                     <AntDesign name="search1" size={24} color="black" />
                   </TouchableOpacity>
-                  <TouchableOpacity onPress={() => router.push("/cart")}>
-                    <SimpleLineIcons name="bag" size={24} color="black" />
-                  </TouchableOpacity>
+                  <CartIcon />
                 </View>
               );
             },
@@ -156,12 +151,7 @@ function RootLayoutNav() {
                   <TouchableOpacity onPress={() => router.push("/search")}>
                     <AntDesign name="search1" size={24} color="black" />
                   </TouchableOpacity>
-                  <TouchableOpacity
-                    onPress={() => router.push("/cart")}
-                    className="relative"
-                  >
-                    <SimpleLineIcons name="bag" size={24} color="black" />
-                  </TouchableOpacity>
+                  <CartIcon />
                 </View>
               );
             },
