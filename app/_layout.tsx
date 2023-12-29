@@ -51,8 +51,6 @@ export default function RootLayout() {
 }
 
 function RootLayoutNav() {
-  const { addProduct, removeProduct, products, items } = useCartStore();
-
   return (
     <NativeBaseProvider>
       <Stack
@@ -69,7 +67,7 @@ function RootLayoutNav() {
 
             headerRight: () => {
               return (
-                <View className="flex-row items-center space-x-4">
+                <View className="flex-row items-center">
                   <TouchableOpacity onPress={() => router.push("/search")}>
                     <AntDesign name="search1" size={24} color="black" />
                   </TouchableOpacity>
@@ -116,7 +114,7 @@ function RootLayoutNav() {
             title: "Toutes les chaussures",
             headerRight: () => {
               return (
-                <View className="flex-row items-center space-x-4">
+                <View className="flex-row items-center">
                   <TouchableOpacity onPress={() => router.push("/search")}>
                     <AntDesign name="search1" size={24} color="black" />
                   </TouchableOpacity>
@@ -132,7 +130,7 @@ function RootLayoutNav() {
             title: "Tous les vêtements",
             headerRight: () => {
               return (
-                <View className="flex-row items-center space-x-4">
+                <View className="flex-row items-center ">
                   <TouchableOpacity onPress={() => router.push("/search")}>
                     <AntDesign name="search1" size={24} color="black" />
                   </TouchableOpacity>
@@ -147,7 +145,7 @@ function RootLayoutNav() {
           options={{
             headerRight: () => {
               return (
-                <View className="flex-row items-center space-x-4">
+                <View className="flex-row items-center ">
                   <TouchableOpacity onPress={() => router.push("/search")}>
                     <AntDesign name="search1" size={24} color="black" />
                   </TouchableOpacity>

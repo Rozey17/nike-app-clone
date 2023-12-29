@@ -16,11 +16,11 @@ const CartIcon = () => {
       <Text
         className={
           items <= 9
-            ? `absolute text-sm left-2 top-1`
-            : `absolute text-[11px] left-1 top-[6px]`
+            ? `absolute text-[13px] left-2 top-[5px]`
+            : `absolute text-[11px] left-[6px] top-[6px]`
         }
       >
-        {items <= 9 ? items : "+9"}
+        {items <= 9 ? items : "9+"}
       </Text>
     </TouchableOpacity>
   );
