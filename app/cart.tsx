@@ -22,7 +22,8 @@ import { FadeInUp } from "react-native-reanimated";
 
 const Cart = () => {
   const router = useRouter();
-  const { addProduct, removeProduct, products, clearCart } = useCartStore();
+  const { addProduct, removeProduct, products, clearCart, items } =
+    useCartStore();
   const subtotal = (price: number, quantity: number) => {
     const sub = price * quantity;
     return sub.toFixed(2);
@@ -64,17 +65,23 @@ const Cart = () => {
         </View>
       </View>
       <View className="flex-row items-center justify-between">
-        <View className="flex-row items-center space-x-5">
-          <TouchableOpacity onPress={() => removeProduct(item)}>
+        <View className="flex-row items-center space-x-2">
+          <TouchableOpacity
+            className="items-center justify-center w-10 h-10 border border-gray-200 rounded-md"
+            onPress={() => removeProduct(item)}
+          >
             {item.quantity === 1 ? (
               <AntDesign name="delete" size={20} color="black" />
             ) : (
-              <Text className="text-lg">-</Text>
+              <Text className="text-xl">-</Text>
             )}
           </TouchableOpacity>
           <Text className="font-medium">Qté {item.quantity}</Text>
-          <TouchableOpacity onPress={() => addProduct(item)}>
-            <Text className="text-lg">+</Text>
+          <TouchableOpacity
+            className="items-center justify-center w-10 h-10 border border-gray-200 rounded-md"
+            onPress={() => addProduct(item)}
+          >
+            <Text className="text-xl">+</Text>
           </TouchableOpacity>
         </View>
         <Text className="font-medium text-green-700">
@@ -117,11 +124,11 @@ const Cart = () => {
           />
           {/* <View className="flex-row items-center justify-between pt-10">
             <Text className="font-semibold">Total estimé</Text>
-            <Text className="font-semibold">{items}</Text>
-          </View> */}
+            <Text className="font-semibold">{}</Text>
+          </View>
           <TouchableOpacity onPress={() => clearCart()}>
             <Text>clear cart</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
           <Animated.View
             // entering={FadeInUp.duration(1000).easing(Easing.ease)}
             className="p-5 border-t border-gray-200"
