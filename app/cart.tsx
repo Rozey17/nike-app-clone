@@ -19,6 +19,8 @@ import { ProductType } from "../store/interfaces";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Animated, { Easing } from "react-native-reanimated";
 import { FadeInUp } from "react-native-reanimated";
+import { useEffect, useState } from "react";
+import { ScrollView } from "native-base";
 
 const Cart = () => {
   const router = useRouter();
@@ -28,27 +30,21 @@ const Cart = () => {
     const sub = price * quantity;
     return sub.toFixed(2);
   };
+  const [cartState, setCartState] = useState<ProductType[]>([]);
 
-  const renderItem: ListRenderItem<ProductType & { quantity: number }> = ({
-    item,
-  }) => (
-    <Pressable
-      // onPress={() =>
-      //   router.push({
-      //     pathname: "/product",
-      //     params: {
-      //       id: item.id,
-      //       name: item.name,
-      //       gender: item.gender,
-      //       price: item.price,
-      //       image: item.image,
-      //       description: item.description,
-      //       // size: item.size as number,
-      //     },
-      //   })
-      // }
-      className="py-5 space-y-3 border-b border-gray-200"
-    >
+  const cart = useCartStore((state) => state.products);
+  const total = cartState.reduce(
+    (acc, product) => acc + product.price * (product.quantity as number),
+    0
+  );
+
+  // important pour faire marcher le tout
+  useEffect(() => {
+    setCartState(cart);
+  }, [cart]);
+
+  const renderItem: ListRenderItem<ProductType> = ({ item }) => (
+    <Pressable className="py-5 space-y-3 border-b border-gray-200">
       <View className="flex-row space-x-3">
         <Image source={{ uri: item.image }} className="w-28 h-28" />
         <View className="space-y-2">
@@ -85,7 +81,7 @@ const Cart = () => {
           </TouchableOpacity>
         </View>
         <Text className="font-medium text-green-700">
-          {subtotal(item.price, item.quantity)}€
+          {subtotal(item.price, item.quantity as number)}€
         </Text>
       </View>
     </Pressable>
@@ -115,23 +111,65 @@ const Cart = () => {
           </TouchableOpacity>
         </View>
       ) : (
-        <View className="flex-1 bg-white">
-          <FlatList
-            className="px-5"
+        <View className="flex-1">
+          <ScrollView
             showsVerticalScrollIndicator={false}
-            data={products}
-            renderItem={renderItem}
-          />
-          {/* <View className="flex-row items-center justify-between pt-10">
-            <Text className="font-semibold">Total estimé</Text>
-            <Text className="font-semibold">{}</Text>
-          </View>
-          <TouchableOpacity onPress={() => clearCart()}>
-            <Text>clear cart</Text>
-          </TouchableOpacity> */}
-          <Animated.View
+            scrollEventThrottle={5}
+            alwaysBounceVertical={false}
+            className="relative px-5 bg-white"
+          >
+            {cartState.map((item) => (
+              <Pressable className="py-5 space-y-3 border-b border-gray-200">
+                <View className="flex-row space-x-3">
+                  <Image source={{ uri: item.image }} className="w-28 h-28" />
+                  <View className="space-y-2">
+                    <Text className="font-semibold font">{item.name}</Text>
+                    <Text className="text-gray-400">
+                      {item.sub_category} pour{" "}
+                      {item.gender === "male" ? "homme" : "femme"}
+                    </Text>
+                    <Text className="text-gray-400">
+                      {item.category === "shoe"
+                        ? `Pointure ${item.size}`
+                        : `Taille ${item.size}`}
+                    </Text>
+                  </View>
+                </View>
+                <View className="flex-row items-center justify-between">
+                  <View className="flex-row items-center space-x-2">
+                    <TouchableOpacity
+                      className="items-center justify-center w-10 h-10 border border-gray-200 rounded-md"
+                      onPress={() => removeProduct(item)}
+                    >
+                      {item.quantity === 1 ? (
+                        <AntDesign name="delete" size={20} color="black" />
+                      ) : (
+                        <Text className="text-xl">-</Text>
+                      )}
+                    </TouchableOpacity>
+                    <Text className="font-medium">Qté {item.quantity}</Text>
+                    <TouchableOpacity
+                      className="items-center justify-center w-10 h-10 border border-gray-200 rounded-md"
+                      onPress={() => addProduct(item)}
+                    >
+                      <Text className="text-xl">+</Text>
+                    </TouchableOpacity>
+                  </View>
+                  <Text className="font-medium text-green-700">
+                    {subtotal(item.price, item.quantity as number)}€
+                  </Text>
+                </View>
+              </Pressable>
+            ))}
+
+            <View className="flex-row items-center justify-between px-5 py-10">
+              <Text className="font-semibold">Total estimé</Text>
+              <Text className="font-semibold">{total.toFixed(2)} €</Text>
+            </View>
+          </ScrollView>
+          <View
             // entering={FadeInUp.duration(1000).easing(Easing.ease)}
-            className="p-5 border-t border-gray-200"
+            className="fixed bottom-0 p-5 bg-white border-t border-gray-200 "
           >
             <TouchableOpacity
               onPress={() => router.push("/")}
@@ -141,7 +179,7 @@ const Cart = () => {
                 Paiement
               </Text>
             </TouchableOpacity>
-          </Animated.View>
+          </View>
         </View>
       )}
     </>
