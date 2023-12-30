@@ -49,8 +49,7 @@ const Product = () => {
     <ScrollView
       className="bg-white"
       showsVerticalScrollIndicator={false}
-      alwaysBounceVertical={false}
-      scrollEventThrottle={5}
+      overScrollMode="never"
     >
       {/* Display the name of the product as header title */}
 

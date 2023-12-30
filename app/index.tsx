@@ -29,8 +29,7 @@ export default function Home() {
     <ScrollView
       style={{ flex: 1, backgroundColor: "white" }}
       showsVerticalScrollIndicator={false}
-      scrollEventThrottle={5}
-      alwaysBounceVertical={false}
+      overScrollMode="never"
     >
       <View className="p-5 py-8 space-y-5">
         <Text className="text-xl">Indispensable, meilleures ventes...</Text>
@@ -102,8 +101,7 @@ export default function Home() {
     <ScrollView
       style={{ flex: 1, backgroundColor: "white" }}
       showsVerticalScrollIndicator={false}
-      scrollEventThrottle={5}
-      alwaysBounceVertical={false}
+      overScrollMode="never"
     >
       <View className="p-5 py-8 space-y-5">
         <Text className="text-xl">Indispensable, meilleures ventes...</Text>

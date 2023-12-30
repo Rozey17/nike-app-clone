@@ -173,6 +173,7 @@ const clothesList = () => {
     <View className="flex-1 bg-white">
       <FlatList
         showsVerticalScrollIndicator={false}
+        overScrollMode="never"
         data={itemData}
         renderItem={({ item }) => item}
         numColumns={2}

@@ -170,6 +170,7 @@ const menShoesList = () => {
         <ActivityIndicator />
       ) : (
         <FlatList
+          overScrollMode="never"
           showsVerticalScrollIndicator={false}
           data={itemData}
           renderItem={({ item }) => item}

@@ -20,12 +20,22 @@ const CartItem = ({
 }) => {
   return (
     <Pressable
-      // onPress={() =>
-      //   router.push({
-      //     pathname: "/product",
-      //     params: {},
-      //   })
-      // }
+      onPress={() =>
+        router.push({
+          pathname: "/product",
+          params: {
+            id: item.id,
+            name: item.name,
+            gender: item.gender,
+            price: item.price,
+            image: item.image,
+            description: item.description,
+            category: item.category,
+            sub_category: item.sub_category,
+            size: item?.size as number,
+          },
+        })
+      }
       className="py-5 space-y-3 border-b border-gray-200"
     >
       <View className="flex-row space-x-3">

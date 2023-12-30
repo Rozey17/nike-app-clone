@@ -54,8 +54,7 @@ const Cart = () => {
         <View className="flex-1">
           <ScrollView
             showsVerticalScrollIndicator={false}
-            scrollEventThrottle={5}
-            alwaysBounceVertical={false}
+            overScrollMode="never"
             className="relative px-5 bg-white"
           >
             {cartState.map((item) => (
