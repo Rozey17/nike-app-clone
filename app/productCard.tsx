@@ -13,7 +13,7 @@ const productCard = ({
   description,
   category,
   sub_category,
-}: ProductType) => {
+}: any) => {
   const router = useRouter();
   const [selected, setSelected] = useState(false);
   return (
@@ -54,12 +54,11 @@ const productCard = ({
       <View className="p-4 space-y-3">
         <View>
           <Text className="">{name}</Text>
-          <Text className="text-gray-500 ">
-            {sub_category} pour {gender === "male" ? "homme" : "femme"}
-          </Text>
+          <Text className="text-gray-500 ">{sub_category} pour</Text>
         </View>
 
         <Text className="font-bold ">{price}€</Text>
+        {/* <Text className="font-bold ">{category}€</Text> */}
       </View>
     </TouchableOpacity>
   );

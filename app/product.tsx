@@ -5,7 +5,6 @@ import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import SelectDropdown from "react-native-select-dropdown";
 import { Toast, useToast } from "native-base";
 import useCartStore from "../store/cartStore";
-import { ProductType } from "../store/interfaces";
 
 const Product = () => {
   const toast = useToast();
@@ -70,8 +69,7 @@ const Product = () => {
       <View className="px-6 py-10 space-y-5">
         <View>
           <Text className="text-[16px]">
-            {params.sub_category as string} pour{" "}
-            {params.gender === "male" ? "homme" : "femme"}
+            {params.sub_category as string} pour {params.gender as string}
           </Text>
           <Text className="text-2xl font-bold capitalize">{params.name}</Text>
         </View>
@@ -80,16 +78,16 @@ const Product = () => {
         <Text className="text-[16px]">{params.description}</Text>
         <View className="pt-5 space-y-3">
           <SelectDropdown
-            data={params.category === "shoe" ? shoeSizes : clothSizes}
+            data={params.category === "shoes" ? shoeSizes : clothSizes}
             onSelect={(selectedItem, index) => {
               setSize(
-                params.category === "shoe" ? selectedItem.value : selectedItem
+                params.category === "shoes" ? selectedItem.value : selectedItem
               );
             }}
             defaultButtonText={"Taille"}
             buttonTextAfterSelection={(selectedItem, index) => {
               return `Taille ${
-                params.category === "shoe" ? selectedItem.title : selectedItem
+                params.category === "shoes" ? selectedItem.title : selectedItem
               } `;
             }}
             buttonTextStyle={{ fontSize: 18, fontWeight: "600" }}
@@ -109,7 +107,7 @@ const Product = () => {
               );
             }}
             rowTextForSelection={(item, index) => {
-              return params.category === "shoe" ? item.title : item;
+              return params.category === "shoes" ? item.title : item;
             }}
             rowTextStyle={{ textAlign: "left" }}
             // renderCustomizedRowChild={(item, index) => {

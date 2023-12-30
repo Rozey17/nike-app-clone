@@ -21,17 +21,12 @@ import Animated, { Easing } from "react-native-reanimated";
 import { FadeInUp } from "react-native-reanimated";
 import { useEffect, useState } from "react";
 import { ScrollView } from "native-base";
+import CartItem from "../components/CartItem";
 
 const Cart = () => {
   const router = useRouter();
-  const { addProduct, removeProduct, products, clearCart, items } =
-    useCartStore();
-  const subtotal = (price: number, quantity: number) => {
-    const sub = price * quantity;
-    return sub.toFixed(2);
-  };
+  const { products, addProduct, removeProduct } = useCartStore();
   const [cartState, setCartState] = useState<ProductType[]>([]);
-
   const cart = useCartStore((state) => state.products);
   const total = cartState.reduce(
     (acc, product) => acc + product.price * (product.quantity as number),
@@ -42,50 +37,6 @@ const Cart = () => {
   useEffect(() => {
     setCartState(cart);
   }, [cart]);
-
-  const renderItem: ListRenderItem<ProductType> = ({ item }) => (
-    <Pressable className="py-5 space-y-3 border-b border-gray-200">
-      <View className="flex-row space-x-3">
-        <Image source={{ uri: item.image }} className="w-28 h-28" />
-        <View className="space-y-2">
-          <Text className="font-semibold font">{item.name}</Text>
-          <Text className="text-gray-400">
-            {item.sub_category} pour{" "}
-            {item.gender === "male" ? "homme" : "femme"}
-          </Text>
-          <Text className="text-gray-400">
-            {item.category === "shoe"
-              ? `Pointure ${item.size}`
-              : `Taille ${item.size}`}
-          </Text>
-        </View>
-      </View>
-      <View className="flex-row items-center justify-between">
-        <View className="flex-row items-center space-x-2">
-          <TouchableOpacity
-            className="items-center justify-center w-10 h-10 border border-gray-200 rounded-md"
-            onPress={() => removeProduct(item)}
-          >
-            {item.quantity === 1 ? (
-              <AntDesign name="delete" size={20} color="black" />
-            ) : (
-              <Text className="text-xl">-</Text>
-            )}
-          </TouchableOpacity>
-          <Text className="font-medium">Qté {item.quantity}</Text>
-          <TouchableOpacity
-            className="items-center justify-center w-10 h-10 border border-gray-200 rounded-md"
-            onPress={() => addProduct(item)}
-          >
-            <Text className="text-xl">+</Text>
-          </TouchableOpacity>
-        </View>
-        <Text className="font-medium text-green-700">
-          {subtotal(item.price, item.quantity as number)}€
-        </Text>
-      </View>
-    </Pressable>
-  );
 
   return (
     <>
@@ -119,50 +70,14 @@ const Cart = () => {
             className="relative px-5 bg-white"
           >
             {cartState.map((item) => (
-              <Pressable className="py-5 space-y-3 border-b border-gray-200">
-                <View className="flex-row space-x-3">
-                  <Image source={{ uri: item.image }} className="w-28 h-28" />
-                  <View className="space-y-2">
-                    <Text className="font-semibold font">{item.name}</Text>
-                    <Text className="text-gray-400">
-                      {item.sub_category} pour{" "}
-                      {item.gender === "male" ? "homme" : "femme"}
-                    </Text>
-                    <Text className="text-gray-400">
-                      {item.category === "shoe"
-                        ? `Pointure ${item.size}`
-                        : `Taille ${item.size}`}
-                    </Text>
-                  </View>
-                </View>
-                <View className="flex-row items-center justify-between">
-                  <View className="flex-row items-center space-x-2">
-                    <TouchableOpacity
-                      className="items-center justify-center w-10 h-10 border border-gray-200 rounded-md"
-                      onPress={() => removeProduct(item)}
-                    >
-                      {item.quantity === 1 ? (
-                        <AntDesign name="delete" size={20} color="black" />
-                      ) : (
-                        <Text className="text-xl">-</Text>
-                      )}
-                    </TouchableOpacity>
-                    <Text className="font-medium">Qté {item.quantity}</Text>
-                    <TouchableOpacity
-                      className="items-center justify-center w-10 h-10 border border-gray-200 rounded-md"
-                      onPress={() => addProduct(item)}
-                    >
-                      <Text className="text-xl">+</Text>
-                    </TouchableOpacity>
-                  </View>
-                  <Text className="font-medium text-green-700">
-                    {subtotal(item.price, item.quantity as number)}€
-                  </Text>
-                </View>
-              </Pressable>
+              <CartItem
+                item={item}
+                addProduct={addProduct}
+                removeProduct={removeProduct}
+              />
             ))}
 
-            <View className="flex-row items-center justify-between px-5 py-10">
+            <View className="flex-row items-center justify-between py-10">
               <Text className="font-semibold">Total estimé</Text>
               <Text className="font-semibold">{total.toFixed(2)} €</Text>
             </View>
