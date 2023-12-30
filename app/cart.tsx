@@ -5,20 +5,9 @@ import {
   SimpleLineIcons,
 } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
-import {
-  FlatList,
-  Image,
-  ListRenderItem,
-  Pressable,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import useCartStore from "../store/cartStore";
 import { ProductType } from "../store/interfaces";
-import { SafeAreaView } from "react-native-safe-area-context";
-import Animated, { Easing } from "react-native-reanimated";
-import { FadeInUp } from "react-native-reanimated";
 import { useEffect, useState } from "react";
 import { ScrollView } from "native-base";
 import CartItem from "../components/CartItem";

@@ -14,6 +14,7 @@ import {
   ScrollView,
   Image,
   TouchableOpacity,
+  StatusBar,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { TabView, TabBar, SceneMap } from "react-native-tab-view";
@@ -229,6 +230,7 @@ export default function Home() {
         );
       }}
     >
+      <StatusBar barStyle={"dark-content"} />
       <SafeAreaView className="flex-1 bg-white">
         <View className="flex-row items-center justify-between p-5">
           <View className="flex-row items-center space-x-5">
@@ -245,7 +247,9 @@ export default function Home() {
             <CartIcon />
           </View>
         </View>
+
         <TabView
+          collapsable={false}
           swipeEnabled={false}
           style={{ backgroundColor: "white" }}
           navigationState={{ index, routes }}
@@ -253,6 +257,7 @@ export default function Home() {
           renderTabBar={renderTabBar}
           onIndexChange={setIndex}
           initialLayout={{ width: layout.width }}
+          animationEnabled={false}
         />
       </SafeAreaView>
     </Drawer>

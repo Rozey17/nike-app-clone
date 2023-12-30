@@ -1,4 +1,9 @@
-import { FlatList, ListRenderItem, View } from "react-native";
+import {
+  ActivityIndicator,
+  FlatList,
+  ListRenderItem,
+  View,
+} from "react-native";
 import ProductCard from "./productCard";
 import { ProductType } from "../store/interfaces";
 import { client } from "../lib/sanity.server";
@@ -117,6 +122,7 @@ import { urlForImage } from "../lib/sanity";
 
 const menShoesList = () => {
   const [shoes, setShoes] = useState<any>([]);
+  const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
     client
@@ -128,6 +134,7 @@ const menShoesList = () => {
       )
       .then((res) => {
         setShoes(res);
+        setLoading(false);
       });
   }, []);
 
@@ -159,17 +166,21 @@ const menShoesList = () => {
 
   return (
     <View className="flex-1 bg-white">
-      <FlatList
-        showsVerticalScrollIndicator={false}
-        data={itemData}
-        renderItem={({ item }) => item}
-        numColumns={2}
-        columnWrapperStyle={{
-          flexDirection: "row",
-          gap: 5,
-          paddingVertical: 15,
-        }}
-      />
+      {isLoading ? (
+        <ActivityIndicator />
+      ) : (
+        <FlatList
+          showsVerticalScrollIndicator={false}
+          data={itemData}
+          renderItem={({ item }) => item}
+          numColumns={2}
+          columnWrapperStyle={{
+            flexDirection: "row",
+            gap: 5,
+            paddingVertical: 15,
+          }}
+        />
+      )}
       {/* {shoes.map((item: any) => console.log(item.gender))} */}
     </View>
   );

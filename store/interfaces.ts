@@ -11,7 +11,3 @@ export interface ProductType {
   quantity?: number;
 }
 
-export interface Rating {
-  rate: number;
-  count: number;
-}

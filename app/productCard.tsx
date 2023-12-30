@@ -13,7 +13,7 @@ const productCard = ({
   description,
   category,
   sub_category,
-}: any) => {
+}: ProductType) => {
   const router = useRouter();
   const [selected, setSelected] = useState(false);
   return (

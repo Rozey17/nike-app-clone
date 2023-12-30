@@ -2,6 +2,7 @@ import { View, Text, Pressable, Image, TouchableOpacity } from "react-native";
 import React from "react";
 import { ProductType } from "../store/interfaces";
 import { AntDesign } from "@expo/vector-icons";
+import { router } from "expo-router";
 
 const subtotal = (price: number, quantity: number) => {
   const sub = price * quantity;
@@ -18,12 +19,20 @@ const CartItem = ({
   removeProduct: (item: ProductType) => void;
 }) => {
   return (
-    <Pressable className="py-5 space-y-3 border-b border-gray-200">
+    <Pressable
+      // onPress={() =>
+      //   router.push({
+      //     pathname: "/product",
+      //     params: {},
+      //   })
+      // }
+      className="py-5 space-y-3 border-b border-gray-200"
+    >
       <View className="flex-row space-x-3">
         <Image source={{ uri: item.image }} className="w-28 h-28" />
         <View className="space-y-2">
           <Text className="font-semibold font">{item.name}</Text>
-          <Text className="text-gray-400 line-clamp-1">
+          <Text className="text-gray-400">
             {item.sub_category} pour{" "}
             {item.gender === "male" ? "homme" : "femme"}
           </Text>

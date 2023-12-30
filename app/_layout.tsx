@@ -3,12 +3,16 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { useFonts } from "expo-font";
 import { SplashScreen, Stack, router, useLocalSearchParams } from "expo-router";
 import { useEffect } from "react";
-import { TextInput, TouchableOpacity, useColorScheme } from "react-native";
+import {
+  StatusBar,
+  TextInput,
+  TouchableOpacity,
+  useColorScheme,
+} from "react-native";
 import { View } from "../components/Themed";
 import { NativeBaseProvider } from "native-base";
 import CartIcon from "../components/CartIcon";
-import { StatusBar } from "expo-status-bar";
-import { Drawer } from "expo-router/drawer";
+
 export {
   // Catch any errors thrown by the Layout component.
   ErrorBoundary,
@@ -49,7 +53,7 @@ export default function RootLayout() {
 function RootLayoutNav() {
   return (
     <NativeBaseProvider>
-      <StatusBar style="dark" />
+      <StatusBar barStyle={"dark-content"} />
       <Stack
         screenOptions={{
           headerShadowVisible: false,
