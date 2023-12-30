@@ -13,6 +13,7 @@ import { View } from "../components/Themed";
 import { NativeBaseProvider, Box } from "native-base";
 import useCartStore from "../store/cartStore";
 import CartIcon from "../components/CartIcon";
+import DrawerComponent from "../components/Drawer";
 export {
   // Catch any errors thrown by the Layout component.
   ErrorBoundary,
@@ -64,7 +65,10 @@ function RootLayoutNav() {
           name="index"
           options={{
             title: "Boutique",
-
+            // headerTitleAlign: "center",
+            // headerLeft: () => {
+            //   return <DrawerComponent />;
+            // },
             headerRight: () => {
               return (
                 <View className="flex-row items-center">
@@ -77,9 +81,9 @@ function RootLayoutNav() {
             },
           }}
         />
-        <Stack.Screen name="news" options={{}} />
+
         <Stack.Screen
-          name="clothes"
+          name="menClothes"
           options={{
             title: "Vêtements",
             headerRight: () => {
@@ -94,7 +98,7 @@ function RootLayoutNav() {
           }}
         />
         <Stack.Screen
-          name="shoes"
+          name="menShoes"
           options={{
             title: "Chaussures",
             headerRight: () => {
@@ -109,7 +113,7 @@ function RootLayoutNav() {
           }}
         />
         <Stack.Screen
-          name="shoesList"
+          name="menShoesList"
           options={{
             title: "Toutes les chaussures",
             headerRight: () => {
@@ -125,7 +129,69 @@ function RootLayoutNav() {
           }}
         />
         <Stack.Screen
-          name="clothesList"
+          name="menClothesList"
+          options={{
+            title: "Tous les vêtements",
+            headerRight: () => {
+              return (
+                <View className="flex-row items-center ">
+                  <TouchableOpacity onPress={() => router.push("/search")}>
+                    <AntDesign name="search1" size={24} color="black" />
+                  </TouchableOpacity>
+                  <CartIcon />
+                </View>
+              );
+            },
+          }}
+        />
+        <Stack.Screen
+          name="womenClothes"
+          options={{
+            title: "Vêtements",
+            headerRight: () => {
+              return (
+                <View className="">
+                  <TouchableOpacity onPress={() => router.push("/search")}>
+                    <AntDesign name="search1" size={24} color="black" />
+                  </TouchableOpacity>
+                </View>
+              );
+            },
+          }}
+        />
+        <Stack.Screen
+          name="womenShoes"
+          options={{
+            title: "Chaussures",
+            headerRight: () => {
+              return (
+                <View className="">
+                  <TouchableOpacity onPress={() => router.push("/search")}>
+                    <AntDesign name="search1" size={24} color="black" />
+                  </TouchableOpacity>
+                </View>
+              );
+            },
+          }}
+        />
+        <Stack.Screen
+          name="womenShoesList"
+          options={{
+            title: "Toutes les chaussures",
+            headerRight: () => {
+              return (
+                <View className="flex-row items-center">
+                  <TouchableOpacity onPress={() => router.push("/search")}>
+                    <AntDesign name="search1" size={24} color="black" />
+                  </TouchableOpacity>
+                  <CartIcon />
+                </View>
+              );
+            },
+          }}
+        />
+        <Stack.Screen
+          name="womenClothesList"
           options={{
             title: "Tous les vêtements",
             headerRight: () => {

@@ -115,7 +115,7 @@ import { urlForImage } from "../lib/sanity";
 //   },
 // ];
 
-const ShoesList = () => {
+const menShoesList = () => {
   const [shoes, setShoes] = useState<any>([]);
   useEffect(() => {
     client
@@ -170,4 +170,4 @@ const ShoesList = () => {
   );
 };
 
-export default ShoesList;
+export default menShoesList;

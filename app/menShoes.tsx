@@ -2,13 +2,13 @@ import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
 import { useRouter } from "expo-router";
 
-const Shoes = () => {
+const menShoes = () => {
   const router = useRouter();
   return (
     <View className="flex-1 bg-white">
       <View className="px-5 divide-y divide-gray-300">
         <TouchableOpacity
-          onPress={() => router.push("/shoesList")}
+          onPress={() => router.push("/menShoesList")}
           className="py-8"
         >
           <Text>Toutes les chaussures</Text>
@@ -18,4 +18,4 @@ const Shoes = () => {
   );
 };
 
-export default Shoes;
+export default menShoes;

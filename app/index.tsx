@@ -46,13 +46,13 @@ export default function TabViewExample() {
       </View>
       <View className="space-y-1">
         <TouchableOpacity
-          onPress={() => router.push("/shoes")}
+          onPress={() => router.push("/menShoes")}
           className="flex-row items-center justify-between px-5 bg-blue-800 h-28"
         >
           <Text className="text-xl text-white">Chaussures</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => router.push("/clothes")}
+          onPress={() => router.push("/menClothes")}
           className="flex-row items-center justify-between px-5 bg-blue-800 h-28"
         >
           <Text className="text-xl text-white">Vêtements</Text>
@@ -98,13 +98,13 @@ export default function TabViewExample() {
       </View>
       <View className="space-y-1">
         <TouchableOpacity
-          onPress={() => router.push("/shoes")}
+          onPress={() => router.push("/womenShoes")}
           className="flex-row items-center justify-between px-5 bg-pink-500 h-28"
         >
           <Text className="text-xl text-white">Chaussures</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => router.push("/clothes")}
+          onPress={() => router.push("/womenClothes")}
           className="flex-row items-center justify-between px-5 bg-pink-500 h-28"
         >
           <Text className="text-xl text-white">Vêtements</Text>

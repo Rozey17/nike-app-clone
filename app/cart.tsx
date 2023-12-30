@@ -71,6 +71,7 @@ const Cart = () => {
           >
             {cartState.map((item) => (
               <CartItem
+                key={item.id}
                 item={item}
                 addProduct={addProduct}
                 removeProduct={removeProduct}
