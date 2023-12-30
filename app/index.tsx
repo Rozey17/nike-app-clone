@@ -1,3 +1,9 @@
+import {
+  AntDesign,
+  Ionicons,
+  MaterialCommunityIcons,
+  MaterialIcons,
+} from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import * as React from "react";
 import {
@@ -9,10 +15,14 @@ import {
   Image,
   TouchableOpacity,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { TabView, TabBar, SceneMap } from "react-native-tab-view";
+import CartIcon from "../components/CartIcon";
+import { Drawer } from "react-native-drawer-layout";
 
-export default function TabViewExample() {
+export default function Home() {
   const router = useRouter();
+  const [open, setOpen] = React.useState(false);
 
   const FirstRoute = () => (
     <ScrollView
@@ -21,11 +31,11 @@ export default function TabViewExample() {
       scrollEventThrottle={5}
       alwaysBounceVertical={false}
     >
-      <View className="px-5 py-8 space-y-5">
+      <View className="p-5 py-8 space-y-5">
         <Text className="text-xl">Indispensable, meilleures ventes...</Text>
         <View className="flex-row items-center space-x-1">
           <TouchableOpacity
-            onPress={() => router.push("/drawerScreen")}
+            // onPress={() => router.push("/drawerScreen")}
             className="space-y-3"
           >
             <Image
@@ -94,7 +104,7 @@ export default function TabViewExample() {
       scrollEventThrottle={5}
       alwaysBounceVertical={false}
     >
-      <View className="px-5 py-8 space-y-5">
+      <View className="p-5 py-8 space-y-5">
         <Text className="text-xl">Indispensable, meilleures ventes...</Text>
         <View className="flex-row items-center space-x-1">
           <View className="space-y-3">
@@ -179,24 +189,81 @@ export default function TabViewExample() {
       tabStyle={{ width: 90, paddingBottom: 15 }}
       labelStyle={{ textTransform: "capitalize", fontSize: 16 }}
       pressColor="white"
-      // indicatorContainerStyle={{
-      //   width: Dimensions.get("screen").width,
-      // }}
-      // contentContainerStyle={{
-      //   justifyContent: "center",
-      // }}
     />
   );
 
   return (
-    <TabView
-      swipeEnabled={false}
-      style={{ backgroundColor: "white" }}
-      navigationState={{ index, routes }}
-      renderScene={renderScene}
-      renderTabBar={renderTabBar}
-      onIndexChange={setIndex}
-      initialLayout={{ width: layout.width }}
-    />
+    <Drawer
+      open={open}
+      onOpen={() => setOpen(true)}
+      onClose={() => setOpen(false)}
+      // hideStatusBarOnOpen={true}
+
+      renderDrawerContent={() => {
+        return (
+          <SafeAreaView className="">
+            <View className="px-6 py-10 space-y-4 border-b border-gray-200">
+              <View className="w-16 h-16 bg-gray-200 rounded-full"></View>
+              <Text className="font-medium">Username</Text>
+            </View>
+            <View className="px-6 py-4 space-y-4">
+              <TouchableOpacity className="flex-row space-x-3">
+                <MaterialCommunityIcons
+                  name="shopping-search"
+                  size={24}
+                  color="black"
+                />
+                <Text className="text-[16px] font-medium">Boutique</Text>
+              </TouchableOpacity>
+              <TouchableOpacity className="flex-row space-x-3">
+                <MaterialIcons
+                  name="favorite-outline"
+                  size={24}
+                  color="black"
+                />
+                <Text className="text-[16px] font-medium">Favoris</Text>
+              </TouchableOpacity>
+              <View className="flex-row gap-4"></View>
+            </View>
+          </SafeAreaView>
+        );
+      }}
+    >
+      <SafeAreaView className="flex-1 bg-white">
+        <View className="flex-row items-center justify-between p-5">
+          <View className="flex-row items-center space-x-5">
+            <TouchableOpacity onPress={() => setOpen((prevOpen) => !prevOpen)}>
+              <Ionicons name="menu-sharp" size={24} color="black" />
+            </TouchableOpacity>
+            <Text className="text-[16px] text-medium">Boutique</Text>
+          </View>
+
+          <View className="flex-row items-center">
+            <TouchableOpacity onPress={() => router.push("/search")}>
+              <AntDesign name="search1" size={24} color="black" />
+            </TouchableOpacity>
+            <CartIcon />
+          </View>
+        </View>
+        <TabView
+          swipeEnabled={false}
+          style={{ backgroundColor: "white" }}
+          navigationState={{ index, routes }}
+          renderScene={renderScene}
+          renderTabBar={renderTabBar}
+          onIndexChange={setIndex}
+          initialLayout={{ width: layout.width }}
+        />
+      </SafeAreaView>
+    </Drawer>
+    // <TabView
+    //   swipeEnabled={false}
+    //   style={{ backgroundColor: "white" }}
+    //   navigationState={{ index, routes }}
+    //   renderScene={renderScene}
+    //   renderTabBar={renderTabBar}
+    //   onIndexChange={setIndex}
+    //   initialLayout={{ width: layout.width }}
+    // />
   );
 }

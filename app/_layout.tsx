@@ -1,19 +1,14 @@
-import { AntDesign, Feather, SimpleLineIcons } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import {
-  DarkTheme,
-  DefaultTheme,
-  ThemeProvider,
-} from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import { SplashScreen, Stack, router, useLocalSearchParams } from "expo-router";
 import { useEffect } from "react";
 import { TextInput, TouchableOpacity, useColorScheme } from "react-native";
 import { View } from "../components/Themed";
-import { NativeBaseProvider, Box } from "native-base";
-import useCartStore from "../store/cartStore";
+import { NativeBaseProvider } from "native-base";
 import CartIcon from "../components/CartIcon";
-import DrawerComponent from "../components/Drawer";
+import { StatusBar } from "expo-status-bar";
+import { Drawer } from "expo-router/drawer";
 export {
   // Catch any errors thrown by the Layout component.
   ErrorBoundary,
@@ -54,6 +49,7 @@ export default function RootLayout() {
 function RootLayoutNav() {
   return (
     <NativeBaseProvider>
+      <StatusBar style="dark" />
       <Stack
         screenOptions={{
           headerShadowVisible: false,
@@ -65,11 +61,8 @@ function RootLayoutNav() {
           name="index"
           options={{
             title: "Boutique",
-            // headerShown: false,
-            // headerTitleAlign: "center",
-            // headerLeft: () => {
-            //   return <DrawerComponent />;
-            // },
+            headerShown: false,
+
             headerRight: () => {
               return (
                 <View className="flex-row items-center">
@@ -254,5 +247,18 @@ function RootLayoutNav() {
         />
       </Stack>
     </NativeBaseProvider>
+
+    // <Drawer detachInactiveScreens={false} screenOptions={
+    //   {}
+    // }>
+    //   <Drawer.Screen
+    //     name="index" // This is the name of the page and must match the url from root
+    //     options={{
+    //       drawerLabel: "Home",
+    //       title: "overview",
+
+    //     }}
+    //   />
+    // </Drawer>
   );
 }
