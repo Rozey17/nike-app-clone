@@ -24,7 +24,10 @@ export default function TabViewExample() {
       <View className="px-5 py-8 space-y-5">
         <Text className="text-xl">Indispensable, meilleures ventes...</Text>
         <View className="flex-row items-center space-x-1">
-          <View className="space-y-3">
+          <TouchableOpacity
+            onPress={() => router.push("/drawerScreen")}
+            className="space-y-3"
+          >
             <Image
               source={{
                 uri: "https://static.nike.com/a/images/w_300,c_limit/2e20a745-d9be-4d82-8cad-0c55d115fbb3/que-la-saison-des-cadeaux-commence-nike-com.png",
@@ -32,7 +35,7 @@ export default function TabViewExample() {
               className="w-40 h-40 rounded-md"
             />
             <Text>Cartes cadeaux</Text>
-          </View>
+          </TouchableOpacity>
           <View className="space-y-3">
             <Image
               source={{

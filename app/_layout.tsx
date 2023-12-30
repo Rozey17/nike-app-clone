@@ -65,6 +65,7 @@ function RootLayoutNav() {
           name="index"
           options={{
             title: "Boutique",
+            // headerShown: false,
             // headerTitleAlign: "center",
             // headerLeft: () => {
             //   return <DrawerComponent />;
