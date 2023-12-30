@@ -1,0 +1,1 @@
+query ListCategories{allCategory{_id, name,slug{current}}}

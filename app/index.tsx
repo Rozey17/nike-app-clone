@@ -36,7 +36,7 @@ export default function TabViewExample() {
           <View className="space-y-3">
             <Image
               source={{
-                uri: "https://media.gqmagazine.fr/photos/64551119ce0c708b2278c458/4:3/w_5120,h_3840,c_limit/chris-henry-tV8yaU09t7w-unsplash.jpg",
+                uri: "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/18c38ffb-48ec-418a-8e19-cc5bcea9f1fe/chaussure-de-foot-montante-a-crampons-pour-terrain-sec-mercurial-superfly-9-elite-tjbNFg.png",
               }}
               className="w-40 h-40 rounded-md"
             />
@@ -50,15 +50,33 @@ export default function TabViewExample() {
           className="flex-row items-center justify-between px-5 bg-blue-800 h-28"
         >
           <Text className="text-xl text-white">Chaussures</Text>
+          <Image
+            source={{
+              uri: "https://pngimg.com/d/running_shoes_PNG5816.png",
+            }}
+            className="w-28 h-28"
+          />
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => router.push("/menClothes")}
           className="flex-row items-center justify-between px-5 bg-blue-800 h-28"
         >
           <Text className="text-xl text-white">Vêtements</Text>
+          <Image
+            source={{
+              uri: "https://www.addictmiami.com/cdn/shop/products/CU4489-016_1_1200x1200.png?v=1627482486",
+            }}
+            className="w-28 h-28"
+          />
         </TouchableOpacity>
         <TouchableOpacity className="flex-row items-center justify-between px-5 bg-blue-800 h-28">
           <Text className="text-xl text-white">Accessoires et équipement</Text>
+          <Image
+            source={{
+              uri: "https://www.pngkey.com/png/full/316-3169157_nike-hat.png",
+            }}
+            className="object-contain w-32 h-20"
+          />
         </TouchableOpacity>
         <TouchableOpacity className="flex-row items-center justify-between px-5 bg-blue-800 h-28">
           <Text className="text-xl text-white">Offres et réductions</Text>
@@ -169,6 +187,7 @@ export default function TabViewExample() {
 
   return (
     <TabView
+      swipeEnabled={false}
       style={{ backgroundColor: "white" }}
       navigationState={{ index, routes }}
       renderScene={renderScene}

@@ -69,7 +69,8 @@ const Product = () => {
       <View className="px-6 py-10 space-y-5">
         <View>
           <Text className="text-[16px]">
-            {params.sub_category as string} pour {params.gender as string}
+            {params.sub_category as string} pour{" "}
+            {params.gender === "male" ? "homme" : "femme"}
           </Text>
           <Text className="text-2xl font-bold capitalize">{params.name}</Text>
         </View>

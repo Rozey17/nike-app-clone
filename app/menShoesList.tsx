@@ -117,10 +117,14 @@ import { urlForImage } from "../lib/sanity";
 
 const menShoesList = () => {
   const [shoes, setShoes] = useState<any>([]);
+
   useEffect(() => {
     client
       .fetch(
-        `*[_type == 'product' && references(*[_type=="category" && name == 'shoes' ]._id)  && references(*[_type=="gender" && name == 'male' ]._id)]`
+        `*[_type == 'product' && references(*[_type=="category" && name == 'shoes' ]._id)  && references(*[_type=="gender" && name == 'male' ]._id)]{
+  _id, name,price,image,description,category->,sub_category,
+  gender->
+}`
       )
       .then((res) => {
         setShoes(res);
@@ -146,9 +150,9 @@ const menShoesList = () => {
       name={item.name}
       price={item.price}
       image={urlForImage(item.image).url()}
-      gender={item.gender}
+      gender={item.gender.name}
       description={item.description}
-      category={item.category}
+      category={item.category.name}
       sub_category={item.sub_category}
     />
   ));
@@ -166,6 +170,7 @@ const menShoesList = () => {
           paddingVertical: 15,
         }}
       />
+      {/* {shoes.map((item: any) => console.log(item.gender))} */}
     </View>
   );
 };

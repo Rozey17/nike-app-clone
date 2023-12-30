@@ -28,7 +28,7 @@ const CartItem = ({
             {item.gender === "male" ? "homme" : "femme"}
           </Text>
           <Text className="text-gray-400">
-            {item.category === "shoe"
+            {item.category === "shoes"
               ? `Pointure ${item.size}`
               : `Taille ${item.size}`}
           </Text>

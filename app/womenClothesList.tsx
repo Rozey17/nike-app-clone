@@ -134,7 +134,10 @@ const womenClothesList = () => {
   useEffect(() => {
     client
       .fetch(
-        `*[_type == 'product' && references(*[_type=="category" && name == 'clothes' ]._id)  && references(*[_type=="gender" && name == 'female' ]._id)]`
+        `*[_type == 'product' && references(*[_type=="category" && name == 'clothes' ]._id)  && references(*[_type=="gender" && name == 'female' ]._id)]{
+  _id, name,price,image,description,category->,sub_category,
+  gender->
+}`
       )
       .then((res) => {
         setClothes(res);
@@ -159,9 +162,9 @@ const womenClothesList = () => {
       name={item.name}
       price={item.price}
       image={urlForImage(item.image).url()}
-      gender={item.gender}
+      gender={item.gender.name}
       description={item.description}
-      category={item.category}
+      category={item.category.name}
       sub_category={item.sub_category}
     />
   ));

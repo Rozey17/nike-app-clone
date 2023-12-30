@@ -1,0 +1,1 @@
+query ListGenders{allGender{_id, name,slug{current}}}

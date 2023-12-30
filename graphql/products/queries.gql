@@ -1,0 +1,83 @@
+query ListProducts{
+      allProduct {
+        _id
+        ,name,
+        slug{
+          current
+        },
+        price,
+        image {
+          asset {
+            url
+          }
+        },
+        description,
+       
+        category {
+          _id,
+          name
+          ,
+          slug{
+            current
+          }
+         
+        }
+       
+       
+        
+      }
+    }
+
+query ListProductsByCategory($slug:String!){
+    allProduct(where : {category :{slug: {current: {eq: $slug}} }} ){
+        _id
+        ,name,
+        slug{
+          current
+        },
+        price,
+        image {
+          asset {
+            url
+          }
+        },
+        description,
+       
+        category {
+          _id,
+          name
+          ,
+          slug{
+            current
+          }
+         
+        }
+    }
+}
+
+query ListProductsByGender($slug:String!){
+    allProduct(where : {gender :{slug: {current: {eq: $slug}} }} ){
+        _id
+        ,name,
+        slug{
+          current
+        },
+        price,
+        image {
+          asset {
+            url
+          }
+        },
+        description,
+       
+        category {
+          _id,
+          name
+          ,
+          slug{
+            current
+          }
+         
+        }
+    }
+}

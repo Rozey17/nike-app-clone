@@ -54,7 +54,9 @@ const productCard = ({
       <View className="p-4 space-y-3">
         <View>
           <Text className="">{name}</Text>
-          <Text className="text-gray-500 ">{sub_category} pour</Text>
+          <Text className="text-gray-500 ">
+            {sub_category} pour {gender === "male" ? "homme" : "femme"}
+          </Text>
         </View>
 
         <Text className="font-bold ">{price}€</Text>

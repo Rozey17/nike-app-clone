@@ -10,7 +10,7 @@
     "splash": {
       "image": "./assets/images/NKE.D.png",
       "resizeMode": "native",
-      "backgroundColor": "#030712"
+      "backgroundColor": "#020617"
     },
     "assetBundlePatterns": [
       "**/*"
