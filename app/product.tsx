@@ -84,7 +84,7 @@ const Product = () => {
                 params.category === "shoes" ? selectedItem.value : selectedItem
               );
             }}
-            defaultButtonText={"Taille"}
+            defaultButtonText={"Sélectionner la taille"}
             buttonTextAfterSelection={(selectedItem, index) => {
               return `Taille ${
                 params.category === "shoes" ? selectedItem.title : selectedItem
