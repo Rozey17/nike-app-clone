@@ -32,7 +32,6 @@ const CartItem = ({
             description: item.description,
             category: item.category,
             sub_category: item.sub_category,
-            size: item?.size as number,
           },
         })
       }
