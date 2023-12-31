@@ -26,14 +26,7 @@ export default {
         maxLength: 500,
       },
     },
-    // {
-    //   name: 'size',
-    //   title: 'Size',
-    //   type: 'string | number',
-    //   options: {
-    //     maxLength: 500,
-    //   },
-    // },
+
     {
       name: 'category',
       title: ' Category',

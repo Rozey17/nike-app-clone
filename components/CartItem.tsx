@@ -47,9 +47,15 @@ const CartItem = ({
             {item.gender === "female" && "pour femme"}
           </Text>
           <Text className="text-gray-400">
+            {/* {item.sub_category.includes("Sac") &&
+            <Text className="font-bold text-center uppercase">
+              taille unique{" "}
+            </Text>} */}
             {item.category === "shoes"
               ? `Pointure ${item.size}`
-              : `Taille ${item.size}`}
+              : `Taille ${
+                  item.sub_category.includes("Sac") ? "unique" : item.size
+                }`}
           </Text>
         </View>
       </View>

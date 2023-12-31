@@ -95,67 +95,74 @@ const Product = () => {
         <Text className="text-[16px]">{params.price}€</Text>
         <Text className="text-[16px]">{params.description}</Text>
         <View className="pt-5 space-y-3">
-          {/* {}
-          <Text className="font-bold uppercase"></Text> */}
-          <SelectDropdown
-            // data={params.category === "shoes" ? shoeSizes : clothSizes}
-            data={getSizes(
-              params?.category as string,
-              params?.sub_category as string
-            )}
-            onSelect={(selectedItem, index) => {
-              setSize(
-                params.category === "shoes" ||
+          {params.sub_category.includes("Sac") ? (
+            <Text className="font-bold text-center uppercase">
+              taille unique{" "}
+            </Text>
+          ) : (
+            <SelectDropdown
+              // data={params.category === "shoes" ? shoeSizes : clothSizes}
+              data={getSizes(
+                params?.category as string,
+                params?.sub_category as string
+              )}
+              onSelect={(selectedItem, index) => {
+                setSize(
+                  params.category === "shoes" ||
+                    params.sub_category.includes("Chaussettes")
+                    ? selectedItem.value
+                    : selectedItem
+                );
+              }}
+              defaultButtonText={"Sélectionner la taille"}
+              buttonTextAfterSelection={(selectedItem, index) => {
+                return `Taille ${
+                  params.category === "shoes" ||
                   params.sub_category.includes("Chaussettes")
-                  ? selectedItem.value
-                  : selectedItem
-              );
-            }}
-            defaultButtonText={"Sélectionner la taille"}
-            buttonTextAfterSelection={(selectedItem, index) => {
-              return `Taille ${
-                params.category === "shoes" ||
-                params.sub_category.includes("Chaussettes")
-                  ? selectedItem.title
-                  : selectedItem
-              } `;
-            }}
-            buttonTextStyle={{ fontSize: 18, fontWeight: "600" }}
-            buttonStyle={{
-              borderRadius: 9999,
-              borderColor: "#d1d5db",
-              justifyContent: "space-between",
-              borderWidth: 1,
-              width: "100%",
-              height: 65,
-              backgroundColor: "white",
-            }}
-            dropdownIconPosition={"right"}
-            renderDropdownIcon={() => {
-              return (
-                <Entypo name="chevron-small-down" size={24} color="black" />
-              );
-            }}
-            rowTextForSelection={(item, index) => {
-              return params.category === "shoes" ||
-                params.sub_category.includes("Chaussettes")
-                ? item.title
-                : item;
-            }}
-            rowTextStyle={{ textAlign: "left" }}
-            // renderCustomizedRowChild={(item, index) => {
-            //   return (
-            //     <View className="flex-row items-center justify-between">
-            //       <Text>{item}</Text>
-            //       <Ionicons name="checkmark" size={24} color="black" />
-            //     </View>
-            //   );
-            // }}
-          />
+                    ? selectedItem.title
+                    : selectedItem
+                } `;
+              }}
+              buttonTextStyle={{ fontSize: 18, fontWeight: "600" }}
+              buttonStyle={{
+                borderRadius: 9999,
+                borderColor: "#d1d5db",
+                justifyContent: "space-between",
+                borderWidth: 1,
+                width: "100%",
+                height: 65,
+                backgroundColor: "white",
+              }}
+              dropdownIconPosition={"right"}
+              renderDropdownIcon={() => {
+                return (
+                  <Entypo name="chevron-small-down" size={24} color="black" />
+                );
+              }}
+              rowTextForSelection={(item, index) => {
+                return params.category === "shoes" ||
+                  params.sub_category.includes("Chaussettes")
+                  ? item.title
+                  : item;
+              }}
+              rowTextStyle={{ textAlign: "left" }}
+              // renderCustomizedRowChild={(item, index) => {
+              //   return (
+              //     <View className="flex-row items-center justify-between">
+              //       <Text>{item}</Text>
+              //       <Ionicons name="checkmark" size={24} color="black" />
+              //     </View>
+              //   );
+              // }}
+            />
+          )}
 
           <TouchableOpacity
             onPress={() => {
-              if (size === null) {
+              if (
+                size === null &&
+                params?.sub_category.includes("Sac") === false
+              ) {
                 Toast.show({
                   render: () => {
                     return (
@@ -174,7 +181,7 @@ const Product = () => {
                   gender: params.gender as string,
                   image: params.image as string,
                   name: params.name as string,
-                  size: size,
+                  size: size as any,
                   price: params.price as any,
                   category: params.category as string,
                   sub_category: params.sub_category as string,
