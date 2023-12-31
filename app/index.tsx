@@ -82,7 +82,10 @@ export default function Home() {
             className="w-28 h-28"
           />
         </TouchableOpacity>
-        <TouchableOpacity className="flex-row items-center justify-between px-5 bg-blue-800 h-28">
+        <TouchableOpacity
+          onPress={() => router.push("/menAccessories")}
+          className="flex-row items-center justify-between px-5 bg-blue-800 h-28"
+        >
           <Text className="text-xl text-white">Accessoires et équipement</Text>
           <Image
             source={{
@@ -149,25 +152,17 @@ export default function Home() {
     </ScrollView>
   );
 
-  const ThirdRoute = () => (
-    <ScrollView style={{ flex: 1, backgroundColor: "white", paddingLeft: 20 }}>
-      <Text>Tab 3</Text>
-    </ScrollView>
-  );
-
   const layout = useWindowDimensions();
 
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
     { key: "first", title: "Homme" },
     { key: "second", title: "Femme" },
-    { key: "third", title: "Enfant" },
   ]);
 
   const renderScene = SceneMap({
     first: FirstRoute,
     second: SecondRoute,
-    third: ThirdRoute,
   });
 
   const renderTabBar = (props: any) => (

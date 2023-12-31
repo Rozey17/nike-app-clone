@@ -25,7 +25,7 @@ const productCard = ({
           params: {
             id,
             name,
-            gender,
+            gender: gender as string,
             price,
             image,
             description,
@@ -55,7 +55,8 @@ const productCard = ({
         <View>
           <Text className="">{name}</Text>
           <Text className="text-gray-500 ">
-            {sub_category} pour {gender === "male" ? "homme" : "femme"}
+            {sub_category} {gender === "male" && "pour homme"}
+            {gender === "female" && "pour femme"}
           </Text>
         </View>
 

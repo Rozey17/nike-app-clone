@@ -26,7 +26,7 @@ const CartItem = ({
           params: {
             id: item.id,
             name: item.name,
-            gender: item.gender,
+            gender: item?.gender as string,
             price: item.price,
             image: item.image,
             description: item.description,
@@ -42,8 +42,9 @@ const CartItem = ({
         <View className="space-y-2">
           <Text className="font-semibold font">{item.name}</Text>
           <Text className="text-gray-400">
-            {item.sub_category} pour{" "}
-            {item.gender === "male" ? "homme" : "femme"}
+            {item.sub_category}
+            {item.gender === "male" && "pour homme"}
+            {item.gender === "female" && "pour femme"}
           </Text>
           <Text className="text-gray-400">
             {item.category === "shoes"

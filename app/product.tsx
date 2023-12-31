@@ -1,7 +1,7 @@
 import { View, Text, ScrollView, Image, TouchableOpacity } from "react-native";
 import React, { useEffect, useState } from "react";
 import { Entypo, MaterialIcons } from "@expo/vector-icons";
-import { Stack, useLocalSearchParams, useRouter } from "expo-router";
+import { Stack, router, useLocalSearchParams, useRouter } from "expo-router";
 import SelectDropdown from "react-native-select-dropdown";
 import { Toast, useToast } from "native-base";
 import useCartStore from "../store/cartStore";
@@ -32,19 +32,36 @@ const Product = () => {
     { title: "EU 45.5", value: 45.5 },
     { title: "EU 46", value: 46 },
   ];
-
+  const capSizes = ["S/M", "M/L", "L/XL"];
+  const gloveSizes = ["S", "M", "L", "XL"];
   const clothSizes = ["XS", "S", "M", "L", "XL", "XXL", "XXXL"];
+  const sockSizes = [
+    { title: "EU 34-38", value: "34-38" },
+    { title: "EU 38-42", value: "38-42" },
+    { title: "EU 42-46", value: "42-46" },
+    { title: "EU 46-50", value: "46-50" },
+  ];
+  const sleevesSizes = ["S/M", "L/XL"];
 
   const { addProduct } = useCartStore();
   const [selected, setSelected] = useState(false);
-  const router = useRouter();
   const params = useLocalSearchParams();
-
   const [size, setSize] = useState(null);
-  let productSize: number;
-  if (size !== null) {
-    productSize = size;
-  }
+
+  const getSizes = (category: string, sub_category: string): any[] => {
+    if (category === "shoes") {
+      return shoeSizes;
+    } else if (sub_category.includes("Chaussettes")) {
+      return sockSizes;
+    } else if (sub_category.includes("Casquette")) {
+      return capSizes;
+    } else if (sub_category.includes("Gants")) {
+      return gloveSizes;
+    } else if (sub_category.includes("Manchons")) {
+      return sleevesSizes;
+    } else return clothSizes;
+  };
+
   return (
     <ScrollView
       className="bg-white"
@@ -68,8 +85,9 @@ const Product = () => {
       <View className="px-6 py-10 space-y-5">
         <View>
           <Text className="text-[16px]">
-            {params.sub_category as string} pour{" "}
-            {params.gender === "male" ? "homme" : "femme"}
+            {params.sub_category as string}{" "}
+            {params.gender === "male" && "pour homme"}
+            {params.gender === "female" && "pour femme"}
           </Text>
           <Text className="text-2xl font-bold capitalize">{params.name}</Text>
         </View>
@@ -77,17 +95,29 @@ const Product = () => {
         <Text className="text-[16px]">{params.price}€</Text>
         <Text className="text-[16px]">{params.description}</Text>
         <View className="pt-5 space-y-3">
+          {/* {}
+          <Text className="font-bold uppercase"></Text> */}
           <SelectDropdown
-            data={params.category === "shoes" ? shoeSizes : clothSizes}
+            // data={params.category === "shoes" ? shoeSizes : clothSizes}
+            data={getSizes(
+              params?.category as string,
+              params?.sub_category as string
+            )}
             onSelect={(selectedItem, index) => {
               setSize(
-                params.category === "shoes" ? selectedItem.value : selectedItem
+                params.category === "shoes" ||
+                  params.sub_category.includes("Chaussettes")
+                  ? selectedItem.value
+                  : selectedItem
               );
             }}
             defaultButtonText={"Sélectionner la taille"}
             buttonTextAfterSelection={(selectedItem, index) => {
               return `Taille ${
-                params.category === "shoes" ? selectedItem.title : selectedItem
+                params.category === "shoes" ||
+                params.sub_category.includes("Chaussettes")
+                  ? selectedItem.title
+                  : selectedItem
               } `;
             }}
             buttonTextStyle={{ fontSize: 18, fontWeight: "600" }}
@@ -107,7 +137,10 @@ const Product = () => {
               );
             }}
             rowTextForSelection={(item, index) => {
-              return params.category === "shoes" ? item.title : item;
+              return params.category === "shoes" ||
+                params.sub_category.includes("Chaussettes")
+                ? item.title
+                : item;
             }}
             rowTextStyle={{ textAlign: "left" }}
             // renderCustomizedRowChild={(item, index) => {
@@ -141,7 +174,7 @@ const Product = () => {
                   gender: params.gender as string,
                   image: params.image as string,
                   name: params.name as string,
-                  size: productSize,
+                  size: size,
                   price: params.price as any,
                   category: params.category as string,
                   sub_category: params.sub_category as string,

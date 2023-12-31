@@ -127,6 +127,37 @@ function RootLayoutNav() {
           }}
         />
         <Stack.Screen
+          name="menAccessories"
+          options={{
+            title: "Accessoires",
+            headerRight: () => {
+              return (
+                <View className="">
+                  <TouchableOpacity onPress={() => router.push("/search")}>
+                    <AntDesign name="search1" size={24} color="black" />
+                  </TouchableOpacity>
+                </View>
+              );
+            },
+          }}
+        />
+        <Stack.Screen
+          name="menAccessoriesList"
+          options={{
+            title: "Tous les accessoires",
+            headerRight: () => {
+              return (
+                <View className="flex-row items-center">
+                  <TouchableOpacity onPress={() => router.push("/search")}>
+                    <AntDesign name="search1" size={24} color="black" />
+                  </TouchableOpacity>
+                  <CartIcon />
+                </View>
+              );
+            },
+          }}
+        />
+        <Stack.Screen
           name="menClothesList"
           options={{
             title: "Tous les vêtements",
@@ -188,6 +219,7 @@ function RootLayoutNav() {
             },
           }}
         />
+
         <Stack.Screen
           name="womenClothesList"
           options={{

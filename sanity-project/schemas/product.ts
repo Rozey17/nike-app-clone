@@ -54,7 +54,6 @@ export default {
       type: 'reference',
       weak: true,
       to: [{type: 'gender'}],
-      validation: (Rule: any) => Rule.required(),
     },
 
     {
