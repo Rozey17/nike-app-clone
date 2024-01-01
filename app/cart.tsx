@@ -5,23 +5,33 @@ import {
   SimpleLineIcons,
 } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
-import { Text, TouchableOpacity, View } from "react-native";
+import { Image, Text, TouchableOpacity, View } from "react-native";
 import useCartStore from "../store/cartStore";
 import { ProductType } from "../store/interfaces";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ScrollView } from "native-base";
 import CartItem from "../components/CartItem";
-import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
+import BottomSheet, {
+  BottomSheetModal,
+  BottomSheetModalProvider,
+  BottomSheetView,
+} from "@gorhom/bottom-sheet";
+import CustomBackdrop from "../components/backdropComponent";
+import BottomSheetComponent from "../components/BottomSheetComponent";
 
 const Cart = () => {
   const router = useRouter();
-  const { products, addProduct, removeProduct } = useCartStore();
+  const { products, addProduct, removeProduct, items } = useCartStore();
   const [cartState, setCartState] = useState<ProductType[]>([]);
   const cart = useCartStore((state) => state.products);
   const total = cartState.reduce(
     (acc, product) => acc + product.price * (product.quantity as number),
     0
   );
+  const modalSheetBottomref = useRef<BottomSheetModal>(null);
+  function handlePresentModal() {
+    modalSheetBottomref.current?.present();
+  }
   useEffect(() => {
     setCartState(cart);
   }, [cart]);
@@ -71,12 +81,20 @@ const Cart = () => {
             </View>
           </ScrollView>
           <View className="fixed bottom-0 p-5 bg-white border-t border-gray-200 -">
-            <TouchableOpacity className="p-5 bg-black rounded-full">
+            <TouchableOpacity
+              onPress={handlePresentModal}
+              className="p-5 bg-black rounded-full"
+            >
               <Text className="text-lg font-semibold text-center text-white">
                 Paiement
               </Text>
             </TouchableOpacity>
           </View>
+          <BottomSheetComponent
+            items={items}
+            total={total}
+            ref={modalSheetBottomref}
+          />
         </View>
       )}
     </>
