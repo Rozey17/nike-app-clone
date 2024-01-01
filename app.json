@@ -9,7 +9,7 @@
     "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./assets/images/NKE.D.png",
-      "resizeMode": "native",
+      "resizeMode": "contain",
       "backgroundColor": "#020617"
     },
     "assetBundlePatterns": [
@@ -34,6 +34,20 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "afe31d72-2a13-4bda-8d24-46e2933230cf"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/afe31d72-2a13-4bda-8d24-46e2933230cf"
     }
   }
 }

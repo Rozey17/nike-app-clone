@@ -35,7 +35,7 @@ export default function Home() {
         <Text className="text-xl">Indispensable, meilleures ventes...</Text>
         <View className="flex-row items-center space-x-1">
           <TouchableOpacity
-            // onPress={() => router.push("/drawerScreen")}
+            onPress={() => router.push("/news")}
             className="space-y-3"
           >
             <Image
@@ -172,15 +172,15 @@ export default function Home() {
       inactiveColor={"#6b7280"}
       indicatorStyle={{
         backgroundColor: "black",
-        width: 90,
+        width: 97,
         borderBottomWidth: 3,
       }}
       style={{
         backgroundColor: "white",
-        marginLeft: 20,
-        shadowColor: "transparent",
+        // marginLeft: 20,
+        // shadowColor: "transparent",
       }}
-      tabStyle={{ width: 90, paddingBottom: 15 }}
+      tabStyle={{ width: 97, paddingBottom: 15, paddingLeft: 20 }}
       labelStyle={{ textTransform: "capitalize", fontSize: 16 }}
       pressColor="white"
     />

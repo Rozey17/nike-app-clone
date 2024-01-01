@@ -8,9 +8,10 @@ import { useRouter } from "expo-router";
 import { Text, TouchableOpacity, View } from "react-native";
 import useCartStore from "../store/cartStore";
 import { ProductType } from "../store/interfaces";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ScrollView } from "native-base";
 import CartItem from "../components/CartItem";
+import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
 
 const Cart = () => {
   const router = useRouter();
@@ -21,8 +22,6 @@ const Cart = () => {
     (acc, product) => acc + product.price * (product.quantity as number),
     0
   );
-
-  // important pour faire marcher le tout
   useEffect(() => {
     setCartState(cart);
   }, [cart]);
@@ -71,14 +70,8 @@ const Cart = () => {
               <Text className="font-semibold">{total.toFixed(2)} €</Text>
             </View>
           </ScrollView>
-          <View
-            // entering={FadeInUp.duration(1000).easing(Easing.ease)}
-            className="fixed bottom-0 p-5 bg-white border-t border-gray-200 "
-          >
-            <TouchableOpacity
-              onPress={() => router.push("/")}
-              className="p-5 bg-black rounded-full"
-            >
+          <View className="fixed bottom-0 p-5 bg-white border-t border-gray-200 -">
+            <TouchableOpacity className="p-5 bg-black rounded-full">
               <Text className="text-lg font-semibold text-center text-white">
                 Paiement
               </Text>
