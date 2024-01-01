@@ -5,9 +5,15 @@ import { Stack, router, useLocalSearchParams, useRouter } from "expo-router";
 import SelectDropdown from "react-native-select-dropdown";
 import { Toast, useToast } from "native-base";
 import useCartStore from "../store/cartStore";
+import useWishlistStore from "../store/wishlistStore";
 
 const Product = () => {
   const toast = useToast();
+  const { addProduct } = useCartStore();
+  const { addToFavourites, removeFromFavourites } = useWishlistStore();
+  const [selected, setSelected] = useState(false);
+  const params = useLocalSearchParams();
+  const [size, setSize] = useState(null);
   const shoeSizes = [
     { title: "EU 35.5", value: 35.5 },
     { title: "EU 36", value: 36 },
@@ -32,21 +38,36 @@ const Product = () => {
     { title: "EU 45.5", value: 45.5 },
     { title: "EU 46", value: 46 },
   ];
-  const capSizes = ["S/M", "M/L", "L/XL"];
-  const gloveSizes = ["S", "M", "L", "XL"];
-  const clothSizes = ["XS", "S", "M", "L", "XL", "XXL", "XXXL"];
+  const capSizes = [
+    { title: "S/M", value: "S/M" },
+    { title: "M/L", value: "M/L" },
+    { title: "L/XL", value: "L/XL" },
+  ];
+  const gloveSizes = [
+    { title: "S", value: "S" },
+    { title: "M", value: "M" },
+    { title: "L", value: "L" },
+    { title: "XL", value: "XL" },
+  ];
+  const clothSizes = [
+    { title: "XS", value: "XS" },
+    { title: "S", value: "S" },
+    { title: "M", value: "" },
+    { title: "L", value: "L" },
+    { title: "XL", value: "XL" },
+    { title: "XXL", value: "XXL" },
+    { title: "XXXL", value: "XXXL" },
+  ];
   const sockSizes = [
     { title: "EU 34-38", value: "34-38" },
     { title: "EU 38-42", value: "38-42" },
     { title: "EU 42-46", value: "42-46" },
     { title: "EU 46-50", value: "46-50" },
   ];
-  const sleevesSizes = ["S/M", "L/XL"];
-
-  const { addProduct } = useCartStore();
-  const [selected, setSelected] = useState(false);
-  const params = useLocalSearchParams();
-  const [size, setSize] = useState(null);
+  const sleevesSizes = [
+    { title: "S/M", value: "S/M" },
+    { title: "L/XL", value: "L/XL" },
+  ];
 
   const getSizes = (category: string, sub_category: string): any[] => {
     if (category === "shoes") {
@@ -101,27 +122,17 @@ const Product = () => {
             </Text>
           ) : (
             <SelectDropdown
-              // data={params.category === "shoes" ? shoeSizes : clothSizes}
+              defaultValue={"Sélectionner la taille"}
               data={getSizes(
                 params?.category as string,
                 params?.sub_category as string
               )}
               onSelect={(selectedItem, index) => {
-                setSize(
-                  params.category === "shoes" ||
-                    params.sub_category.includes("Chaussettes")
-                    ? selectedItem.value
-                    : selectedItem
-                );
+                setSize(selectedItem.value);
               }}
               defaultButtonText={"Sélectionner la taille"}
               buttonTextAfterSelection={(selectedItem, index) => {
-                return `Taille ${
-                  params.category === "shoes" ||
-                  params.sub_category.includes("Chaussettes")
-                    ? selectedItem.title
-                    : selectedItem
-                } `;
+                return `Taille ${selectedItem.title} `;
               }}
               buttonTextStyle={{ fontSize: 18, fontWeight: "600" }}
               buttonStyle={{
@@ -140,10 +151,7 @@ const Product = () => {
                 );
               }}
               rowTextForSelection={(item, index) => {
-                return params.category === "shoes" ||
-                  params.sub_category.includes("Chaussettes")
-                  ? item.title
-                  : item;
+                return item.title;
               }}
               rowTextStyle={{ textAlign: "left" }}
               // renderCustomizedRowChild={(item, index) => {
@@ -201,24 +209,47 @@ const Product = () => {
             <TouchableOpacity
               onPress={() => {
                 setSelected(!selected),
-                  toast.show({
-                    placement: "bottom",
-                    render: () => {
-                      return (
-                        <View className="p-4 bg-gray-800 rounded w-96">
-                          {selected ? (
-                            <Text className="font-semibold text-white">
-                              Supprimé des favoris
-                            </Text>
-                          ) : (
-                            <Text className="font-semibold text-white">
-                              Ajouté aux favoris
-                            </Text>
-                          )}
-                        </View>
-                      );
-                    },
-                  });
+                  selected
+                    ? removeFromFavourites({
+                        id: params.id as any,
+                        description: params.description as string,
+                        gender: params.gender as string,
+                        image: params.image as string,
+                        name: params.name as string,
+                        size: size as any,
+                        price: params.price as any,
+                        category: params.category as string,
+                        sub_category: params.sub_category as string,
+                      })
+                    : addToFavourites({
+                        id: params.id as any,
+                        description: params.description as string,
+                        gender: params.gender as string,
+                        image: params.image as string,
+                        name: params.name as string,
+                        size: size as any,
+                        price: params.price as any,
+                        category: params.category as string,
+                        sub_category: params.sub_category as string,
+                      });
+                // toast.show({
+                //   placement: "bottom",
+                //   render: () => {
+                //     return (
+                //       <View className="p-4 bg-gray-800 rounded w-96">
+                //         {selected ? (
+                //           <Text className="font-semibold text-white">
+                //             Supprimé des favoris
+                //           </Text>
+                //         ) : (
+                //           <Text className="font-semibold text-white">
+                //             Ajouté aux favoris
+                //           </Text>
+                //         )}
+                //       </View>
+                //     );
+                //   },
+                // });
               }}
               className="items-center flex-1 justify-center border border-gray-300 rounded-full h-[65px]"
             >

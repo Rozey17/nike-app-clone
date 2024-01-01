@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { ProductType } from "./interfaces";
+import { persist } from "zustand/middleware";
 
 export interface CartState {
   products: Array<ProductType & { quantity: number }>;

@@ -209,7 +209,10 @@ export default function Home() {
                 />
                 <Text className="text-[16px] font-medium">Boutique</Text>
               </TouchableOpacity>
-              <TouchableOpacity className="flex-row space-x-3">
+              <TouchableOpacity
+                onPress={() => router.push("/favourites")}
+                className="flex-row space-x-3"
+              >
                 <MaterialIcons
                   name="favorite-outline"
                   size={24}

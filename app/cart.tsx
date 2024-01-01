@@ -31,6 +31,7 @@ const Cart = () => {
   function handlePresentModal() {
     modalSheetBottomref.current?.present();
   }
+
   useEffect(() => {
     setCartState(cart);
   }, [cart]);
