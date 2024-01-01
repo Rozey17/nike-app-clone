@@ -5,6 +5,7 @@ import {
   BottomSheetModalProvider,
 } from "@gorhom/bottom-sheet";
 import CustomBackdrop from "../components/backdropComponent";
+import { router } from "expo-router";
 
 interface BottomSheetprops {
   items: number;
@@ -63,7 +64,10 @@ const BottomSheetComponent = forwardRef<BottomSheetModal, BottomSheetprops>(
               </View>
               <View className="p-5 space-y-5">
                 <Text className="text-xs text-gray-400">{`En cliquant sur 'Soumettre le paiement', j'accepte les Conditions de vente et la Politique de confidentialité `}</Text>
-                <TouchableOpacity className="p-5 bg-black rounded-full">
+                <TouchableOpacity
+                  onPress={() => router.push("/payment")}
+                  className="p-5 bg-black rounded-full"
+                >
                   <Text className="text-lg font-semibold text-center text-white">
                     Soumettre le paiement
                   </Text>

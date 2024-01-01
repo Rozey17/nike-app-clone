@@ -19,7 +19,7 @@ const news = () => {
   return (
     <View className="flex-1">
       <Button onPress={handlePresentModal} title="open" />
-      <BottomSheetComponent items={10} ref={modalSheetBottomref} total={10} />
+      {/* <BottomSheetComponent items={10} ref={modalSheetBottomref} total={10} /> */}
     </View>
   );
 };
