@@ -4,7 +4,7 @@ import BottomSheet, {
   BottomSheetModal,
   BottomSheetModalProvider,
 } from "@gorhom/bottom-sheet";
-import CustomBackdrop from "../components/backdropComponent";
+import CustomBackdrop from "../components/BackdropComponent";
 import useCartStore from "../store/cartStore";
 import BottomSheetComponent from "../components/BottomSheetComponent";
 

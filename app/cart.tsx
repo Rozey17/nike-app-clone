@@ -16,7 +16,6 @@ import BottomSheet, {
   BottomSheetModalProvider,
   BottomSheetView,
 } from "@gorhom/bottom-sheet";
-import CustomBackdrop from "../components/backdropComponent";
 import BottomSheetComponent from "../components/BottomSheetComponent";
 
 const Cart = () => {

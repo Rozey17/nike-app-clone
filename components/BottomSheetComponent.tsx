@@ -4,7 +4,7 @@ import {
   BottomSheetModal,
   BottomSheetModalProvider,
 } from "@gorhom/bottom-sheet";
-import CustomBackdrop from "../components/backdropComponent";
+import CustomBackdrop from "./BackdropComponent";
 import { router } from "expo-router";
 import BottomSheetFooter from "./BottomSheetFooter";
 
