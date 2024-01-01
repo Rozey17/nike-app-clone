@@ -6,11 +6,13 @@ import {
 } from "@gorhom/bottom-sheet";
 import CustomBackdrop from "../components/backdropComponent";
 import { router } from "expo-router";
+import BottomSheetFooter from "./BottomSheetFooter";
 
 interface BottomSheetprops {
   items: number;
   total: number;
 }
+
 // forwardRef is because we are not allowed to pass refs to a component
 const BottomSheetComponent = forwardRef<BottomSheetModal, BottomSheetprops>(
   (props, ref) => {
@@ -24,6 +26,7 @@ const BottomSheetComponent = forwardRef<BottomSheetModal, BottomSheetprops>(
             snapPoints={snapPoints}
             index={1}
             backdropComponent={CustomBackdrop}
+            footerComponent={BottomSheetFooter}
           >
             <View className="divide-y divide-gray-100">
               <View className="p-5 space-y-1">
@@ -61,17 +64,6 @@ const BottomSheetComponent = forwardRef<BottomSheetModal, BottomSheetprops>(
                 <Text className="text-center text-gray-400">
                   {props.total} €
                 </Text>
-              </View>
-              <View className="p-5 space-y-5">
-                <Text className="text-xs text-gray-400">{`En cliquant sur 'Soumettre le paiement', j'accepte les Conditions de vente et la Politique de confidentialité `}</Text>
-                <TouchableOpacity
-                  onPress={() => router.push("/payment")}
-                  className="p-5 bg-black rounded-full"
-                >
-                  <Text className="text-lg font-semibold text-center text-white">
-                    Soumettre le paiement
-                  </Text>
-                </TouchableOpacity>
               </View>
             </View>
           </BottomSheetModal>
