@@ -42,12 +42,11 @@ const CartItem = ({
         <Image source={{ uri: item.image }} className="w-28 h-28" />
         <View className="space-y-2">
           <Text className="font-semibold font">{item.name}</Text>
-          <Text className="text-gray-400">
-            {item.sub_category}
-            {item.gender === "male" && "pour homme"}
+          <Text className="text-neutral-400">
+            {item.sub_category} {item.gender === "male" && "pour homme"}
             {item.gender === "female" && "pour femme"}
           </Text>
-          <Text className="text-gray-400">
+          <Text className="text-neutral-400">
             {/* {item.sub_category.includes("Sac") &&
             <Text className="font-bold text-center uppercase">
               taille unique{" "}

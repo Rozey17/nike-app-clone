@@ -8,9 +8,9 @@
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "splash": {
-      "image": "./assets/images/NKE.D.png",
+      "image": "./assets/images/nike.jpg",
       "resizeMode": "contain",
-      "backgroundColor": "#020617"
+      "backgroundColor": "#0a0a0a"
     },
     "assetBundlePatterns": [
       "**/*"

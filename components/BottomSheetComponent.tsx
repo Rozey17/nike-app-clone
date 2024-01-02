@@ -35,16 +35,16 @@ const BottomSheetComponent = forwardRef<BottomSheetModal, BottomSheetprops>(
                 <Text className="text-lg font-semibold text-center">
                   Paiement
                 </Text>
-                <Text className="text-center text-gray-400">
+                <Text className="text-center text-neutral-400">
                   {props.items} article(s)
                 </Text>
               </View>
               <View className="flex-row justify-between p-5">
                 <Text className="font-semibold text-center">Livraison</Text>
                 <View className="items-end space-y-1">
-                  <Text className="text-gray-400 ">Livraison gratuite</Text>
-                  <Text className="text-gray-400">Intitulé de la rue</Text>
-                  <Text className="text-gray-400">
+                  <Text className="text-neutral-400 ">Livraison gratuite</Text>
+                  <Text className="text-neutral-400">Intitulé de la rue</Text>
+                  <Text className="text-neutral-400">
                     Livraison d'ici le {date.format("ll")}
                   </Text>
                 </View>
@@ -52,7 +52,7 @@ const BottomSheetComponent = forwardRef<BottomSheetModal, BottomSheetprops>(
               <View className="flex-row justify-between p-5">
                 <Text className="font-semibold text-center">Paiement</Text>
                 <View className="flex-row items-center gap-x-3">
-                  <Text className="text-center text-gray-400">XXXX</Text>
+                  <Text className="text-center text-neutral-400">XXXX</Text>
                   <Image
                     source={{
                       uri: "https://static.vecteezy.com/system/resources/previews/020/975/572/original/visa-logo-visa-icon-transparent-free-png.png",
@@ -65,7 +65,7 @@ const BottomSheetComponent = forwardRef<BottomSheetModal, BottomSheetprops>(
                 <Text className="font-semibold text-center">
                   Résumé de l'achat
                 </Text>
-                <Text className="text-center text-gray-400">
+                <Text className="text-center text-neutral-400">
                   {props.total.toFixed(2)} €
                 </Text>
               </View>

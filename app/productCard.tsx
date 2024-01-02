@@ -1,6 +1,5 @@
-import { View, Text, Image, Pressable, TouchableOpacity } from "react-native";
-import React, { useState } from "react";
-import { MaterialIcons } from "@expo/vector-icons";
+import { View, Text, Image, TouchableOpacity } from "react-native";
+import React from "react";
 import { useRouter } from "expo-router";
 import { ProductType } from "../store/interfaces";
 import ProductCardFavorite from "../components/ProductCardFavorite";
@@ -45,7 +44,7 @@ const productCard = ({
       <View className="p-4 space-y-3">
         <View>
           <Text className="">{name}</Text>
-          <Text className="text-gray-500 ">
+          <Text className="text-neutral-500 ">
             {sub_category} {gender === "male" && "pour homme"}
             {gender === "female" && "pour femme"}
           </Text>
