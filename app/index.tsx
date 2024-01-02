@@ -210,7 +210,7 @@ export default function Home() {
                 <Text className="text-[16px] font-medium">Boutique</Text>
               </TouchableOpacity>
               <TouchableOpacity
-                onPress={() => router.push("/favourites")}
+                onPress={() => router.push("/favorites")}
                 className="flex-row space-x-3"
               >
                 <MaterialIcons

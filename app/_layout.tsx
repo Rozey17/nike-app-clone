@@ -3,17 +3,12 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { useFonts } from "expo-font";
 import { SplashScreen, Stack, router, useLocalSearchParams } from "expo-router";
 import { useEffect } from "react";
-import {
-  StatusBar,
-  TextInput,
-  TouchableOpacity,
-  useColorScheme,
-} from "react-native";
+import { StatusBar, TextInput, TouchableOpacity } from "react-native";
 import { View } from "../components/Themed";
 import { NativeBaseProvider } from "native-base";
 import CartIcon from "../components/CartIcon";
-import { useApollo } from "../lib/graphql.server";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+import { client } from "../lib/graphql";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -53,14 +48,9 @@ export default function RootLayout() {
 }
 
 function RootLayoutNav() {
-  const client = new ApolloClient({
-    uri: "https://5spod2i4.api.sanity.io/v1/graphql/production/default",
-    cache: new InMemoryCache(),
-  });
   return (
     <ApolloProvider client={client}>
       <NativeBaseProvider>
-        <StatusBar barStyle={"dark-content"} />
         <Stack
           screenOptions={{
             headerShadowVisible: false,
@@ -259,6 +249,7 @@ function RootLayoutNav() {
             }}
           />
           <Stack.Screen name="modal" options={{ presentation: "modal" }} />
+          <Stack.Screen name="favorites" options={{ title: "Favoris" }} />
           <Stack.Screen
             name="addedToCartModal"
             options={{
