@@ -32,7 +32,14 @@ const Favorite: TFavoriteComp = ({ productId }) => {
 
       {favoriteItems.map((itemId) => {
         if (itemId === productId) {
-          return <MaterialIcons name="favorite" size={26} color="black" />;
+          return (
+            <MaterialIcons
+              key={itemId}
+              name="favorite"
+              size={26}
+              color="black"
+            />
+          );
         }
       })}
     </TouchableOpacity>

@@ -1,14 +1,7 @@
-import {
-  ActivityIndicator,
-  FlatList,
-  ListRenderItem,
-  View,
-} from "react-native";
+import { FlatList, ListRenderItem, View } from "react-native";
 import ProductCard from "./productCard";
-import { ProductType } from "../store/interfaces";
-import { client } from "../lib/sanity.server";
-import { useEffect, useState } from "react";
 import { urlForImage } from "../lib/sanity";
+import { Product, useListProductsQuery } from "../components/apollo-components";
 // const shoes = [
 //   {
 //     id: 1,
@@ -121,68 +114,40 @@ import { urlForImage } from "../lib/sanity";
 // ];
 
 const menShoesList = () => {
-  const [shoes, setShoes] = useState<any>([]);
-  const [isLoading, setLoading] = useState(true);
+  const { data: products } = useListProductsQuery({
+    variables: {},
+  });
+  const listProducts =
+    products && products?.allProduct ? products?.allProduct : [];
 
-  useEffect(() => {
-    client
-      .fetch(
-        `*[_type == 'product' && references(*[_type=="category" && name == 'shoes' ]._id)  && references(*[_type=="gender" && name == 'male' ]._id)]{
-  _id, name,price,image,description,category->,sub_category,
-  gender->
-}`
-      )
-      .then((res) => {
-        setShoes(res);
-        setLoading(false);
-      });
-  }, []);
-
-  // const renderItem: ListRenderItem<ProductType> = ({ item }) => (
-  //   <ProductCard
-  //     id={item._id}
-  //     name={item.name}
-  //     price={item.price}
-  //     image={urlForImage(item.image).url()}
-  //     gender={item.gender}
-  //     description={item.description}
-  //     category={item.category}
-  //     sub_category={item.sub_category}
-  //   />
-  // );
-
-  const itemData = shoes.map((item: any) => (
+  const renderItem: ListRenderItem<Product> = ({ item }) => (
     <ProductCard
-      id={item._id}
-      name={item.name}
-      price={item.price}
-      image={urlForImage(item.image).url()}
-      gender={item.gender.name}
-      description={item.description}
-      category={item.category.name}
-      sub_category={item.sub_category}
+      key={item._id}
+      id={item._id as string}
+      name={item.name as string}
+      price={item.price as number}
+      image={urlForImage(item.image as string).url()}
+      gender={item?.gender?.name as string}
+      description={item.description as string}
+      category={item?.category?.name as string}
+      sub_category={item?.sub_category as string}
     />
-  ));
+  );
 
   return (
     <View className="flex-1 bg-white">
-      {isLoading ? (
-        <ActivityIndicator />
-      ) : (
-        <FlatList
-          overScrollMode="never"
-          showsVerticalScrollIndicator={false}
-          data={itemData}
-          renderItem={({ item }) => item}
-          numColumns={2}
-          columnWrapperStyle={{
-            flexDirection: "row",
-            gap: 5,
-            paddingVertical: 15,
-          }}
-        />
-      )}
-      {/* {shoes.map((item: any) => console.log(item.gender))} */}
+      <FlatList
+        overScrollMode="never"
+        showsVerticalScrollIndicator={false}
+        data={listProducts}
+        renderItem={renderItem}
+        numColumns={2}
+        columnWrapperStyle={{
+          flexDirection: "row",
+          gap: 5,
+          paddingVertical: 15,
+        }}
+      />
     </View>
   );
 };

@@ -910,7 +910,7 @@ export type ListGendersQuery = { __typename?: 'RootQuery', allGender: Array<{ __
 export type ListProductsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ListProductsQuery = { __typename?: 'RootQuery', allProduct: Array<{ __typename?: 'Product', _id?: string | null, name?: string | null, price?: number | null, description?: string | null, slug?: { __typename?: 'Slug', current?: string | null } | null, image?: { __typename?: 'Image', asset?: { __typename?: 'SanityImageAsset', url?: string | null } | null } | null, category?: { __typename?: 'Category', _id?: string | null, name?: string | null, slug?: { __typename?: 'Slug', current?: string | null } | null } | null }> };
+export type ListProductsQuery = { __typename?: 'RootQuery', allProduct: Array<{ __typename?: 'Product', _id?: string | null, name?: string | null, price?: number | null, description?: string | null, sub_category?: string | null, slug?: { __typename?: 'Slug', current?: string | null } | null, image?: { __typename?: 'Image', asset?: { __typename?: 'SanityImageAsset', url?: string | null } | null } | null, gender?: { __typename?: 'Gender', _id?: string | null, name?: string | null, slug?: { __typename?: 'Slug', current?: string | null } | null } | null, category?: { __typename?: 'Category', _id?: string | null, name?: string | null, slug?: { __typename?: 'Slug', current?: string | null } | null } | null }> };
 
 export type ListProductsByCategoryQueryVariables = Exact<{
   slug: Scalars['String'];
@@ -1018,6 +1018,13 @@ export const ListProductsDocument = gql`
       }
     }
     description
+    gender {
+      _id
+      name
+      slug {
+        current
+      }
+    }
     category {
       _id
       name
@@ -1025,6 +1032,7 @@ export const ListProductsDocument = gql`
         current
       }
     }
+    sub_category
   }
 }
     `;

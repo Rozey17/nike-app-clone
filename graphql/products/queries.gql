@@ -12,8 +12,7 @@ query ListProducts{
           }
         },
         description,
-       
-        category {
+       gender {
           _id,
           name
           ,
@@ -22,6 +21,16 @@ query ListProducts{
           }
          
         }
+        category {
+          _id,
+          name
+          ,
+          slug{
+            current
+          }
+         
+        },
+        sub_category
        
        
         

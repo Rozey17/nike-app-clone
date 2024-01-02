@@ -31,7 +31,7 @@ const ProductCardFavorite: TFavoriteComp = ({ productId }) => {
       {favoriteItems.map((itemId) => {
         if (itemId === productId) {
           return (
-            <View className="absolute top-[7px] right-[7px]">
+            <View key={itemId} className="absolute top-[7px] right-[7px]">
               <MaterialIcons name="favorite" size={20} color="black" />
             </View>
           );
