@@ -1,11 +1,10 @@
-import { View, Text, ListRenderItem, FlatList } from "react-native";
-import React, { useEffect, useState } from "react";
+import { View, ListRenderItem, FlatList, Text } from "react-native";
+import React from "react";
 import { useFavoriteStore } from "../store/wishlistStore";
-import { client } from "../lib/sanity.server";
-import { ProductType } from "../store/interfaces";
 import ProductCard from "./productCard";
 import { urlForImage } from "../lib/sanity";
 import { Product, useListProductsQuery } from "../components/apollo-components";
+import { MaterialIcons } from "@expo/vector-icons";
 
 const favourites = () => {
   const { data: products } = useListProductsQuery();
@@ -30,20 +29,34 @@ const favourites = () => {
     />
   );
   return (
-    <View className="flex-1 bg-white">
-      <FlatList
-        overScrollMode="never"
-        showsVerticalScrollIndicator={false}
-        data={favoriteItemsFilteredData}
-        renderItem={renderItem}
-        numColumns={2}
-        columnWrapperStyle={{
-          flexDirection: "row",
-          gap: 5,
-          paddingVertical: 15,
-        }}
-      />
-    </View>
+    <>
+      {favoriteItemsFilteredData.length === 0 ? (
+        <View className="items-center justify-center flex-1 bg-white">
+          <View className="items-center space-y-3">
+            <MaterialIcons name="favorite" size={30} color="black" />
+
+            <Text className="text-[16px] text-gray-400">
+              Vous n'avez pas de favoris.
+            </Text>
+          </View>
+        </View>
+      ) : (
+        <View className="flex-1 bg-white">
+          <FlatList
+            overScrollMode="never"
+            showsVerticalScrollIndicator={false}
+            data={favoriteItemsFilteredData}
+            renderItem={renderItem}
+            numColumns={2}
+            columnWrapperStyle={{
+              flexDirection: "row",
+              gap: 5,
+              paddingVertical: 15,
+            }}
+          />
+        </View>
+      )}
+    </>
   );
 };
 

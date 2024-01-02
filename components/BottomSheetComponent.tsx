@@ -62,7 +62,7 @@ const BottomSheetComponent = forwardRef<BottomSheetModal, BottomSheetprops>(
                   Résumé de l'achat
                 </Text>
                 <Text className="text-center text-gray-400">
-                  {props.total} €
+                  {props.total.toFixed(2)} €
                 </Text>
               </View>
             </View>
