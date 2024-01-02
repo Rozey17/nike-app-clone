@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { ProductType } from "../store/interfaces";
+import ProductCardFavorite from "../components/ProductCardFavorite";
 
 const productCard = ({
   id,
@@ -15,7 +16,6 @@ const productCard = ({
   sub_category,
 }: ProductType) => {
   const router = useRouter();
-  const [selected, setSelected] = useState(false);
   return (
     <TouchableOpacity
       className="relative w-1/2"
@@ -35,16 +35,7 @@ const productCard = ({
         })
       }
     >
-      <Pressable
-        onPress={() => setSelected(!selected)}
-        className="absolute z-10 p-[7px] bg-white rounded-full h-15 w-15 top-3 right-3"
-      >
-        {selected ? (
-          <MaterialIcons name="favorite" size={20} color="black" />
-        ) : (
-          <MaterialIcons name="favorite-outline" size={20} color="black" />
-        )}
-      </Pressable>
+      <ProductCardFavorite productId={id as any} />
       <Image
         source={{
           uri: image,
