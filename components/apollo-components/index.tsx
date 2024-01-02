@@ -912,12 +912,20 @@ export type ListProductsQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type ListProductsQuery = { __typename?: 'RootQuery', allProduct: Array<{ __typename?: 'Product', _id?: string | null, name?: string | null, price?: number | null, description?: string | null, sub_category?: string | null, slug?: { __typename?: 'Slug', current?: string | null } | null, image?: { __typename?: 'Image', asset?: { __typename?: 'SanityImageAsset', url?: string | null } | null } | null, gender?: { __typename?: 'Gender', _id?: string | null, name?: string | null, slug?: { __typename?: 'Slug', current?: string | null } | null } | null, category?: { __typename?: 'Category', _id?: string | null, name?: string | null, slug?: { __typename?: 'Slug', current?: string | null } | null } | null }> };
 
-export type ListProductsByCategoryQueryVariables = Exact<{
-  slug: Scalars['String'];
+export type ListProductsByCategoryAndGenderQueryVariables = Exact<{
+  category: Scalars['String'];
+  gender: Scalars['String'];
 }>;
 
 
-export type ListProductsByCategoryQuery = { __typename?: 'RootQuery', allProduct: Array<{ __typename?: 'Product', _id?: string | null, name?: string | null, price?: number | null, description?: string | null, slug?: { __typename?: 'Slug', current?: string | null } | null, image?: { __typename?: 'Image', asset?: { __typename?: 'SanityImageAsset', url?: string | null } | null } | null, category?: { __typename?: 'Category', _id?: string | null, name?: string | null, slug?: { __typename?: 'Slug', current?: string | null } | null } | null }> };
+export type ListProductsByCategoryAndGenderQuery = { __typename?: 'RootQuery', allProduct: Array<{ __typename?: 'Product', _id?: string | null, name?: string | null, price?: number | null, description?: string | null, sub_category?: string | null, slug?: { __typename?: 'Slug', current?: string | null } | null, image?: { __typename?: 'Image', asset?: { __typename?: 'SanityImageAsset', url?: string | null } | null } | null, gender?: { __typename?: 'Gender', _id?: string | null, name?: string | null, slug?: { __typename?: 'Slug', current?: string | null } | null } | null, category?: { __typename?: 'Category', _id?: string | null, name?: string | null, slug?: { __typename?: 'Slug', current?: string | null } | null } | null }> };
+
+export type ListProductsByCategoryQueryVariables = Exact<{
+  category: Scalars['String'];
+}>;
+
+
+export type ListProductsByCategoryQuery = { __typename?: 'RootQuery', allProduct: Array<{ __typename?: 'Product', _id?: string | null, name?: string | null, price?: number | null, description?: string | null, sub_category?: string | null, slug?: { __typename?: 'Slug', current?: string | null } | null, image?: { __typename?: 'Image', asset?: { __typename?: 'SanityImageAsset', url?: string | null } | null } | null, gender?: { __typename?: 'Gender', _id?: string | null, name?: string | null, slug?: { __typename?: 'Slug', current?: string | null } | null } | null, category?: { __typename?: 'Category', _id?: string | null, name?: string | null, slug?: { __typename?: 'Slug', current?: string | null } | null } | null }> };
 
 export type ListProductsByGenderQueryVariables = Exact<{
   slug: Scalars['String'];
@@ -1063,9 +1071,11 @@ export function useListProductsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptio
 export type ListProductsQueryHookResult = ReturnType<typeof useListProductsQuery>;
 export type ListProductsLazyQueryHookResult = ReturnType<typeof useListProductsLazyQuery>;
 export type ListProductsQueryResult = Apollo.QueryResult<ListProductsQuery, ListProductsQueryVariables>;
-export const ListProductsByCategoryDocument = gql`
-    query ListProductsByCategory($slug: String!) {
-  allProduct(where: {category: {slug: {current: {eq: $slug}}}}) {
+export const ListProductsByCategoryAndGenderDocument = gql`
+    query ListProductsByCategoryAndGender($category: String!, $gender: String!) {
+  allProduct(
+    where: {category: {slug: {current: {eq: $category}}}, gender: {slug: {current: {eq: $gender}}}}
+  ) {
     _id
     name
     slug {
@@ -1078,6 +1088,13 @@ export const ListProductsByCategoryDocument = gql`
       }
     }
     description
+    gender {
+      _id
+      name
+      slug {
+        current
+      }
+    }
     category {
       _id
       name
@@ -1085,6 +1102,69 @@ export const ListProductsByCategoryDocument = gql`
         current
       }
     }
+    sub_category
+  }
+}
+    `;
+
+/**
+ * __useListProductsByCategoryAndGenderQuery__
+ *
+ * To run a query within a React component, call `useListProductsByCategoryAndGenderQuery` and pass it any options that fit your needs.
+ * When your component renders, `useListProductsByCategoryAndGenderQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useListProductsByCategoryAndGenderQuery({
+ *   variables: {
+ *      category: // value for 'category'
+ *      gender: // value for 'gender'
+ *   },
+ * });
+ */
+export function useListProductsByCategoryAndGenderQuery(baseOptions: Apollo.QueryHookOptions<ListProductsByCategoryAndGenderQuery, ListProductsByCategoryAndGenderQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ListProductsByCategoryAndGenderQuery, ListProductsByCategoryAndGenderQueryVariables>(ListProductsByCategoryAndGenderDocument, options);
+      }
+export function useListProductsByCategoryAndGenderLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ListProductsByCategoryAndGenderQuery, ListProductsByCategoryAndGenderQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ListProductsByCategoryAndGenderQuery, ListProductsByCategoryAndGenderQueryVariables>(ListProductsByCategoryAndGenderDocument, options);
+        }
+export type ListProductsByCategoryAndGenderQueryHookResult = ReturnType<typeof useListProductsByCategoryAndGenderQuery>;
+export type ListProductsByCategoryAndGenderLazyQueryHookResult = ReturnType<typeof useListProductsByCategoryAndGenderLazyQuery>;
+export type ListProductsByCategoryAndGenderQueryResult = Apollo.QueryResult<ListProductsByCategoryAndGenderQuery, ListProductsByCategoryAndGenderQueryVariables>;
+export const ListProductsByCategoryDocument = gql`
+    query ListProductsByCategory($category: String!) {
+  allProduct(where: {category: {slug: {current: {eq: $category}}}}) {
+    _id
+    name
+    slug {
+      current
+    }
+    price
+    image {
+      asset {
+        url
+      }
+    }
+    description
+    gender {
+      _id
+      name
+      slug {
+        current
+      }
+    }
+    category {
+      _id
+      name
+      slug {
+        current
+      }
+    }
+    sub_category
   }
 }
     `;
@@ -1101,7 +1181,7 @@ export const ListProductsByCategoryDocument = gql`
  * @example
  * const { data, loading, error } = useListProductsByCategoryQuery({
  *   variables: {
- *      slug: // value for 'slug'
+ *      category: // value for 'category'
  *   },
  * });
  */

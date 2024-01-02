@@ -12,7 +12,7 @@ import {
   useListProductsByCategoryQuery,
 } from "../components/apollo-components";
 
-const menAccessoriesList = () => {
+const womenAccessoriesList = () => {
   const { data: products, loading } = useListProductsByCategoryQuery({
     variables: {
       category: "accessories",
@@ -62,4 +62,4 @@ const menAccessoriesList = () => {
   );
 };
 
-export default menAccessoriesList;
+export default womenAccessoriesList;

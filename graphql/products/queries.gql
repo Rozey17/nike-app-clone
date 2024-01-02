@@ -37,8 +37,8 @@ query ListProducts{
       }
     }
 
-query ListProductsByCategory($slug:String!){
-    allProduct(where : {category :{slug: {current: {eq: $slug}} }} ){
+query ListProductsByCategoryAndGender($category:String!,$gender:String!){
+    allProduct(where : {category :{slug: {current: {eq: $category}} }, gender:{slug: {current: {eq: $gender}} }} ){
         _id
         ,name,
         slug{
@@ -51,7 +51,13 @@ query ListProductsByCategory($slug:String!){
           }
         },
         description,
-       
+       gender{
+         _id,
+          name,
+          slug{
+            current
+          }
+       }
         category {
           _id,
           name
@@ -61,6 +67,41 @@ query ListProductsByCategory($slug:String!){
           }
          
         }
+        sub_category
+    }
+}
+
+query ListProductsByCategory($category:String!){
+    allProduct(where : {category :{slug: {current: {eq: $category}} }} ){
+        _id
+        ,name,
+        slug{
+          current
+        },
+        price,
+        image {
+          asset {
+            url
+          }
+        },
+        description,
+       gender{
+         _id,
+          name,
+          slug{
+            current
+          }
+       }
+        category {
+          _id,
+          name
+          ,
+          slug{
+            current
+          }
+         
+        }
+        sub_category
     }
 }
 

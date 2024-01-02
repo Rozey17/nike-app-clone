@@ -1,7 +1,16 @@
-import { FlatList, ListRenderItem, View } from "react-native";
+import {
+  ActivityIndicator,
+  FlatList,
+  ListRenderItem,
+  View,
+} from "react-native";
 import ProductCard from "./productCard";
 import { urlForImage } from "../lib/sanity";
-import { Product, useListProductsQuery } from "../components/apollo-components";
+import {
+  Product,
+  useListProductsByCategoryAndGenderQuery,
+  useListProductsQuery,
+} from "../components/apollo-components";
 // const shoes = [
 //   {
 //     id: 1,
@@ -114,9 +123,13 @@ import { Product, useListProductsQuery } from "../components/apollo-components";
 // ];
 
 const menShoesList = () => {
-  const { data: products } = useListProductsQuery({
-    variables: {},
+  const { data: products, loading } = useListProductsByCategoryAndGenderQuery({
+    variables: {
+      category: "shoes",
+      gender: "male",
+    },
   });
+
   const listProducts =
     products && products?.allProduct ? products?.allProduct : [];
 
@@ -135,20 +148,28 @@ const menShoesList = () => {
   );
 
   return (
-    <View className="flex-1 bg-white">
-      <FlatList
-        overScrollMode="never"
-        showsVerticalScrollIndicator={false}
-        data={listProducts}
-        renderItem={renderItem}
-        numColumns={2}
-        columnWrapperStyle={{
-          flexDirection: "row",
-          gap: 5,
-          paddingVertical: 15,
-        }}
-      />
-    </View>
+    <>
+      {loading ? (
+        <View className="items-center flex-1 bg-white">
+          <ActivityIndicator />
+        </View>
+      ) : (
+        <View className="flex-1 bg-white">
+          <FlatList
+            overScrollMode="never"
+            showsVerticalScrollIndicator={false}
+            data={listProducts}
+            renderItem={renderItem}
+            numColumns={2}
+            columnWrapperStyle={{
+              flexDirection: "row",
+              gap: 5,
+              paddingVertical: 15,
+            }}
+          />
+        </View>
+      )}
+    </>
   );
 };
 

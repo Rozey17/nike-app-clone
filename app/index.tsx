@@ -142,7 +142,10 @@ export default function Home() {
         >
           <Text className="text-xl text-white">Vêtements</Text>
         </TouchableOpacity>
-        <TouchableOpacity className="flex-row items-center justify-between px-5 bg-pink-500 h-28">
+        <TouchableOpacity
+          onPress={() => router.push("/womenAccessories")}
+          className="flex-row items-center justify-between px-5 bg-pink-500 h-28"
+        >
           <Text className="text-xl text-white">Accessoires et équipement</Text>
         </TouchableOpacity>
         <TouchableOpacity className="flex-row items-center justify-between px-5 bg-pink-500 h-28">
