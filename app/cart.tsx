@@ -1,21 +1,12 @@
-import {
-  AntDesign,
-  FontAwesome,
-  Ionicons,
-  SimpleLineIcons,
-} from "@expo/vector-icons";
+import { SimpleLineIcons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
-import { Image, Text, TouchableOpacity, View } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import useCartStore from "../store/cartStore";
 import { ProductType } from "../store/interfaces";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ScrollView } from "native-base";
 import CartItem from "../components/CartItem";
-import BottomSheet, {
-  BottomSheetModal,
-  BottomSheetModalProvider,
-  BottomSheetView,
-} from "@gorhom/bottom-sheet";
+import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import BottomSheetComponent from "../components/BottomSheetComponent";
 
 const Cart = () => {

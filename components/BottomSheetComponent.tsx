@@ -5,18 +5,20 @@ import {
   BottomSheetModalProvider,
 } from "@gorhom/bottom-sheet";
 import CustomBackdrop from "./BackdropComponent";
-import { router } from "expo-router";
 import BottomSheetFooter from "./BottomSheetFooter";
+import moment from "moment";
 
 interface BottomSheetprops {
   items: number;
   total: number;
 }
+moment.locale("fr");
+const date = moment();
 
 // forwardRef is because we are not allowed to pass refs to a component
 const BottomSheetComponent = forwardRef<BottomSheetModal, BottomSheetprops>(
   (props, ref) => {
-    const snapPoints = useMemo(() => ["25%", "67%"], []);
+    const snapPoints = useMemo(() => ["25%", "70%"], []);
 
     return (
       <BottomSheetModalProvider>
@@ -39,10 +41,12 @@ const BottomSheetComponent = forwardRef<BottomSheetModal, BottomSheetprops>(
               </View>
               <View className="flex-row justify-between p-5">
                 <Text className="font-semibold text-center">Livraison</Text>
-                <View className="space-y-1 ">
-                  <Text className="text-gray-400">Livraison gratuite</Text>
+                <View className="items-end space-y-1">
+                  <Text className="text-gray-400 ">Livraison gratuite</Text>
                   <Text className="text-gray-400">Intitulé de la rue</Text>
-                  <Text className="text-gray-400">Livraison d'ici le </Text>
+                  <Text className="text-gray-400">
+                    Livraison d'ici le {date.format("ll")}
+                  </Text>
                 </View>
               </View>
               <View className="flex-row justify-between p-5">
