@@ -1,4 +1,10 @@
-import { View, ListRenderItem, FlatList, Text } from "react-native";
+import {
+  View,
+  ListRenderItem,
+  FlatList,
+  Text,
+  ActivityIndicator,
+} from "react-native";
 import React from "react";
 import { useFavoriteStore } from "../store/wishlistStore";
 import ProductCard from "./productCard";
@@ -7,7 +13,7 @@ import { Product, useListProductsQuery } from "../components/apollo-components";
 import { MaterialIcons } from "@expo/vector-icons";
 
 const favourites = () => {
-  const { data: products } = useListProductsQuery();
+  const { data: products, loading } = useListProductsQuery();
   const listProducts =
     products && products.allProduct ? products.allProduct : [];
   const favoriteItems = useFavoriteStore((state) => state.favoriteItems);
@@ -18,14 +24,14 @@ const favourites = () => {
 
   const renderItem: ListRenderItem<Product> = ({ item }) => (
     <ProductCard
-      id={item._id as string}
-      name={item.name as string}
-      price={item.price as number}
-      image={urlForImage(item.image as string).url()}
+      id={item?._id as string}
+      name={item?.name as string}
+      price={item?.price as number}
+      image={urlForImage(item?.image as string).url()}
       gender={item?.gender?.name as string}
-      description={item.description as string}
+      description={item?.description as string}
       category={item?.category?.name as string}
-      sub_category={item.sub_category as string}
+      sub_category={item?.sub_category as string}
     />
   );
   return (
@@ -41,20 +47,28 @@ const favourites = () => {
           </View>
         </View>
       ) : (
-        <View className="flex-1 bg-white">
-          <FlatList
-            overScrollMode="never"
-            showsVerticalScrollIndicator={false}
-            data={favoriteItemsFilteredData}
-            renderItem={renderItem}
-            numColumns={2}
-            columnWrapperStyle={{
-              flexDirection: "row",
-              gap: 5,
-              paddingVertical: 15,
-            }}
-          />
-        </View>
+        <>
+          {loading ? (
+            <View className="items-center justify-center flex-1 bg-white">
+              <ActivityIndicator />
+            </View>
+          ) : (
+            <View className="flex-1 bg-white">
+              <FlatList
+                overScrollMode="never"
+                showsVerticalScrollIndicator={false}
+                data={favoriteItemsFilteredData}
+                renderItem={renderItem}
+                numColumns={2}
+                columnWrapperStyle={{
+                  flexDirection: "row",
+                  gap: 5,
+                  paddingVertical: 15,
+                }}
+              />
+            </View>
+          )}
+        </>
       )}
     </>
   );
