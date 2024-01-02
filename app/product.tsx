@@ -5,12 +5,11 @@ import { Stack, router, useLocalSearchParams, useRouter } from "expo-router";
 import SelectDropdown from "react-native-select-dropdown";
 import { Toast, useToast } from "native-base";
 import useCartStore from "../store/cartStore";
-import useWishlistStore from "../store/wishlistStore";
+import Favorite from "../components/Favorite";
 
 const Product = () => {
   const toast = useToast();
   const { addProduct } = useCartStore();
-  const { addToFavourites, removeFromFavourites } = useWishlistStore();
   const [selected, setSelected] = useState(false);
   const params = useLocalSearchParams();
   const [size, setSize] = useState(null);
@@ -202,67 +201,11 @@ const Product = () => {
               Ajouter au panier
             </Text>
           </TouchableOpacity>
-          <View className="flex-row items-center space-x-2">
+          <View className="flex-row items-center ">
             <TouchableOpacity className="flex-1 justify-center border border-gray-300 rounded-full h-[65px]">
               <Text className="text-lg font-semibold text-center">Acheter</Text>
             </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => {
-                setSelected(!selected),
-                  selected
-                    ? removeFromFavourites({
-                        id: params.id as any,
-                        description: params.description as string,
-                        gender: params.gender as string,
-                        image: params.image as string,
-                        name: params.name as string,
-                        size: size as any,
-                        price: params.price as any,
-                        category: params.category as string,
-                        sub_category: params.sub_category as string,
-                      })
-                    : addToFavourites({
-                        id: params.id as any,
-                        description: params.description as string,
-                        gender: params.gender as string,
-                        image: params.image as string,
-                        name: params.name as string,
-                        size: size as any,
-                        price: params.price as any,
-                        category: params.category as string,
-                        sub_category: params.sub_category as string,
-                      });
-                // toast.show({
-                //   placement: "bottom",
-                //   render: () => {
-                //     return (
-                //       <View className="p-4 bg-gray-800 rounded w-96">
-                //         {selected ? (
-                //           <Text className="font-semibold text-white">
-                //             Supprimé des favoris
-                //           </Text>
-                //         ) : (
-                //           <Text className="font-semibold text-white">
-                //             Ajouté aux favoris
-                //           </Text>
-                //         )}
-                //       </View>
-                //     );
-                //   },
-                // });
-              }}
-              className="items-center flex-1 justify-center border border-gray-300 rounded-full h-[65px]"
-            >
-              {selected ? (
-                <MaterialIcons name="favorite" size={26} color="black" />
-              ) : (
-                <MaterialIcons
-                  name="favorite-outline"
-                  size={26}
-                  color="black"
-                />
-              )}
-            </TouchableOpacity>
+            <Favorite productId={params.id as string} />
           </View>
         </View>
 

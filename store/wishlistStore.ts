@@ -1,55 +1,32 @@
 import { create } from "zustand";
-import { ProductType } from "./interfaces";
+import { devtools, persist } from "zustand/middleware";
 
-export interface WishlistState {
-  favourites: Array<ProductType>;
-  addToFavourites: (product: ProductType) => void;
-  removeFromFavourites: (product: ProductType) => void;
-  clearWishlist: () => void;
-  favouriteItems: number;
+export interface TFavoriteStore {
+  favoriteItems: string[];
+  addToFavorites: (itemId: string) => void;
+  removeFromFavorites: (ItemId: string, favoriteItems: string[]) => void;
 }
 
-const useWishlistStore = create<WishlistState>((set) => ({
-  favourites: [],
-  favouriteItems: 0,
-  addToFavourites: (product: ProductType) =>
-    set((state) => {
-      state.favouriteItems++;
-      const hasProduct = state.favourites.find((p) => p.id === product.id);
-      if (hasProduct) {
-        return {
-          favourites: state.favourites.map((p) => {
-            if (p.id === product.id) {
-              return { ...p };
-            }
-            return p;
-          }),
-        };
-      } else {
-        return {
-          favourites: [...state.favourites, { ...product }],
-        };
+export const useFavoriteStore = create<TFavoriteStore>()(
+  devtools(
+    persist(
+      (set) => ({
+        favoriteItems: [],
+        addToFavorites: (itemId) =>
+          set((state: any) => ({
+            favoriteItems: [...state.favoriteItems, itemId],
+          })),
+        removeFromFavorites: (itemId, favoriteItems) => {
+          const index = favoriteItems.indexOf(itemId);
+          favoriteItems.splice(index, 1);
+          set((state) => ({
+            favoriteItems: [...state.favoriteItems],
+          }));
+        },
+      }),
+      {
+        name: "favoriteItems",
       }
-    }),
-  removeFromFavourites: (product: ProductType) =>
-    set((state) => {
-      return {
-        favourites: state.favourites.map((p) => {
-          if (p.id === product.id) {
-            state.favouriteItems--;
-            return { ...p };
-          }
-          return p;
-        }),
-      };
-    }),
-  clearWishlist: () =>
-    set(() => {
-      return {
-        items: 0,
-        favourites: [],
-      };
-    }),
-}));
-
-export default useWishlistStore;
+    )
+  )
+);
