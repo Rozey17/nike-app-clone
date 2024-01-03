@@ -40,7 +40,7 @@ const womenShoesList = () => {
     <>
       {loading ? (
         <View className="items-center justify-center flex-1 bg-white">
-          <ActivityIndicator />
+          <ActivityIndicator color="#9ca3af" size="large" />
         </View>
       ) : (
         <View className="flex-1 bg-white">

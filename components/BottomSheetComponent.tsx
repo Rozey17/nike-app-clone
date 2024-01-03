@@ -7,8 +7,11 @@ import {
 import CustomBackdrop from "./BackdropComponent";
 import BottomSheetFooter from "./BottomSheetFooter";
 import moment from "moment";
+import { Product } from "./apollo-components";
+import { ProductType } from "../store/interfaces";
 
 interface BottomSheetprops {
+  item: ProductType;
   items: number;
   total: number;
 }
@@ -32,12 +35,27 @@ const BottomSheetComponent = forwardRef<BottomSheetModal, BottomSheetprops>(
           >
             <View className="divide-y divide-gray-100">
               <View className="p-5 space-y-1">
-                <Text className="text-lg font-semibold text-center">
-                  Paiement
-                </Text>
-                <Text className="text-center text-neutral-400">
-                  {props.items} article(s)
-                </Text>
+                {props.items === 1 ? (
+                  <>
+                    <Text className="text-lg font-semibold text-center">
+                      {props.item?.name}
+                    </Text>
+                    <Text className="text-center text-neutral-400">
+                      {props.item?.sub_category}{" "}
+                      {props.item?.gender === "male" && "pour homme"}
+                      {props.item?.gender === "female" && "pour femme"}
+                    </Text>
+                  </>
+                ) : (
+                  <>
+                    <Text className="text-lg font-semibold text-center">
+                      Paiement
+                    </Text>
+                    <Text className="text-center text-neutral-400">
+                      {props.items} article(s)
+                    </Text>
+                  </>
+                )}
               </View>
               <View className="flex-row justify-between p-5">
                 <Text className="font-semibold text-center">Livraison</Text>

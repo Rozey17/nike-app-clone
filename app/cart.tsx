@@ -82,6 +82,7 @@ const Cart = () => {
             </TouchableOpacity>
           </View>
           <BottomSheetComponent
+            item={cartState[0]}
             items={items}
             total={total}
             ref={modalSheetBottomref}
