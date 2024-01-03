@@ -2,8 +2,12 @@ import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
 import { useFavoriteStore } from "../store/wishlistStore";
 import { MaterialIcons } from "@expo/vector-icons";
+import { Toast, useToast } from "native-base";
 
 type TFavoriteComp = (props: { productId: string }) => JSX.Element;
+
+const id = "test-toast";
+const id2 = "test-toast";
 
 const Favorite: TFavoriteComp = ({ productId }) => {
   const favoriteItems = useFavoriteStore((state) => state.favoriteItems);
@@ -12,13 +16,54 @@ const Favorite: TFavoriteComp = ({ productId }) => {
     (state) => state.removeFromFavorites
   );
 
+  const toast = useToast();
+  const toastIdRef = React.useRef();
+  const toastIdRef2 = React.useRef();
+
+  function addToFavoriteToast() {
+    toastIdRef.current = toast.show({
+      render: () => {
+        return (
+          <View className="p-4 bg-gray-900 rounded-md w-96">
+            <Text className="font-semibold text-white">Ajouté aux favoris</Text>
+          </View>
+        );
+      },
+    });
+  }
+
+  function removeFromFavoriteToast() {
+    toastIdRef2.current = toast.show({
+      render: () => {
+        return (
+          <View className="p-4 bg-gray-900 rounded-md w-96">
+            <Text className="font-semibold text-white">
+              Supprimé des favoris
+            </Text>
+          </View>
+        );
+      },
+    });
+  }
+
   // handle favorites
   const handleFavorites = () => {
     const item = favoriteItems.find((itemId) => itemId === productId);
     if (item) {
       removeFromFavorites(productId, favoriteItems);
+      if (toastIdRef.current) {
+        removeFromFavoriteToast();
+        toast.close(toastIdRef.current);
+      }
     } else {
-      addToFavorites(productId);
+      if (toastIdRef2.current) {
+        addToFavorites(productId);
+        addToFavoriteToast();
+        toast.close(toastIdRef2.current);
+      } else {
+        addToFavorites(productId);
+        addToFavoriteToast();
+      }
     }
   };
   return (
