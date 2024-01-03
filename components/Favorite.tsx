@@ -24,8 +24,10 @@ const Favorite: TFavoriteComp = ({ productId }) => {
     toastIdRef.current = toast.show({
       render: () => {
         return (
-          <View className="p-4 bg-gray-900 rounded-md w-96">
-            <Text className="font-semibold text-white">Ajouté aux favoris</Text>
+          <View className="relative p-5 bg-black rounded-md w-96 opacity-90">
+            <Text className="z-20 font-semibold text-center text-white">
+              Ajouté aux favoris
+            </Text>
           </View>
         );
       },
@@ -36,8 +38,8 @@ const Favorite: TFavoriteComp = ({ productId }) => {
     toastIdRef2.current = toast.show({
       render: () => {
         return (
-          <View className="p-4 bg-gray-900 rounded-md w-96">
-            <Text className="font-semibold text-white">
+          <View className="p-5 bg-black rounded-md w-96 opacity-90">
+            <Text className="font-semibold text-center text-white">
               Supprimé des favoris
             </Text>
           </View>
