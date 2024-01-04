@@ -343,6 +343,7 @@ export type Product = Document & {
   image?: Maybe<Image>;
   name?: Maybe<Scalars['String']>;
   price?: Maybe<Scalars['Float']>;
+  size?: Maybe<Scalars['String']>;
   slug?: Maybe<Slug>;
   sub_category?: Maybe<Scalars['String']>;
 };
@@ -362,6 +363,7 @@ export type ProductFilter = {
   image?: InputMaybe<ImageFilter>;
   name?: InputMaybe<StringFilter>;
   price?: InputMaybe<FloatFilter>;
+  size?: InputMaybe<StringFilter>;
   slug?: InputMaybe<SlugFilter>;
   sub_category?: InputMaybe<StringFilter>;
 };
@@ -377,6 +379,7 @@ export type ProductSorting = {
   image?: InputMaybe<ImageSorting>;
   name?: InputMaybe<SortOrder>;
   price?: InputMaybe<SortOrder>;
+  size?: InputMaybe<SortOrder>;
   slug?: InputMaybe<SlugSorting>;
   sub_category?: InputMaybe<SortOrder>;
 };
@@ -910,7 +913,7 @@ export type ListGendersQuery = { __typename?: 'RootQuery', allGender: Array<{ __
 export type ListProductsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ListProductsQuery = { __typename?: 'RootQuery', allProduct: Array<{ __typename?: 'Product', _id?: string | null, name?: string | null, price?: number | null, description?: string | null, sub_category?: string | null, slug?: { __typename?: 'Slug', current?: string | null } | null, image?: { __typename?: 'Image', asset?: { __typename?: 'SanityImageAsset', url?: string | null } | null } | null, gender?: { __typename?: 'Gender', _id?: string | null, name?: string | null, slug?: { __typename?: 'Slug', current?: string | null } | null } | null, category?: { __typename?: 'Category', _id?: string | null, name?: string | null, slug?: { __typename?: 'Slug', current?: string | null } | null } | null }> };
+export type ListProductsQuery = { __typename?: 'RootQuery', allProduct: Array<{ __typename?: 'Product', _id?: string | null, name?: string | null, price?: number | null, description?: string | null, sub_category?: string | null, size?: string | null, slug?: { __typename?: 'Slug', current?: string | null } | null, image?: { __typename?: 'Image', asset?: { __typename?: 'SanityImageAsset', url?: string | null } | null } | null, gender?: { __typename?: 'Gender', _id?: string | null, name?: string | null, slug?: { __typename?: 'Slug', current?: string | null } | null } | null, category?: { __typename?: 'Category', _id?: string | null, name?: string | null, slug?: { __typename?: 'Slug', current?: string | null } | null } | null }> };
 
 export type ListProductsByCategoryAndGenderQueryVariables = Exact<{
   category: Scalars['String'];
@@ -918,14 +921,14 @@ export type ListProductsByCategoryAndGenderQueryVariables = Exact<{
 }>;
 
 
-export type ListProductsByCategoryAndGenderQuery = { __typename?: 'RootQuery', allProduct: Array<{ __typename?: 'Product', _id?: string | null, name?: string | null, price?: number | null, description?: string | null, sub_category?: string | null, slug?: { __typename?: 'Slug', current?: string | null } | null, image?: { __typename?: 'Image', asset?: { __typename?: 'SanityImageAsset', url?: string | null } | null } | null, gender?: { __typename?: 'Gender', _id?: string | null, name?: string | null, slug?: { __typename?: 'Slug', current?: string | null } | null } | null, category?: { __typename?: 'Category', _id?: string | null, name?: string | null, slug?: { __typename?: 'Slug', current?: string | null } | null } | null }> };
+export type ListProductsByCategoryAndGenderQuery = { __typename?: 'RootQuery', allProduct: Array<{ __typename?: 'Product', _id?: string | null, name?: string | null, price?: number | null, description?: string | null, sub_category?: string | null, size?: string | null, slug?: { __typename?: 'Slug', current?: string | null } | null, image?: { __typename?: 'Image', asset?: { __typename?: 'SanityImageAsset', url?: string | null } | null } | null, gender?: { __typename?: 'Gender', _id?: string | null, name?: string | null, slug?: { __typename?: 'Slug', current?: string | null } | null } | null, category?: { __typename?: 'Category', _id?: string | null, name?: string | null, slug?: { __typename?: 'Slug', current?: string | null } | null } | null }> };
 
 export type ListProductsByCategoryQueryVariables = Exact<{
   category: Scalars['String'];
 }>;
 
 
-export type ListProductsByCategoryQuery = { __typename?: 'RootQuery', allProduct: Array<{ __typename?: 'Product', _id?: string | null, name?: string | null, price?: number | null, description?: string | null, sub_category?: string | null, slug?: { __typename?: 'Slug', current?: string | null } | null, image?: { __typename?: 'Image', asset?: { __typename?: 'SanityImageAsset', url?: string | null } | null } | null, gender?: { __typename?: 'Gender', _id?: string | null, name?: string | null, slug?: { __typename?: 'Slug', current?: string | null } | null } | null, category?: { __typename?: 'Category', _id?: string | null, name?: string | null, slug?: { __typename?: 'Slug', current?: string | null } | null } | null }> };
+export type ListProductsByCategoryQuery = { __typename?: 'RootQuery', allProduct: Array<{ __typename?: 'Product', _id?: string | null, name?: string | null, price?: number | null, description?: string | null, sub_category?: string | null, size?: string | null, slug?: { __typename?: 'Slug', current?: string | null } | null, image?: { __typename?: 'Image', asset?: { __typename?: 'SanityImageAsset', url?: string | null } | null } | null, gender?: { __typename?: 'Gender', _id?: string | null, name?: string | null, slug?: { __typename?: 'Slug', current?: string | null } | null } | null, category?: { __typename?: 'Category', _id?: string | null, name?: string | null, slug?: { __typename?: 'Slug', current?: string | null } | null } | null }> };
 
 export type ListProductsByGenderQueryVariables = Exact<{
   slug: Scalars['String'];
@@ -1041,6 +1044,7 @@ export const ListProductsDocument = gql`
       }
     }
     sub_category
+    size
   }
 }
     `;
@@ -1103,6 +1107,7 @@ export const ListProductsByCategoryAndGenderDocument = gql`
       }
     }
     sub_category
+    size
   }
 }
     `;
@@ -1165,6 +1170,7 @@ export const ListProductsByCategoryDocument = gql`
       }
     }
     sub_category
+    size
   }
 }
     `;

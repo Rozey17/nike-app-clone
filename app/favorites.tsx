@@ -7,10 +7,10 @@ import {
 } from "react-native";
 import React from "react";
 import { useFavoriteStore } from "../store/wishlistStore";
-import ProductCard from "./productCard";
 import { urlForImage } from "../lib/sanity";
 import { Product, useListProductsQuery } from "../components/apollo-components";
 import { MaterialIcons } from "@expo/vector-icons";
+import ProductCard from "../components/ProductCard";
 
 const favourites = () => {
   const { data: products, loading } = useListProductsQuery();

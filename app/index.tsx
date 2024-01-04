@@ -20,6 +20,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { TabView, TabBar, SceneMap } from "react-native-tab-view";
 import CartIcon from "../components/CartIcon";
 import { Drawer } from "react-native-drawer-layout";
+import { LinearGradient } from "expo-linear-gradient";
 
 export default function Home() {
   const router = useRouter();
@@ -136,12 +137,18 @@ export default function Home() {
         >
           <Text className="text-xl text-white">Chaussures</Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => router.push("/womenClothes")}
-          className="flex-row items-center justify-between px-5 bg-pink-500 h-28"
+        <LinearGradient
+          // Button Linear Gradient
+          colors={["#4c669f", "#f472b6", "#192f6a"]}
         >
-          <Text className="text-xl text-white">Vêtements</Text>
-        </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => router.push("/womenClothes")}
+            className="flex-row items-center justify-between px-5 h-28"
+          >
+            <Text className="text-xl text-white">Vêtements</Text>
+          </TouchableOpacity>
+        </LinearGradient>
+
         <TouchableOpacity
           onPress={() => router.push("/womenAccessories")}
           className="flex-row items-center justify-between px-5 bg-pink-500 h-28"

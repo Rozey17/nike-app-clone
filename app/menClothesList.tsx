@@ -6,13 +6,14 @@ import {
   ActivityIndicator,
 } from "react-native";
 import React, { useEffect, useState } from "react";
-import ProductCard from "./productCard";
+
 import { client } from "../lib/sanity.server";
 import { urlForImage } from "../lib/sanity";
 import {
   Product,
   useListProductsByCategoryAndGenderQuery,
 } from "../components/apollo-components";
+import ProductCard from "../components/ProductCard";
 
 const clothesList = () => {
   const { data: products, loading } = useListProductsByCategoryAndGenderQuery({

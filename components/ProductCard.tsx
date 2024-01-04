@@ -2,9 +2,9 @@ import { View, Text, Image, TouchableOpacity } from "react-native";
 import React from "react";
 import { useRouter } from "expo-router";
 import { ProductType } from "../store/interfaces";
-import ProductCardFavorite from "../components/ProductCardFavorite";
+import ProductCardFavorite from "./ProductCardFavorite";
 
-const productCard = ({
+const ProductCard = ({
   id,
   name,
   gender,
@@ -57,4 +57,4 @@ const productCard = ({
   );
 };
 
-export default productCard;
+export default ProductCard;

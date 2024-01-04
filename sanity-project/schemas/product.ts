@@ -42,6 +42,11 @@ export default {
       validation: (Rule: any) => Rule.required(),
     },
     {
+      name: 'size',
+      title: ' Size',
+      type: 'string',
+    },
+    {
       name: 'gender',
       title: ' Gender',
       type: 'reference',

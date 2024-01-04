@@ -9,6 +9,7 @@ import { NativeBaseProvider } from "native-base";
 import CartIcon from "../components/CartIcon";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import { client } from "../lib/graphql";
+import SearchInput from "../components/SearchInput";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -294,15 +295,7 @@ function RootLayoutNav() {
             name="search"
             options={{
               title: "",
-
-              headerRight: () => {
-                return (
-                  <TextInput
-                    className="w-[85%] border-0 text-[16px]"
-                    placeholder="Rechercher un produit"
-                  />
-                );
-              },
+              headerShown: false,
             }}
           />
           <Stack.Screen

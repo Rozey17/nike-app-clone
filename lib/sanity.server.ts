@@ -1,5 +1,5 @@
-import sanityClient from "@sanity/client";
-export const client = sanityClient({
+import { createClient } from "@sanity/client";
+export const client = createClient({
   dataset: "production",
   projectId: "5spod2i4",
   useCdn: true,

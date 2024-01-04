@@ -4,13 +4,14 @@ import {
   ListRenderItem,
   View,
 } from "react-native";
-import ProductCard from "./productCard";
+
 import { urlForImage } from "../lib/sanity";
 import {
   Product,
   useListProductsByCategoryAndGenderQuery,
   useListProductsQuery,
 } from "../components/apollo-components";
+import ProductCard from "../components/ProductCard";
 // const shoes = [
 //   {
 //     id: 1,
@@ -150,7 +151,7 @@ const menShoesList = () => {
   return (
     <>
       {loading ? (
-        <View className="items-center flex-1 bg-white">
+        <View className="items-center justify-center flex-1 bg-white">
           <ActivityIndicator color="#9ca3af" size="large" />
         </View>
       ) : (

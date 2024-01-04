@@ -30,7 +30,8 @@ query ListProducts{
           }
          
         },
-        sub_category
+        sub_category,
+        size
        
        
         
@@ -67,7 +68,7 @@ query ListProductsByCategoryAndGender($category:String!,$gender:String!){
           }
          
         }
-        sub_category
+        sub_category,size
     }
 }
 
@@ -101,7 +102,8 @@ query ListProductsByCategory($category:String!){
           }
          
         }
-        sub_category
+        sub_category,
+        size
     }
 }
 

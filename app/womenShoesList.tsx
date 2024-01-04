@@ -4,12 +4,12 @@ import {
   ListRenderItem,
   View,
 } from "react-native";
-import ProductCard from "./productCard";
 import { urlForImage } from "../lib/sanity";
 import {
   Product,
   useListProductsByCategoryAndGenderQuery,
 } from "../components/apollo-components";
+import ProductCard from "../components/ProductCard";
 
 const womenShoesList = () => {
   const { data: products, loading } = useListProductsByCategoryAndGenderQuery({
