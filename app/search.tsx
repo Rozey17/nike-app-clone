@@ -15,7 +15,7 @@ const Search = () => {
   const [products, setProducts] = useState<Product[]>();
 
   async function getPosts() {
-    const query = `*[_type == "product" && name match $queryString || sub_category match $queryString]`;
+    const query = `*[_type == "product" && name match $queryString + "*" || sub_category match $queryString +"*"]`;
     const params = { queryString: searchString };
     const posts = await client.fetch(query, params);
     setProducts(posts);
