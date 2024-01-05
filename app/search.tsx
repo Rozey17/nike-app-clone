@@ -15,12 +15,14 @@ const Search = () => {
 
   async function getPosts() {
     const query = `*[_type == "product" && name match $queryString + "*" || sub_category match $queryString +"*"]{
-      _id,gender{_id,name},image,name,sub_category
+      _id,name,description,category->,price,gender->,size,sub_category,'image' : image.asset->url
     }`;
     const params = { queryString: searchString };
     const posts = await client.fetch(query, params);
     setProducts(posts);
-    // console.log(posts);
+    {
+      posts.map((x: any) => console.log(x.image.asset._ref));
+    }
   }
 
   const handleClickUser = async () => {

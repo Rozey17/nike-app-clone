@@ -6,7 +6,7 @@ import SelectDropdown from "react-native-select-dropdown";
 import { Toast, useToast } from "native-base";
 import useCartStore from "../src/store/cartStore";
 import Favorite from "../src/components/Favorite";
-
+import { urlForImage } from "../src/lib/sanity";
 
 const Product = () => {
   const toast = useToast();
@@ -101,7 +101,7 @@ const Product = () => {
       {/* Product image */}
       <Image
         source={{
-          uri: params?.image as string,
+          uri: urlForImage(params?.image).url() as string,
         }}
         className="object-cover h-96"
       />

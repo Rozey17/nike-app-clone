@@ -5,7 +5,7 @@ import ProductCardFavorite from "./ProductCardFavorite";
 import { Product } from "./ApolloComponents";
 import { urlForImage } from "../lib/sanity";
 
-const ProductCard = ({ item }: { item: Product }) => {
+const ProductSearchResultCard = ({ item }: { item: Product }) => {
   const router = useRouter();
   let stringPrice = item.price?.toString().replace(".", ",");
 
@@ -20,7 +20,8 @@ const ProductCard = ({ item }: { item: Product }) => {
             name: item?.name as string,
             gender: item?.gender?.name as string,
             price: item?.price as number,
-            image: item?.image as any,
+            //@ts-ignore
+            image: item?.image?.asset?._ref as string,
             description: item?.description as string,
             category: item?.category?.name as string,
             sub_category: item?.sub_category as string,
@@ -50,4 +51,4 @@ const ProductCard = ({ item }: { item: Product }) => {
   );
 };
 
-export default ProductCard;
+export default ProductSearchResultCard;
