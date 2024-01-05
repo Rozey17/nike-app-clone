@@ -58,7 +58,7 @@ export default function Home() {
       </View>
       <View className="space-y-1">
         <TouchableOpacity
-          onPress={() => router.push("/menShoes")}
+          onPress={() => router.push("/men/menShoes")}
           className="flex-row items-center justify-between px-5 bg-blue-800 h-28"
         >
           <Text className="text-xl text-white">Chaussures</Text>
@@ -70,7 +70,7 @@ export default function Home() {
           />
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => router.push("/menClothes")}
+          onPress={() => router.push("/men/menClothes")}
           className="flex-row items-center justify-between px-5 bg-blue-800 h-28"
         >
           <Text className="text-xl text-white">Vêtements</Text>
@@ -82,7 +82,7 @@ export default function Home() {
           />
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => router.push("/menAccessories")}
+          onPress={() => router.push("/men/menAccessories")}
           className="flex-row items-center justify-between px-5 bg-blue-800 h-28"
         >
           <Text className="text-xl text-white">Accessoires et équipement</Text>
@@ -130,7 +130,7 @@ export default function Home() {
       </View>
       <View className="space-y-1">
         <TouchableOpacity
-          onPress={() => router.push("/womenShoes")}
+          onPress={() => router.push("/women/womenShoes")}
           className="flex-row items-center justify-between px-5 bg-pink-500 h-28"
         >
           <Text className="text-xl text-white">Chaussures</Text>
@@ -140,7 +140,7 @@ export default function Home() {
           colors={["#4c669f", "#f472b6", "#192f6a"]}
         >
           <TouchableOpacity
-            onPress={() => router.push("/womenClothes")}
+            onPress={() => router.push("/women/womenClothes")}
             className="flex-row items-center justify-between px-5 h-28"
           >
             <Text className="text-xl text-white">Vêtements</Text>
@@ -148,7 +148,7 @@ export default function Home() {
         </LinearGradient>
 
         <TouchableOpacity
-          onPress={() => router.push("/womenAccessories")}
+          onPress={() => router.push("/women/womenAccessories")}
           className="flex-row items-center justify-between px-5 bg-pink-500 h-28"
         >
           <Text className="text-xl text-white">Accessoires et équipement</Text>
