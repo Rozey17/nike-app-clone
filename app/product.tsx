@@ -82,6 +82,8 @@ const Product = () => {
     } else return clothSizes;
   };
 
+  let stringPrice = params?.price.toString().replace(".", ",");
+
   return (
     <ScrollView
       className="bg-white"
@@ -92,28 +94,28 @@ const Product = () => {
 
       <Stack.Screen
         options={{
-          title: params.name as string,
+          title: params?.name as string,
         }}
       />
       {/* Product image */}
       <Image
         source={{
-          uri: params.image as string,
+          uri: params?.image as string,
         }}
         className="object-cover h-96"
       />
       <View className="px-6 py-10 space-y-5">
         <View>
           <Text className="text-[16px]">
-            {params.sub_category as string}{" "}
-            {params.gender === "male" && "pour homme"}
-            {params.gender === "female" && "pour femme"}
+            {params?.sub_category as string}{" "}
+            {params?.gender === "male" && "pour homme"}
+            {params?.gender === "female" && "pour femme"}
           </Text>
-          <Text className="text-2xl font-bold capitalize">{params.name}</Text>
+          <Text className="text-2xl font-bold capitalize">{params?.name}</Text>
         </View>
 
-        <Text className="text-[16px]">{params.price}€</Text>
-        <Text className="text-[16px]">{params.description}</Text>
+        <Text className="text-[16px]">{stringPrice} €</Text>
+        <Text className="text-[16px]">{params?.description}</Text>
         <View className="pt-5 space-y-3">
           {params.sub_category.includes("Sac") ? (
             <Text className="font-bold text-center uppercase">

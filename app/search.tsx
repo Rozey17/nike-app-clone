@@ -1,9 +1,8 @@
-import { View, Text, ListRenderItem, FlatList, Pressable } from "react-native";
+import { View, ListRenderItem, FlatList, Pressable } from "react-native";
 import React, { useEffect, useState } from "react";
 import { client } from "../lib/sanity.server";
 import { Product } from "../components/apollo-components";
 import ProductCard from "../components/ProductCard";
-import { urlForImage } from "../lib/sanity";
 import SearchInput from "../components/SearchInput";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
@@ -19,7 +18,7 @@ const Search = () => {
     const params = { queryString: searchString };
     const posts = await client.fetch(query, params);
     setProducts(posts);
-    console.log(posts);
+    // console.log(posts);
   }
 
   const handleClickUser = async () => {
@@ -33,18 +32,7 @@ const Search = () => {
   }, [searchString]);
 
   const renderItem: ListRenderItem<Product> = ({ item }) => {
-    return (
-      <ProductCard
-        id={item._id as string}
-        name={item.name as string}
-        category={item.category?.name as string}
-        description={item.description as string}
-        price={item.price as number}
-        image={urlForImage(item.image as string).url()}
-        sub_category={item.sub_category as string}
-        gender={item.gender?.name as string}
-      />
-    );
+    return <ProductCard key={item._id} item={item} />;
   };
 
   return (
@@ -75,10 +63,14 @@ const Search = () => {
 
       <FlatList
         showsVerticalScrollIndicator={false}
-        columnWrapperStyle={{ columnGap: 10 }}
         data={products}
         renderItem={renderItem}
         numColumns={2}
+        columnWrapperStyle={{
+          flexDirection: "row",
+          gap: 5,
+          paddingVertical: 15,
+        }}
       />
     </SafeAreaView>
   );

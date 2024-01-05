@@ -27,70 +27,72 @@ const Cart = () => {
     setCartState(cart);
   }, [cart]);
 
-  return (
-    <>
-      {products.length === 0 ? (
-        <View className="justify-between h-full px-5 py-2 bg-white">
-          <View></View>
-          <View className="items-center space-y-2 ">
-            <View className="items-center p-3 mb-3 border rounded-full h-14 w-14">
-              <SimpleLineIcons name="bag" size={24} color="black" />
-            </View>
-            <Text className="text-center">Ton panier est vide.</Text>
-            <Text className="text-center">
-              Les produits ajoutés apparaîtront ici.
-            </Text>
+let stringTotal = total.toFixed(2).toString().replace(".", ",");
+
+return (
+  <>
+    {products.length === 0 ? (
+      <View className="justify-between h-full px-5 py-2 bg-white">
+        <View></View>
+        <View className="items-center space-y-2 ">
+          <View className="items-center p-3 mb-3 border rounded-full h-14 w-14">
+            <SimpleLineIcons name="bag" size={24} color="black" />
           </View>
+          <Text className="text-center">Ton panier est vide.</Text>
+          <Text className="text-center">
+            Les produits ajoutés apparaîtront ici.
+          </Text>
+        </View>
+        <TouchableOpacity
+          onPress={() => router.push("/")}
+          className="p-5 bg-black rounded-full"
+        >
+          <Text className="text-lg font-semibold text-center text-white">
+            Acheter
+          </Text>
+        </TouchableOpacity>
+      </View>
+    ) : (
+      <View className="flex-1">
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          overScrollMode="never"
+          className="relative px-5 bg-white"
+        >
+          {cartState.map((item) => (
+            <CartItem
+              key={item.id}
+              item={item}
+              addProduct={addProduct}
+              removeProduct={removeProduct}
+            />
+          ))}
+
+          <View className="flex-row items-center justify-between py-10">
+            <Text className="font-semibold">Total estimé</Text>
+            <Text className="font-semibold">{stringTotal} €</Text>
+          </View>
+        </ScrollView>
+        <View className="fixed bottom-0 p-5 bg-white border-t border-gray-200 -">
           <TouchableOpacity
-            onPress={() => router.push("/")}
+            onPress={handlePresentModal}
             className="p-5 bg-black rounded-full"
           >
             <Text className="text-lg font-semibold text-center text-white">
-              Acheter
+              Paiement
             </Text>
           </TouchableOpacity>
         </View>
-      ) : (
-        <View className="flex-1">
-          <ScrollView
-            showsVerticalScrollIndicator={false}
-            overScrollMode="never"
-            className="relative px-5 bg-white"
-          >
-            {cartState.map((item) => (
-              <CartItem
-                key={item.id}
-                item={item}
-                addProduct={addProduct}
-                removeProduct={removeProduct}
-              />
-            ))}
-
-            <View className="flex-row items-center justify-between py-10">
-              <Text className="font-semibold">Total estimé</Text>
-              <Text className="font-semibold">{total.toFixed(2)} €</Text>
-            </View>
-          </ScrollView>
-          <View className="fixed bottom-0 p-5 bg-white border-t border-gray-200 -">
-            <TouchableOpacity
-              onPress={handlePresentModal}
-              className="p-5 bg-black rounded-full"
-            >
-              <Text className="text-lg font-semibold text-center text-white">
-                Paiement
-              </Text>
-            </TouchableOpacity>
-          </View>
-          <BottomSheetComponent
-            item={cartState[0]}
-            items={items}
-            total={total}
-            ref={modalSheetBottomref}
-          />
-        </View>
-      )}
-    </>
-  );
+        <BottomSheetComponent
+          item={cartState[0]}
+          items={items}
+          total={total}
+          ref={modalSheetBottomref}
+        />
+      </View>
+    )}
+  </>
+);
 };
 
 export default Cart;

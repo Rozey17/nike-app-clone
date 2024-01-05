@@ -236,7 +236,6 @@ export default function Home() {
         );
       }}
     >
-      <StatusBar barStyle={"dark-content"} />
       <SafeAreaView className="flex-1 bg-white">
         <View className="flex-row items-center justify-between p-5">
           <View className="flex-row items-center space-x-5">

@@ -52,6 +52,7 @@ function RootLayoutNav() {
   return (
     <ApolloProvider client={client}>
       <NativeBaseProvider>
+        <StatusBar backgroundColor="#020617" barStyle="light-content" />
         <Stack
           screenOptions={{
             headerShadowVisible: false,

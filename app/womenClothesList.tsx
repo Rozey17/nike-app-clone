@@ -24,17 +24,7 @@ const womenClothesList = () => {
     products && products?.allProduct ? products?.allProduct : [];
 
   const renderItem: ListRenderItem<Product> = ({ item }) => (
-    <ProductCard
-      key={item._id}
-      id={item._id as string}
-      name={item.name as string}
-      price={item.price as number}
-      image={urlForImage(item.image as string).url()}
-      gender={item?.gender?.name as string}
-      description={item.description as string}
-      category={item?.category?.name as string}
-      sub_category={item?.sub_category as string}
-    />
+    <ProductCard key={item._id} item={item} />
   );
 
   return (

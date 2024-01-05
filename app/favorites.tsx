@@ -7,7 +7,6 @@ import {
 } from "react-native";
 import React from "react";
 import { useFavoriteStore } from "../store/wishlistStore";
-import { urlForImage } from "../lib/sanity";
 import { Product, useListProductsQuery } from "../components/apollo-components";
 import { MaterialIcons } from "@expo/vector-icons";
 import ProductCard from "../components/ProductCard";
@@ -23,16 +22,7 @@ const favourites = () => {
     ) || [];
 
   const renderItem: ListRenderItem<Product> = ({ item }) => (
-    <ProductCard
-      id={item?._id as string}
-      name={item?.name as string}
-      price={item?.price as number}
-      image={urlForImage(item?.image as string).url()}
-      gender={item?.gender?.name as string}
-      description={item?.description as string}
-      category={item?.category?.name as string}
-      sub_category={item?.sub_category as string}
-    />
+    <ProductCard key={item._id} item={item} />
   );
   return (
     <>

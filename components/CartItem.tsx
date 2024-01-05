@@ -80,7 +80,10 @@ const CartItem = ({
           </TouchableOpacity>
         </View>
         <Text className="font-medium text-green-700">
-          {subtotal(item.price, item.quantity as number)}€
+          {subtotal(item.price, item.quantity as number)
+            .toString()
+            .replace(".", ",")}{" "}
+          €
         </Text>
       </View>
     </Pressable>
