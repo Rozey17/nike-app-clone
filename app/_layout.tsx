@@ -80,7 +80,7 @@ function RootLayoutNav() {
           />
 
           <Stack.Screen
-            name="menClothes"
+            name="men/menClothes"
             options={{
               title: "Vêtements",
               headerRight: () => {
@@ -95,7 +95,7 @@ function RootLayoutNav() {
             }}
           />
           <Stack.Screen
-            name="menShoes"
+            name="men/menShoes"
             options={{
               title: "Chaussures",
               headerRight: () => {
@@ -110,7 +110,7 @@ function RootLayoutNav() {
             }}
           />
           <Stack.Screen
-            name="menShoesList"
+            name="men/menShoesList"
             options={{
               title: "Toutes les chaussures",
               headerRight: () => {
@@ -126,7 +126,7 @@ function RootLayoutNav() {
             }}
           />
           <Stack.Screen
-            name="menAccessories"
+            name="men/menAccessories"
             options={{
               title: "Accessoires",
               headerRight: () => {
@@ -141,7 +141,7 @@ function RootLayoutNav() {
             }}
           />
           <Stack.Screen
-            name="menAccessoriesList"
+            name="men/menAccessoriesList"
             options={{
               title: "Tous les accessoires",
               headerRight: () => {
@@ -158,7 +158,7 @@ function RootLayoutNav() {
           />
 
           <Stack.Screen
-            name="menClothesList"
+            name="men/menClothesList"
             options={{
               title: "Tous les vêtements",
               headerRight: () => {
@@ -174,7 +174,7 @@ function RootLayoutNav() {
             }}
           />
           <Stack.Screen
-            name="womenClothes"
+            name="women/womenClothes"
             options={{
               title: "Vêtements",
               headerRight: () => {
@@ -189,7 +189,7 @@ function RootLayoutNav() {
             }}
           />
           <Stack.Screen
-            name="womenShoes"
+            name="women/womenShoes"
             options={{
               title: "Chaussures",
               headerRight: () => {
@@ -204,7 +204,7 @@ function RootLayoutNav() {
             }}
           />
           <Stack.Screen
-            name="womenShoesList"
+            name="women/womenShoesList"
             options={{
               title: "Toutes les chaussures",
               headerRight: () => {
@@ -221,7 +221,7 @@ function RootLayoutNav() {
           />
 
           <Stack.Screen
-            name="womenClothesList"
+            name="women/womenClothesList"
             options={{
               title: "Tous les vêtements",
               headerRight: () => {
@@ -237,7 +237,7 @@ function RootLayoutNav() {
             }}
           />
           <Stack.Screen
-            name="womenAccessories"
+            name="women/womenAccessories"
             options={{
               title: "Accessoires",
               headerRight: () => {
@@ -252,7 +252,7 @@ function RootLayoutNav() {
             }}
           />
           <Stack.Screen
-            name="womenAccessoriesList"
+            name="women/womenAccessoriesList"
             options={{
               title: "Tous les accessoires",
               headerRight: () => {

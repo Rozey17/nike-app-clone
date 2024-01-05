@@ -4,11 +4,11 @@ import {
   BottomSheetModal,
   BottomSheetModalProvider,
 } from "@gorhom/bottom-sheet";
-import CustomBackdrop from "./BackdropComponent";
 import BottomSheetFooter from "./BottomSheetFooter";
 import moment from "moment";
 import { Product } from "./apollo-components";
 import { ProductType } from "../store/interfaces";
+import CustomBackdrop from "./BackdropComponent";
 
 interface BottomSheetprops {
   item: ProductType;
