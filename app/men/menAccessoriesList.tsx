@@ -8,8 +8,9 @@ import React from "react";
 import {
   Product,
   useListProductsByCategoryQuery,
-} from "../../components/apollo-components";
-import ProductCard from "../../components/ProductCard";
+} from "../../src/components/ApolloComponents";
+import ProductCard from "../../src/components/ProductCard";
+
 
 const menAccessoriesList = () => {
   const { data: products, loading } = useListProductsByCategoryQuery({

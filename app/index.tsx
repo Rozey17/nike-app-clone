@@ -16,9 +16,10 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { TabView, TabBar, SceneMap } from "react-native-tab-view";
-import CartIcon from "../components/CartIcon";
+
 import { Drawer } from "react-native-drawer-layout";
 import { LinearGradient } from "expo-linear-gradient";
+import CartIcon from "../src/components/CartIcon";
 
 export default function Home() {
   const router = useRouter();
@@ -33,10 +34,7 @@ export default function Home() {
       <View className="p-5 py-8 space-y-5">
         <Text className="text-xl">Indispensable, meilleures ventes...</Text>
         <View className="flex-row items-center space-x-1">
-          <TouchableOpacity
-            onPress={() => router.push("/news")}
-            className="space-y-3"
-          >
+          <TouchableOpacity className="space-y-3">
             <Image
               source={{
                 uri: "https://static.nike.com/a/images/w_300,c_limit/2e20a745-d9be-4d82-8cad-0c55d115fbb3/que-la-saison-des-cadeaux-commence-nike-com.png",
@@ -58,7 +56,7 @@ export default function Home() {
       </View>
       <View className="space-y-1">
         <TouchableOpacity
-          onPress={() => router.push("/menShoes")}
+          onPress={() => router.push("/men/menShoes")}
           className="flex-row items-center justify-between px-5 bg-blue-800 h-28"
         >
           <Text className="text-xl text-white">Chaussures</Text>
@@ -70,7 +68,7 @@ export default function Home() {
           />
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => router.push("/menClothes")}
+          onPress={() => router.push("/men/menClothes")}
           className="flex-row items-center justify-between px-5 bg-blue-800 h-28"
         >
           <Text className="text-xl text-white">Vêtements</Text>
@@ -82,7 +80,7 @@ export default function Home() {
           />
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => router.push("/menAccessories")}
+          onPress={() => router.push("/men/menAccessories")}
           className="flex-row items-center justify-between px-5 bg-blue-800 h-28"
         >
           <Text className="text-xl text-white">Accessoires et équipement</Text>
@@ -130,7 +128,7 @@ export default function Home() {
       </View>
       <View className="space-y-1">
         <TouchableOpacity
-          onPress={() => router.push("/womenShoes")}
+          onPress={() => router.push("/women/womenShoes")}
           className="flex-row items-center justify-between px-5 bg-pink-500 h-28"
         >
           <Text className="text-xl text-white">Chaussures</Text>
@@ -140,7 +138,7 @@ export default function Home() {
           colors={["#4c669f", "#f472b6", "#192f6a"]}
         >
           <TouchableOpacity
-            onPress={() => router.push("/womenClothes")}
+            onPress={() => router.push("/women/womenClothes")}
             className="flex-row items-center justify-between px-5 h-28"
           >
             <Text className="text-xl text-white">Vêtements</Text>
@@ -148,7 +146,7 @@ export default function Home() {
         </LinearGradient>
 
         <TouchableOpacity
-          onPress={() => router.push("/womenAccessories")}
+          onPress={() => router.push("/women/womenAccessories")}
           className="flex-row items-center justify-between px-5 bg-pink-500 h-28"
         >
           <Text className="text-xl text-white">Accessoires et équipement</Text>

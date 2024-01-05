@@ -1,15 +1,13 @@
 import { AntDesign } from "@expo/vector-icons";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { useFonts } from "expo-font";
-import { SplashScreen, Stack, router, useLocalSearchParams } from "expo-router";
+import { SplashScreen, Stack, router } from "expo-router";
 import { useEffect } from "react";
-import { StatusBar, TextInput, TouchableOpacity } from "react-native";
-import { View } from "../components/Themed";
+import { StatusBar, TouchableOpacity, View } from "react-native";
 import { NativeBaseProvider } from "native-base";
-import CartIcon from "../components/CartIcon";
-import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
-import { client } from "../lib/graphql";
-import SearchInput from "../components/SearchInput";
+import { ApolloProvider } from "@apollo/client";
+import { client } from "../src/lib/graphql";
+import CartIcon from "../src/components/CartIcon";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -80,7 +78,7 @@ function RootLayoutNav() {
           />
 
           <Stack.Screen
-            name="menClothes"
+            name="men/menClothes"
             options={{
               title: "Vêtements",
               headerRight: () => {
@@ -95,7 +93,7 @@ function RootLayoutNav() {
             }}
           />
           <Stack.Screen
-            name="menShoes"
+            name="men/menShoes"
             options={{
               title: "Chaussures",
               headerRight: () => {
@@ -110,7 +108,7 @@ function RootLayoutNav() {
             }}
           />
           <Stack.Screen
-            name="menShoesList"
+            name="men/menShoesList"
             options={{
               title: "Toutes les chaussures",
               headerRight: () => {
@@ -126,7 +124,7 @@ function RootLayoutNav() {
             }}
           />
           <Stack.Screen
-            name="menAccessories"
+            name="men/menAccessories"
             options={{
               title: "Accessoires",
               headerRight: () => {
@@ -141,7 +139,7 @@ function RootLayoutNav() {
             }}
           />
           <Stack.Screen
-            name="menAccessoriesList"
+            name="men/menAccessoriesList"
             options={{
               title: "Tous les accessoires",
               headerRight: () => {
@@ -158,7 +156,7 @@ function RootLayoutNav() {
           />
 
           <Stack.Screen
-            name="menClothesList"
+            name="men/menClothesList"
             options={{
               title: "Tous les vêtements",
               headerRight: () => {
@@ -174,7 +172,7 @@ function RootLayoutNav() {
             }}
           />
           <Stack.Screen
-            name="womenClothes"
+            name="women/womenClothes"
             options={{
               title: "Vêtements",
               headerRight: () => {
@@ -189,7 +187,7 @@ function RootLayoutNav() {
             }}
           />
           <Stack.Screen
-            name="womenShoes"
+            name="women/womenShoes"
             options={{
               title: "Chaussures",
               headerRight: () => {
@@ -204,7 +202,7 @@ function RootLayoutNav() {
             }}
           />
           <Stack.Screen
-            name="womenShoesList"
+            name="women/womenShoesList"
             options={{
               title: "Toutes les chaussures",
               headerRight: () => {
@@ -221,7 +219,7 @@ function RootLayoutNav() {
           />
 
           <Stack.Screen
-            name="womenClothesList"
+            name="women/womenClothesList"
             options={{
               title: "Tous les vêtements",
               headerRight: () => {
@@ -237,7 +235,7 @@ function RootLayoutNav() {
             }}
           />
           <Stack.Screen
-            name="womenAccessories"
+            name="women/womenAccessories"
             options={{
               title: "Accessoires",
               headerRight: () => {
@@ -252,7 +250,7 @@ function RootLayoutNav() {
             }}
           />
           <Stack.Screen
-            name="womenAccessoriesList"
+            name="women/womenAccessoriesList"
             options={{
               title: "Tous les accessoires",
               headerRight: () => {

@@ -107,8 +107,8 @@ query ListProductsByCategory($category:String!){
     }
 }
 
-query ListProductsByGender($slug:String!){
-    allProduct(where : {gender :{slug: {current: {eq: $slug}} }} ){
+query ListProductsBySearch($searchterm:String!){
+    allProduct(where : {name :{matches: $slug}} }} ){
         _id
         ,name,
         slug{

@@ -6,10 +6,14 @@ import {
   ActivityIndicator,
 } from "react-native";
 import React from "react";
-import { useFavoriteStore } from "../store/wishlistStore";
-import { Product, useListProductsQuery } from "../components/apollo-components";
 import { MaterialIcons } from "@expo/vector-icons";
-import ProductCard from "../components/ProductCard";
+import {
+  Product,
+  useListProductsQuery,
+} from "../src/components/ApolloComponents";
+import { useFavoriteStore } from "../src/store/wishlistStore";
+import ProductCard from "../src/components/ProductCard";
+
 
 const favourites = () => {
   const { data: products, loading } = useListProductsQuery();

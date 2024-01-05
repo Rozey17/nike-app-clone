@@ -343,6 +343,7 @@ export type Product = Document & {
   image?: Maybe<Image>;
   name?: Maybe<Scalars['String']>;
   price?: Maybe<Scalars['Float']>;
+  quantity?: Maybe<Scalars['Float']>;
   size?: Maybe<Scalars['String']>;
   slug?: Maybe<Slug>;
   sub_category?: Maybe<Scalars['String']>;
@@ -363,6 +364,7 @@ export type ProductFilter = {
   image?: InputMaybe<ImageFilter>;
   name?: InputMaybe<StringFilter>;
   price?: InputMaybe<FloatFilter>;
+  quantity?: InputMaybe<FloatFilter>;
   size?: InputMaybe<StringFilter>;
   slug?: InputMaybe<SlugFilter>;
   sub_category?: InputMaybe<StringFilter>;
@@ -379,6 +381,7 @@ export type ProductSorting = {
   image?: InputMaybe<ImageSorting>;
   name?: InputMaybe<SortOrder>;
   price?: InputMaybe<SortOrder>;
+  quantity?: InputMaybe<SortOrder>;
   size?: InputMaybe<SortOrder>;
   slug?: InputMaybe<SlugSorting>;
   sub_category?: InputMaybe<SortOrder>;

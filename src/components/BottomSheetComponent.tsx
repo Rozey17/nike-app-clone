@@ -1,5 +1,5 @@
-import { View, Text, Button, TouchableOpacity, Image } from "react-native";
-import React, { forwardRef, useMemo, useRef } from "react";
+import { View, Text, Image } from "react-native";
+import React, { forwardRef, useMemo } from "react";
 import {
   BottomSheetModal,
   BottomSheetModalProvider,
@@ -7,11 +7,10 @@ import {
 import CustomBackdrop from "./BackdropComponent";
 import BottomSheetFooter from "./BottomSheetFooter";
 import moment from "moment";
-import { Product } from "./apollo-components";
-import { ProductType } from "../store/interfaces";
+import { Product } from "./ApolloComponents";
 
 interface BottomSheetprops {
-  item: ProductType;
+  item: Product;
   items: number;
   total: number;
 }
@@ -42,8 +41,8 @@ const BottomSheetComponent = forwardRef<BottomSheetModal, BottomSheetprops>(
                     </Text>
                     <Text className="text-center text-neutral-400">
                       {props.item?.sub_category}{" "}
-                      {props.item?.gender === "male" && "pour homme"}
-                      {props.item?.gender === "female" && "pour femme"}
+                      {props.item?.gender?.name === "male" && "pour homme"}
+                      {props.item?.gender?.name === "female" && "pour femme"}
                     </Text>
                   </>
                 ) : (
@@ -84,7 +83,7 @@ const BottomSheetComponent = forwardRef<BottomSheetModal, BottomSheetprops>(
                   Résumé de l'achat
                 </Text>
                 <Text className="text-center text-neutral-400">
-                  {props.total.toFixed(2)} €
+                  {props.total.toFixed(2).toString().replace(".", ",")} €
                 </Text>
               </View>
             </View>

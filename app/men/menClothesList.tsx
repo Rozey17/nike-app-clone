@@ -5,15 +5,13 @@ import {
   ListRenderItem,
   ActivityIndicator,
 } from "react-native";
-import React, { useEffect, useState } from "react";
-
-import { client } from "../../lib/sanity.server";
-import { urlForImage } from "../../lib/sanity";
+import React from "react";
+import ProductCard from "../../src/components/ProductCard";
 import {
   Product,
   useListProductsByCategoryAndGenderQuery,
-} from "../../components/apollo-components";
-import ProductCard from "../../components/ProductCard";
+} from "../../src/components/ApolloComponents";
+
 
 const clothesList = () => {
   const { data: products, loading } = useListProductsByCategoryAndGenderQuery({

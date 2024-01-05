@@ -1,7 +1,8 @@
 import { View, Text, Image } from "react-native";
 import React, { useEffect } from "react";
 import { Stack, router } from "expo-router";
-import useCartStore from "../store/cartStore";
+import useCartStore from "../src/store/cartStore";
+
 
 const payment = () => {
   const { clearCart } = useCartStore();

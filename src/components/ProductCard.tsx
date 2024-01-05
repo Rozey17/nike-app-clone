@@ -1,9 +1,8 @@
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import React from "react";
 import { useRouter } from "expo-router";
-import { ProductType } from "../store/interfaces";
 import ProductCardFavorite from "./ProductCardFavorite";
-import { Product } from "./apollo-components";
+import { Product } from "./ApolloComponents";
 import { urlForImage } from "../lib/sanity";
 
 const ProductCard = ({ item }: { item: Product }) => {
@@ -17,7 +16,7 @@ const ProductCard = ({ item }: { item: Product }) => {
         router.push({
           pathname: "/product",
           params: {
-            id: item?._id!,
+            id: item?._id as string,
             name: item?.name as string,
             gender: item?.gender?.name as string,
             price: item?.price as number,

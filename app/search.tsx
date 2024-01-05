@@ -1,20 +1,22 @@
 import { View, ListRenderItem, FlatList, Pressable } from "react-native";
 import React, { useEffect, useState } from "react";
-import { client } from "../lib/sanity.server";
-import { Product } from "../components/apollo-components";
-import ProductCard from "../components/ProductCard";
-import SearchInput from "../components/SearchInput";
+import { client } from "../src/lib/sanity.server";
+
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
+import { Product } from "../src/components/ApolloComponents";
+import ProductCard from "../src/components/ProductCard";
+import SearchInput from "../src/components/SearchInput";
 
 const Search = () => {
   const [searchString, setSearchString] = useState("");
-
   const [products, setProducts] = useState<Product[]>();
 
   async function getPosts() {
-    const query = `*[_type == "product" && name match $queryString + "*" || sub_category match $queryString +"*"]`;
+    const query = `*[_type == "product" && name match $queryString + "*" || sub_category match $queryString +"*"]{
+      _id,gender{_id,name},image,name,sub_category
+    }`;
     const params = { queryString: searchString };
     const posts = await client.fetch(query, params);
     setProducts(posts);

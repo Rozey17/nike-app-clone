@@ -26,7 +26,11 @@ export default {
         maxLength: 500,
       },
     },
-
+    {
+      name: 'quantity',
+      title: 'Quantity',
+      type: 'number',
+    },
     {
       name: 'category',
       title: ' Category',

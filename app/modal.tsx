@@ -1,14 +1,7 @@
-import { StatusBar } from 'expo-status-bar';
-import {
-  Platform,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
-import useCartStore from "../store/cartStore";
+import { Text, TouchableOpacity, View } from "react-native";
 import { useRouter } from "expo-router";
-import { ProductType } from "../store/interfaces";
+import useCartStore from "../src/store/cartStore";
+import { ProductType } from "../src/store/interfaces";
 
 export default function ModalScreen({
   id,
@@ -69,5 +62,3 @@ export default function ModalScreen({
     </View>
   );
 }
-
-
