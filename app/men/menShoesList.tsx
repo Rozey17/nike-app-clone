@@ -7,8 +7,8 @@ import {
 import {
   Product,
   useListProductsByCategoryAndGenderQuery,
-} from "../components/apollo-components";
-import ProductCard from "../components/ProductCard";
+} from "../../components/apollo-components";
+import ProductCard from "../../components/ProductCard";
 
 const menShoesList = () => {
   const { data: products, loading } = useListProductsByCategoryAndGenderQuery({

@@ -2,12 +2,12 @@ import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
 import { router } from "expo-router";
 
-const menAccessories = () => {
+const womenAccessories = () => {
   return (
     <View className="flex-1 bg-white">
       <View className="px-5 divide-y divide-gray-300">
         <TouchableOpacity
-          onPress={() => router.push("/menAccessoriesList")}
+          onPress={() => router.push("/women/womenAccessoriesList")}
           className="py-8"
         >
           <Text>Tous les accessoires</Text>
@@ -17,4 +17,4 @@ const menAccessories = () => {
   );
 };
 
-export default menAccessories;
+export default womenAccessories;

@@ -1,22 +1,20 @@
 import {
-  View,
+  ActivityIndicator,
   FlatList,
   ListRenderItem,
-  ActivityIndicator,
+  View,
 } from "react-native";
-import React from "react";
-import { urlForImage } from "../lib/sanity";
 import {
   Product,
-  useListProductsByCategoryQuery,
-} from "../components/apollo-components";
-import ProductCard from "../components/ProductCard";
+  useListProductsByCategoryAndGenderQuery,
+} from "../../components/apollo-components";
+import ProductCard from "../../components/ProductCard";
 
-
-const menAccessoriesList = () => {
-  const { data: products, loading } = useListProductsByCategoryQuery({
+const womenShoesList = () => {
+  const { data: products, loading } = useListProductsByCategoryAndGenderQuery({
     variables: {
-      category: "accessories",
+      category: "shoes",
+      gender: "female",
     },
   });
 
@@ -53,4 +51,4 @@ const menAccessoriesList = () => {
   );
 };
 
-export default menAccessoriesList;
+export default womenShoesList;

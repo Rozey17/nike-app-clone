@@ -10,11 +10,9 @@ import {
   View,
   useWindowDimensions,
   Text,
-  Dimensions,
   ScrollView,
   Image,
   TouchableOpacity,
-  StatusBar,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { TabView, TabBar, SceneMap } from "react-native-tab-view";

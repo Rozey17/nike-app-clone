@@ -5,18 +5,16 @@ import {
   ActivityIndicator,
 } from "react-native";
 import React from "react";
-import { urlForImage } from "../lib/sanity";
 import {
   Product,
-  useListProductsByCategoryAndGenderQuery,
-} from "../components/apollo-components";
-import ProductCard from "../components/ProductCard";
+  useListProductsByCategoryQuery,
+} from "../../components/apollo-components";
+import ProductCard from "../../components/ProductCard";
 
-const womenClothesList = () => {
-  const { data: products, loading } = useListProductsByCategoryAndGenderQuery({
+const menAccessoriesList = () => {
+  const { data: products, loading } = useListProductsByCategoryQuery({
     variables: {
-      category: "clothes",
-      gender: "female",
+      category: "accessories",
     },
   });
 
@@ -53,4 +51,4 @@ const womenClothesList = () => {
   );
 };
 
-export default womenClothesList;
+export default menAccessoriesList;
