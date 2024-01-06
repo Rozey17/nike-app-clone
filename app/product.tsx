@@ -189,12 +189,16 @@ const Product = () => {
                 addProduct({
                   _id: params._id as string,
                   description: params.description as string,
-                  gender: params.gender as object,
+                  gender: {
+                    name: params.gender as string,
+                  },
                   image: params.image as object,
                   name: params.name as string,
                   size: size as any,
                   price: params.price as any,
-                  category: params.category as object,
+                  category: {
+                    name: params.category as string,
+                  },
                   sub_category: params.sub_category as any,
                 }),
                   router.push("/addedToCartModal");

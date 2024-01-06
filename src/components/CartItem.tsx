@@ -22,21 +22,21 @@ const CartItem = ({
 }) => {
   return (
     <Pressable
-      onPress={() =>
-        router.push({
-          pathname: "/product",
-          params: {
-            id: item?._id as string,
-            name: item?.name as string,
-            gender: item?.gender?.name as string,
-            price: item?.price as number,
-            image: item?.image as any,
-            description: item?.description as string,
-            category: item?.category?.name as string,
-            sub_category: item?.sub_category as string,
-          },
-        })
-      }
+      // onPress={() =>
+      //   router.push({
+      //     pathname: "/product",
+      //     params: {
+      //       id: item?._id as string,
+      //       name: item?.name as string,
+      //       gender: item?.gender?.name as string,
+      //       price: item?.price as number,
+      //       image: item?.image as any,
+      //       description: item?.description as string,
+      //       category: item?.category?.name as string,
+      //       sub_category: item?.sub_category as string,
+      //     },
+      //   })
+      // }
       className="py-5 space-y-3 border-b border-gray-200"
     >
       <View className="flex-row space-x-3">
