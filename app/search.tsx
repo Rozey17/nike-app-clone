@@ -1,4 +1,11 @@
-import { View, ListRenderItem, FlatList, Pressable, Text } from "react-native";
+import {
+  View,
+  ListRenderItem,
+  FlatList,
+  Pressable,
+  Text,
+  ActivityIndicator,
+} from "react-native";
 import React, { useEffect, useState } from "react";
 
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -11,21 +18,23 @@ import {
 } from "../src/components/ApolloComponents";
 import ProductCard from "../src/components/ProductCard";
 import SearchInput from "../src/components/SearchInput";
-import { client } from "../src/lib/sanity.server";
+import { client } from "../src/lib/graphql";
+// import { client } from "../src/lib/sanity.server";
 
 const Search = () => {
   const [searchString, setSearchString] = useState("");
   const [products, setProducts] = useState<Product[]>();
-
-  const { data } = useListProductsBySearchQuery({
-    variables: { searchterm: searchString },
-  });
+  const [loading, setLoading] = useState(false);
 
   async function getProducts() {
-    const listProducts = data?.allProduct ? data?.allProduct : [];
-    setProducts(listProducts);
-    listProducts.map((x) => console.log(x));
-
+    const listProducts = await client.query({
+      query: ListProductsBySearchDocument,
+      variables: {
+        searchterm: searchString,
+      },
+    });
+    setProducts(listProducts?.data?.allProduct);
+    setLoading(listProducts?.loading);
     // {
     //   listProducts.map((x) => console.log(x.image?.asset?.url));
     // }
@@ -88,17 +97,23 @@ const Search = () => {
           <Text className="text-center text-[16px]">Aucun résultat trouvé</Text>
         </View>
       ) : (
-        <FlatList
-          showsVerticalScrollIndicator={false}
-          data={products}
-          renderItem={renderItem}
-          numColumns={2}
-          columnWrapperStyle={{
-            flexDirection: "row",
-            gap: 5,
-            paddingVertical: 15,
-          }}
-        />
+        <>
+          {loading ? (
+            <ActivityIndicator color="#9ca3af" size="large" />
+          ) : (
+            <FlatList
+              showsVerticalScrollIndicator={false}
+              data={products}
+              renderItem={renderItem}
+              numColumns={2}
+              columnWrapperStyle={{
+                flexDirection: "row",
+                gap: 5,
+                paddingVertical: 15,
+              }}
+            />
+          )}
+        </>
       )}
     </SafeAreaView>
   );

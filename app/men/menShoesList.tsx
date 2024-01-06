@@ -19,8 +19,6 @@ const menShoesList = () => {
     },
   });
 
-const getPRoducts = {};
-
 const listProducts =
   products && products?.allProduct ? products?.allProduct : [];
 
