@@ -45,7 +45,7 @@
       }
     },
     "runtimeVersion": {
-      "policy": "appVersion"
+      "policy": "exposdk:46.0.0"
     },
     "updates": {
       "url": "https://u.expo.dev/afe31d72-2a13-4bda-8d24-46e2933230cf"
