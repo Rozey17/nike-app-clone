@@ -19,9 +19,14 @@ const menShoesList = () => {
     },
   });
 
-  const listProducts =
-    products && products?.allProduct ? products?.allProduct : [];
+const getPRoducts = {};
 
+const listProducts =
+  products && products?.allProduct ? products?.allProduct : [];
+
+listProducts.map((item) => console.log(item.image));
+
+    
   const renderItem: ListRenderItem<Product> = ({ item }) => (
     <ProductCard key={item._id} item={item} />
   );

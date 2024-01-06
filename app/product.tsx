@@ -101,7 +101,8 @@ const Product = () => {
       {/* Product image */}
       <Image
         source={{
-          uri: urlForImage(params?.image).url() as string,
+          // uri: urlForImage(params?.image).url() as any,
+          uri: params?.image as string,
         }}
         className="object-cover h-96"
       />

@@ -1,33 +1,52 @@
-import { View, ListRenderItem, FlatList, Pressable } from "react-native";
+import { View, ListRenderItem, FlatList, Pressable, Text } from "react-native";
 import React, { useEffect, useState } from "react";
-import { client } from "../src/lib/sanity.server";
 
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
-import { Product } from "../src/components/ApolloComponents";
+import {
+  ListProductsBySearchDocument,
+  Product,
+  useListProductsBySearchQuery,
+} from "../src/components/ApolloComponents";
 import ProductCard from "../src/components/ProductCard";
 import SearchInput from "../src/components/SearchInput";
+import { client } from "../src/lib/sanity.server";
 
 const Search = () => {
   const [searchString, setSearchString] = useState("");
   const [products, setProducts] = useState<Product[]>();
 
-  async function getPosts() {
-    const query = `*[_type == "product" && name match $queryString + "*" || sub_category match $queryString +"*"]{
-      _id,name,description,category->,price,gender->,size,sub_category,'image' : image.asset->url
-    }`;
-    const params = { queryString: searchString };
-    const posts = await client.fetch(query, params);
-    setProducts(posts);
-    {
-      posts.map((x: any) => console.log(x.image.asset._ref));
-    }
+  const { data } = useListProductsBySearchQuery({
+    variables: { searchterm: searchString },
+  });
+
+  async function getProducts() {
+    const listProducts = data?.allProduct ? data?.allProduct : [];
+    setProducts(listProducts);
+    listProducts.map((x) => console.log(x));
+
+    // {
+    //   listProducts.map((x) => console.log(x.image?.asset?.url));
+    // }
   }
+
+  // async function getPosts() {
+  //   const query = `*[_type == "product" && name match $queryString + "*" || sub_category match $queryString +"*"]{
+  //     _id,name,description,category->,price,gender->,size,sub_category,"image": image.asset ->url
+  //   }`;
+  //   const params = { queryString: searchString };
+  //   const posts = await client.fetch(query, params);
+  //   setProducts(posts);
+  //   // {
+  //   //   posts.map((x: any) => console.log(x.image));
+  //   // }
+  // }
 
   const handleClickUser = async () => {
     if (searchString === "" || searchString.trim() === "") return;
-    getPosts();
+    // getPosts();
+    getProducts();
   };
   useEffect(() => {
     if (searchString !== "") {
@@ -64,18 +83,23 @@ const Search = () => {
           onChange={(e) => setSearchString(e.nativeEvent.text)}
         />
       </View>
-
-      <FlatList
-        showsVerticalScrollIndicator={false}
-        data={products}
-        renderItem={renderItem}
-        numColumns={2}
-        columnWrapperStyle={{
-          flexDirection: "row",
-          gap: 5,
-          paddingVertical: 15,
-        }}
-      />
+      {products?.length === 0 ? (
+        <View className="p-10">
+          <Text className="text-center text-[16px]">Aucun résultat trouvé</Text>
+        </View>
+      ) : (
+        <FlatList
+          showsVerticalScrollIndicator={false}
+          data={products}
+          renderItem={renderItem}
+          numColumns={2}
+          columnWrapperStyle={{
+            flexDirection: "row",
+            gap: 5,
+            paddingVertical: 15,
+          }}
+        />
+      )}
     </SafeAreaView>
   );
 };

@@ -108,20 +108,27 @@ query ListProductsByCategory($category:String!){
 }
 
 query ListProductsBySearch($searchterm:String!){
-    allProduct(where : {name :{matches: $slug}} }} ){
+    allProduct(where : {name :{matches: $searchterm}}  ){
         _id
         ,name,
         slug{
           current
         },
         price,
+        gender{
+          _id 
+          name
+          slug{
+            current
+          }
+        }
         image {
           asset {
             url
           }
         },
         description,
-       
+       sub_category
         category {
           _id,
           name

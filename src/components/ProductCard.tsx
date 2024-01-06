@@ -20,7 +20,7 @@ const ProductCard = ({ item }: { item: Product }) => {
             name: item?.name as string,
             gender: item?.gender?.name as string,
             price: item?.price as number,
-            image: item?.image as any,
+            image: item?.image?.asset?.url as string,
             description: item?.description as string,
             category: item?.category?.name as string,
             sub_category: item?.sub_category as string,
