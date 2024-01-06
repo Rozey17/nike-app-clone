@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, Pressable } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
 import { useFavoriteStore } from "../store/wishlistStore";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -6,7 +6,10 @@ import { useToast } from "native-base";
 
 type TFavoriteComp = (props: { productId: string }) => JSX.Element;
 
-const ProductCardFavorite: TFavoriteComp = ({ productId }) => {
+const id = "test-toast";
+const id2 = "test-toast";
+
+const Favorite: TFavoriteComp = ({ productId }) => {
   const favoriteItems = useFavoriteStore((state) => state.favoriteItems);
   const addToFavorites = useFavoriteStore((state) => state.addToFavorites);
   const removeFromFavorites = useFavoriteStore(
@@ -21,8 +24,10 @@ const ProductCardFavorite: TFavoriteComp = ({ productId }) => {
     toastIdRef.current = toast.show({
       render: () => {
         return (
-          <View className="p-4 bg-gray-900 rounded-md w-96">
-            <Text className="font-semibold text-white">Ajouté aux favoris</Text>
+          <View className="relative p-5 bg-black rounded-md w-[360px] opacity-90">
+            <Text className="z-20 font-semibold text-center text-[16px] text-white">
+              Ajouté aux favoris
+            </Text>
           </View>
         );
       },
@@ -33,8 +38,8 @@ const ProductCardFavorite: TFavoriteComp = ({ productId }) => {
     toastIdRef2.current = toast.show({
       render: () => {
         return (
-          <View className="p-4 bg-gray-900 rounded-md w-96">
-            <Text className="font-semibold text-white">
+          <View className="p-5 bg-black rounded-md w-[360px] opacity-90">
+            <Text className="font-semibold text-center text-[16px] text-white">
               Supprimé des favoris
             </Text>
           </View>
@@ -64,23 +69,28 @@ const ProductCardFavorite: TFavoriteComp = ({ productId }) => {
     }
   };
   return (
-    <Pressable
+    <TouchableOpacity
       onPress={handleFavorites}
-      className="absolute z-10 p-[7px] bg-white rounded-full h-15 w-15 top-3 right-3"
+      className="items-center flex-1 justify-center border border-gray-300 rounded-full h-[65px] ml-2"
     >
-      <MaterialIcons name="favorite-outline" size={20} color="black" />
+      <View className="absolute inset-1/2">
+        <MaterialIcons name="favorite-outline" size={26} color="black" />
+      </View>
 
       {favoriteItems.map((itemId) => {
         if (itemId === productId) {
           return (
-            <View key={itemId} className="absolute top-[7px] right-[7px]">
-              <MaterialIcons name="favorite" size={20} color="black" />
-            </View>
+            <MaterialIcons
+              key={itemId}
+              name="favorite"
+              size={26}
+              color="black"
+            />
           );
         }
       })}
-    </Pressable>
+    </TouchableOpacity>
   );
 };
 
-export default ProductCardFavorite;
+export default Favorite;

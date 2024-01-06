@@ -1,29 +1,61 @@
-import { View, ListRenderItem, FlatList, Pressable } from "react-native";
+import {
+  View,
+  ListRenderItem,
+  FlatList,
+  Pressable,
+  Text,
+  ActivityIndicator,
+} from "react-native";
 import React, { useEffect, useState } from "react";
-import { client } from "../lib/sanity.server";
-import { Product } from "../components/apollo-components";
-import ProductCard from "../components/ProductCard";
-import SearchInput from "../components/SearchInput";
+
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
+import {
+  ListProductsBySearchDocument,
+  Product,
+  useListProductsBySearchQuery,
+} from "../src/components/ApolloComponents";
+import ProductCard from "../src/components/ProductCard";
+import SearchInput from "../src/components/SearchInput";
+import { client } from "../src/lib/graphql";
+// import { client } from "../src/lib/sanity.server";
 
 const Search = () => {
   const [searchString, setSearchString] = useState("");
-
   const [products, setProducts] = useState<Product[]>();
+  const [loading, setLoading] = useState(false);
 
-  async function getPosts() {
-    const query = `*[_type == "product" && name match $queryString + "*" || sub_category match $queryString +"*"]`;
-    const params = { queryString: searchString };
-    const posts = await client.fetch(query, params);
-    setProducts(posts);
-    // console.log(posts);
+  async function getProducts() {
+    const listProducts = await client.query({
+      query: ListProductsBySearchDocument,
+      variables: {
+        searchterm: searchString,
+      },
+    });
+    setProducts(listProducts?.data?.allProduct);
+    setLoading(listProducts?.loading);
+    // {
+    //   listProducts.map((x) => console.log(x.image?.asset?.url));
+    // }
   }
+
+  // async function getPosts() {
+  //   const query = `*[_type == "product" && name match $queryString + "*" || sub_category match $queryString +"*"]{
+  //     _id,name,description,category->,price,gender->,size,sub_category,"image": image.asset ->url
+  //   }`;
+  //   const params = { queryString: searchString };
+  //   const posts = await client.fetch(query, params);
+  //   setProducts(posts);
+  //   // {
+  //   //   posts.map((x: any) => console.log(x.image));
+  //   // }
+  // }
 
   const handleClickUser = async () => {
     if (searchString === "" || searchString.trim() === "") return;
-    getPosts();
+    // getPosts();
+    getProducts();
   };
   useEffect(() => {
     if (searchString !== "") {
@@ -60,18 +92,29 @@ const Search = () => {
           onChange={(e) => setSearchString(e.nativeEvent.text)}
         />
       </View>
-
-      <FlatList
-        showsVerticalScrollIndicator={false}
-        data={products}
-        renderItem={renderItem}
-        numColumns={2}
-        columnWrapperStyle={{
-          flexDirection: "row",
-          gap: 5,
-          paddingVertical: 15,
-        }}
-      />
+      {products?.length === 0 ? (
+        <View className="p-10">
+          <Text className="text-center text-[16px]">Aucun résultat trouvé</Text>
+        </View>
+      ) : (
+        <>
+          {loading ? (
+            <ActivityIndicator color="#9ca3af" size="large" />
+          ) : (
+            <FlatList
+              showsVerticalScrollIndicator={false}
+              data={products}
+              renderItem={renderItem}
+              numColumns={2}
+              columnWrapperStyle={{
+                flexDirection: "row",
+                gap: 5,
+                paddingVertical: 15,
+              }}
+            />
+          )}
+        </>
+      )}
     </SafeAreaView>
   );
 };

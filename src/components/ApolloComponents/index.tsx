@@ -343,6 +343,7 @@ export type Product = Document & {
   image?: Maybe<Image>;
   name?: Maybe<Scalars['String']>;
   price?: Maybe<Scalars['Float']>;
+  quantity?: Maybe<Scalars['Float']>;
   size?: Maybe<Scalars['String']>;
   slug?: Maybe<Slug>;
   sub_category?: Maybe<Scalars['String']>;
@@ -363,6 +364,7 @@ export type ProductFilter = {
   image?: InputMaybe<ImageFilter>;
   name?: InputMaybe<StringFilter>;
   price?: InputMaybe<FloatFilter>;
+  quantity?: InputMaybe<FloatFilter>;
   size?: InputMaybe<StringFilter>;
   slug?: InputMaybe<SlugFilter>;
   sub_category?: InputMaybe<StringFilter>;
@@ -379,6 +381,7 @@ export type ProductSorting = {
   image?: InputMaybe<ImageSorting>;
   name?: InputMaybe<SortOrder>;
   price?: InputMaybe<SortOrder>;
+  quantity?: InputMaybe<SortOrder>;
   size?: InputMaybe<SortOrder>;
   slug?: InputMaybe<SlugSorting>;
   sub_category?: InputMaybe<SortOrder>;
@@ -930,12 +933,12 @@ export type ListProductsByCategoryQueryVariables = Exact<{
 
 export type ListProductsByCategoryQuery = { __typename?: 'RootQuery', allProduct: Array<{ __typename?: 'Product', _id?: string | null, name?: string | null, price?: number | null, description?: string | null, sub_category?: string | null, size?: string | null, slug?: { __typename?: 'Slug', current?: string | null } | null, image?: { __typename?: 'Image', asset?: { __typename?: 'SanityImageAsset', url?: string | null } | null } | null, gender?: { __typename?: 'Gender', _id?: string | null, name?: string | null, slug?: { __typename?: 'Slug', current?: string | null } | null } | null, category?: { __typename?: 'Category', _id?: string | null, name?: string | null, slug?: { __typename?: 'Slug', current?: string | null } | null } | null }> };
 
-export type ListProductsByGenderQueryVariables = Exact<{
-  slug: Scalars['String'];
+export type ListProductsBySearchQueryVariables = Exact<{
+  searchterm: Scalars['String'];
 }>;
 
 
-export type ListProductsByGenderQuery = { __typename?: 'RootQuery', allProduct: Array<{ __typename?: 'Product', _id?: string | null, name?: string | null, price?: number | null, description?: string | null, slug?: { __typename?: 'Slug', current?: string | null } | null, image?: { __typename?: 'Image', asset?: { __typename?: 'SanityImageAsset', url?: string | null } | null } | null, category?: { __typename?: 'Category', _id?: string | null, name?: string | null, slug?: { __typename?: 'Slug', current?: string | null } | null } | null }> };
+export type ListProductsBySearchQuery = { __typename?: 'RootQuery', allProduct: Array<{ __typename?: 'Product', _id?: string | null, name?: string | null, price?: number | null, description?: string | null, sub_category?: string | null, slug?: { __typename?: 'Slug', current?: string | null } | null, gender?: { __typename?: 'Gender', _id?: string | null, name?: string | null, slug?: { __typename?: 'Slug', current?: string | null } | null } | null, image?: { __typename?: 'Image', asset?: { __typename?: 'SanityImageAsset', url?: string | null } | null } | null, category?: { __typename?: 'Category', _id?: string | null, name?: string | null, slug?: { __typename?: 'Slug', current?: string | null } | null } | null }> };
 
 
 export const ListCategoriesDocument = gql`
@@ -1202,21 +1205,29 @@ export function useListProductsByCategoryLazyQuery(baseOptions?: Apollo.LazyQuer
 export type ListProductsByCategoryQueryHookResult = ReturnType<typeof useListProductsByCategoryQuery>;
 export type ListProductsByCategoryLazyQueryHookResult = ReturnType<typeof useListProductsByCategoryLazyQuery>;
 export type ListProductsByCategoryQueryResult = Apollo.QueryResult<ListProductsByCategoryQuery, ListProductsByCategoryQueryVariables>;
-export const ListProductsByGenderDocument = gql`
-    query ListProductsByGender($slug: String!) {
-  allProduct(where: {gender: {slug: {current: {eq: $slug}}}}) {
+export const ListProductsBySearchDocument = gql`
+    query ListProductsBySearch($searchterm: String!) {
+  allProduct(where: {name: {matches: $searchterm}}) {
     _id
     name
     slug {
       current
     }
     price
+    gender {
+      _id
+      name
+      slug {
+        current
+      }
+    }
     image {
       asset {
         url
       }
     }
     description
+    sub_category
     category {
       _id
       name
@@ -1229,29 +1240,29 @@ export const ListProductsByGenderDocument = gql`
     `;
 
 /**
- * __useListProductsByGenderQuery__
+ * __useListProductsBySearchQuery__
  *
- * To run a query within a React component, call `useListProductsByGenderQuery` and pass it any options that fit your needs.
- * When your component renders, `useListProductsByGenderQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useListProductsBySearchQuery` and pass it any options that fit your needs.
+ * When your component renders, `useListProductsBySearchQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useListProductsByGenderQuery({
+ * const { data, loading, error } = useListProductsBySearchQuery({
  *   variables: {
- *      slug: // value for 'slug'
+ *      searchterm: // value for 'searchterm'
  *   },
  * });
  */
-export function useListProductsByGenderQuery(baseOptions: Apollo.QueryHookOptions<ListProductsByGenderQuery, ListProductsByGenderQueryVariables>) {
+export function useListProductsBySearchQuery(baseOptions: Apollo.QueryHookOptions<ListProductsBySearchQuery, ListProductsBySearchQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<ListProductsByGenderQuery, ListProductsByGenderQueryVariables>(ListProductsByGenderDocument, options);
+        return Apollo.useQuery<ListProductsBySearchQuery, ListProductsBySearchQueryVariables>(ListProductsBySearchDocument, options);
       }
-export function useListProductsByGenderLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ListProductsByGenderQuery, ListProductsByGenderQueryVariables>) {
+export function useListProductsBySearchLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ListProductsBySearchQuery, ListProductsBySearchQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<ListProductsByGenderQuery, ListProductsByGenderQueryVariables>(ListProductsByGenderDocument, options);
+          return Apollo.useLazyQuery<ListProductsBySearchQuery, ListProductsBySearchQueryVariables>(ListProductsBySearchDocument, options);
         }
-export type ListProductsByGenderQueryHookResult = ReturnType<typeof useListProductsByGenderQuery>;
-export type ListProductsByGenderLazyQueryHookResult = ReturnType<typeof useListProductsByGenderLazyQuery>;
-export type ListProductsByGenderQueryResult = Apollo.QueryResult<ListProductsByGenderQuery, ListProductsByGenderQueryVariables>;
+export type ListProductsBySearchQueryHookResult = ReturnType<typeof useListProductsBySearchQuery>;
+export type ListProductsBySearchLazyQueryHookResult = ReturnType<typeof useListProductsBySearchLazyQuery>;
+export type ListProductsBySearchQueryResult = Apollo.QueryResult<ListProductsBySearchQuery, ListProductsBySearchQueryVariables>;

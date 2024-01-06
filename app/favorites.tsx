@@ -5,16 +5,21 @@ import {
   Text,
   ActivityIndicator,
 } from "react-native";
-import React from "react";
-import { useFavoriteStore } from "../store/wishlistStore";
-import { Product, useListProductsQuery } from "../components/apollo-components";
+import React, { useState } from "react";
 import { MaterialIcons } from "@expo/vector-icons";
-import ProductCard from "../components/ProductCard";
+import {
+  Product,
+  useListProductsQuery,
+} from "../src/components/ApolloComponents";
+import { useFavoriteStore } from "../src/store/wishlistStore";
+import ProductCard from "../src/components/ProductCard";
+import { client } from "../src/lib/sanity.server";
 
 const favourites = () => {
   const { data: products, loading } = useListProductsQuery();
   const listProducts =
     products && products.allProduct ? products.allProduct : [];
+
   const favoriteItems = useFavoriteStore((state) => state.favoriteItems);
   const favoriteItemsFilteredData: any[] =
     favoriteItems?.map((itemId) =>

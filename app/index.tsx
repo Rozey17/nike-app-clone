@@ -16,9 +16,10 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { TabView, TabBar, SceneMap } from "react-native-tab-view";
-import CartIcon from "../components/CartIcon";
+
 import { Drawer } from "react-native-drawer-layout";
 import { LinearGradient } from "expo-linear-gradient";
+import CartIcon from "../src/components/CartIcon";
 
 export default function Home() {
   const router = useRouter();
@@ -33,10 +34,7 @@ export default function Home() {
       <View className="p-5 py-8 space-y-5">
         <Text className="text-xl">Indispensable, meilleures ventes...</Text>
         <View className="flex-row items-center space-x-1">
-          <TouchableOpacity
-            onPress={() => router.push("/news")}
-            className="space-y-3"
-          >
+          <TouchableOpacity className="space-y-3">
             <Image
               source={{
                 uri: "https://static.nike.com/a/images/w_300,c_limit/2e20a745-d9be-4d82-8cad-0c55d115fbb3/que-la-saison-des-cadeaux-commence-nike-com.png",

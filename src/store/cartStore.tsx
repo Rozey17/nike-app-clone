@@ -1,11 +1,10 @@
 import { create } from "zustand";
-import { ProductType } from "./interfaces";
-import { persist } from "zustand/middleware";
+import { Product } from "../components/ApolloComponents";
 
 export interface CartState {
-  products: Array<ProductType & { quantity: number }>;
-  addProduct: (product: ProductType) => void;
-  removeProduct: (product: ProductType) => void;
+  products: Array<Product & { quantity: number }>;
+  addProduct: (product: Product) => void;
+  removeProduct: (product: Product) => void;
   clearCart: () => void;
   items: number;
 }
@@ -13,16 +12,16 @@ export interface CartState {
 const useCartStore = create<CartState>((set) => ({
   products: [],
   items: 0,
-  addProduct: (product: ProductType) =>
+  addProduct: (product: Product) =>
     set((state) => {
       state.items++;
       const hasProduct = state.products.find(
-        (p) => p.id === product.id && p.size === product.size
+        (p) => p._id === product._id && p.size === product.size
       );
       if (hasProduct) {
         return {
           products: state.products.map((p) => {
-            if (p.id === product.id && p.size === product.size) {
+            if (p._id === product._id && p.size === product.size) {
               return { ...p, quantity: p.quantity + 1 };
             }
             return p;
@@ -34,12 +33,12 @@ const useCartStore = create<CartState>((set) => ({
         };
       }
     }),
-  removeProduct: (product: ProductType) =>
+  removeProduct: (product: Product) =>
     set((state) => {
       return {
         products: state.products
           .map((p) => {
-            if (p.id === product.id && p.size === product.size) {
+            if (p._id === product._id && p.size === product.size) {
               state.items--;
               return { ...p, quantity: p.quantity - 1 };
             }

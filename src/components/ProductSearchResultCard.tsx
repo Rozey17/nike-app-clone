@@ -1,12 +1,11 @@
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import React from "react";
 import { useRouter } from "expo-router";
-import { ProductType } from "../store/interfaces";
 import ProductCardFavorite from "./ProductCardFavorite";
-import { Product } from "./apollo-components";
+import { Product } from "./ApolloComponents";
 import { urlForImage } from "../lib/sanity";
 
-const ProductCard = ({ item }: { item: Product }) => {
+const ProductSearchResultCard = ({ item }: { item: Product }) => {
   const router = useRouter();
   let stringPrice = item.price?.toString().replace(".", ",");
 
@@ -17,11 +16,12 @@ const ProductCard = ({ item }: { item: Product }) => {
         router.push({
           pathname: "/product",
           params: {
-            id: item?._id!,
+            id: item?._id as string,
             name: item?.name as string,
             gender: item?.gender?.name as string,
             price: item?.price as number,
-            image: item?.image?.asset?.url as string,
+            //@ts-ignore
+            image: item?.image?.asset?._ref as string,
             description: item?.description as string,
             category: item?.category?.name as string,
             sub_category: item?.sub_category as string,
@@ -51,4 +51,4 @@ const ProductCard = ({ item }: { item: Product }) => {
   );
 };
 
-export default ProductCard;
+export default ProductSearchResultCard;

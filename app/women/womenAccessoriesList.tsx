@@ -5,12 +5,12 @@ import {
   ActivityIndicator,
 } from "react-native";
 import React from "react";
-import { urlForImage } from "../../lib/sanity";
 import {
   Product,
   useListProductsByCategoryQuery,
-} from "../../components/apollo-components";
-import ProductCard from "../../components/ProductCard";
+} from "../../src/components/ApolloComponents";
+import ProductCard from "../../src/components/ProductCard";
+
 
 const womenAccessoriesList = () => {
   const { data: products, loading } = useListProductsByCategoryQuery({

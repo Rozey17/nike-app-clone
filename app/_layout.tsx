@@ -1,15 +1,13 @@
 import { AntDesign } from "@expo/vector-icons";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { useFonts } from "expo-font";
-import { SplashScreen, Stack, router, useLocalSearchParams } from "expo-router";
+import { SplashScreen, Stack, router } from "expo-router";
 import { useEffect } from "react";
-import { StatusBar, TextInput, TouchableOpacity } from "react-native";
-import { View } from "../components/Themed";
+import { StatusBar, TouchableOpacity, View } from "react-native";
 import { NativeBaseProvider } from "native-base";
-import CartIcon from "../components/CartIcon";
-import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
-import { client } from "../lib/graphql";
-import SearchInput from "../components/SearchInput";
+import { ApolloProvider } from "@apollo/client";
+import { client } from "../src/lib/graphql";
+import CartIcon from "../src/components/CartIcon";
 
 export {
   // Catch any errors thrown by the Layout component.

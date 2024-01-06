@@ -7,8 +7,9 @@ import {
 import {
   Product,
   useListProductsByCategoryAndGenderQuery,
-} from "../../components/apollo-components";
-import ProductCard from "../../components/ProductCard";
+} from "../../src/components/ApolloComponents";
+import ProductCard from "../../src/components/ProductCard";
+
 
 const menShoesList = () => {
   const { data: products, loading } = useListProductsByCategoryAndGenderQuery({
@@ -18,9 +19,12 @@ const menShoesList = () => {
     },
   });
 
-  const listProducts =
-    products && products?.allProduct ? products?.allProduct : [];
+const listProducts =
+  products && products?.allProduct ? products?.allProduct : [];
 
+listProducts.map((item) => console.log(item.image));
+
+    
   const renderItem: ListRenderItem<Product> = ({ item }) => (
     <ProductCard key={item._id} item={item} />
   );

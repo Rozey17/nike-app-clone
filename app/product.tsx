@@ -4,8 +4,9 @@ import { Entypo, MaterialIcons } from "@expo/vector-icons";
 import { Stack, router, useLocalSearchParams, useRouter } from "expo-router";
 import SelectDropdown from "react-native-select-dropdown";
 import { Toast, useToast } from "native-base";
-import useCartStore from "../store/cartStore";
-import Favorite from "../components/Favorite";
+import useCartStore from "../src/store/cartStore";
+import Favorite from "../src/components/Favorite";
+import { urlForImage } from "../src/lib/sanity";
 
 const Product = () => {
   const toast = useToast();
@@ -100,6 +101,7 @@ const Product = () => {
       {/* Product image */}
       <Image
         source={{
+          // uri: urlForImage(params?.image).url() as any,
           uri: params?.image as string,
         }}
         className="object-cover h-96"
@@ -185,15 +187,19 @@ const Product = () => {
                 });
               } else
                 addProduct({
-                  id: params.id as any,
+                  _id: params._id as string,
                   description: params.description as string,
-                  gender: params.gender as string,
-                  image: params.image as string,
+                  gender: {
+                    name: params.gender as string,
+                  },
+                  image: params.image as object,
                   name: params.name as string,
                   size: size as any,
                   price: params.price as any,
-                  category: params.category as string,
-                  sub_category: params.sub_category as string,
+                  category: {
+                    name: params.category as string,
+                  },
+                  sub_category: params.sub_category as any,
                 }),
                   router.push("/addedToCartModal");
             }}
