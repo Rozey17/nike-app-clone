@@ -117,7 +117,9 @@ const Product = () => {
         </View>
 
         <Text className="text-[16px]">{stringPrice} €</Text>
-        <Text className="text-[16px]">{params?.description}</Text>
+        <Text className="text-[16px]" style={{ fontFamily: "Helvetica" }}>
+          {params?.description}
+        </Text>
         <View className="pt-5 space-y-3">
           {params.sub_category.includes("Sac") ? (
             <Text className="font-bold text-center uppercase">
