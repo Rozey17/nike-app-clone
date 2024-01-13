@@ -97,7 +97,7 @@ const Product = () => {
         options={{
           title: params?.name as string,
           headerTitleStyle: {
-            fontFamily: "HelveticaBold",
+            fontFamily: "HelveticaMedium",
           },
         }}
       />

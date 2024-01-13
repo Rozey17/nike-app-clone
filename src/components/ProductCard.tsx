@@ -37,7 +37,7 @@ const ProductCard = ({ item }: { item: Product }) => {
       />
       <View className="p-4 space-y-3">
         <View>
-          <Text style={{ fontFamily: "HelveticaBold" }}>{item?.name}</Text>
+          <Text style={{ fontFamily: "HelveticaMedium" }}>{item?.name}</Text>
           <Text
             className="text-neutral-500 "
             style={{ fontFamily: "HelveticaRegular" }}

@@ -59,7 +59,7 @@ function RootLayoutNav() {
           screenOptions={{
             headerShadowVisible: false,
             animation: "slide_from_right",
-            headerTitleStyle: { fontSize: 16, fontFamily: "HelveticaBold" },
+            headerTitleStyle: { fontSize: 16, fontFamily: "HelveticaMedium" },
           }}
         >
           <Stack.Screen
