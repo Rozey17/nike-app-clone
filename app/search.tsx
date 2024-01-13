@@ -91,7 +91,12 @@ const Search = () => {
       </View>
       {products?.length === 0 ? (
         <View className="p-10">
-          <Text className="text-center text-[16px]">Aucun résultat trouvé</Text>
+          <Text
+            style={{ fontFamily: "HelveticaRegular" }}
+            className="text-center text-[16px]"
+          >
+            Aucun résultat trouvé
+          </Text>
         </View>
       ) : (
         <>
