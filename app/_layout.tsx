@@ -25,6 +25,10 @@ SplashScreen.preventAutoHideAsync();
 export default function RootLayout() {
   const [loaded, error] = useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
+    HelveticaRegular: require("../assets/fonts/HelveticaNowDisplay-Regular.ttf"),
+    HelveticaMedium: require("../assets/fonts/HelveticaNowDisplay-Medium.ttf"),
+    HelveticaBold: require("../assets/fonts/HelveticaNowDisplay-Bold.ttf"),
+    HelveticaHairline: require("../assets/fonts/HelveticaNowDisplay-Hairline.ttf"),
     ...FontAwesome.font,
   });
 
@@ -55,7 +59,7 @@ function RootLayoutNav() {
           screenOptions={{
             headerShadowVisible: false,
             animation: "slide_from_right",
-            headerTitleStyle: { fontSize: 16 },
+            headerTitleStyle: { fontSize: 16, fontFamily: "HelveticaBold" },
           }}
         >
           <Stack.Screen

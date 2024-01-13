@@ -37,14 +37,17 @@ const ProductCard = ({ item }: { item: Product }) => {
       />
       <View className="p-4 space-y-3">
         <View>
-          <Text className="font-medium">{item?.name}</Text>
-          <Text className="text-neutral-500 ">
+          <Text style={{ fontFamily: "HelveticaBold" }}>{item?.name}</Text>
+          <Text
+            className="text-neutral-500 "
+            style={{ fontFamily: "HelveticaRegular" }}
+          >
             {item?.sub_category} {item?.gender?.name === "male" && "pour homme"}
             {item?.gender?.name === "female" && "pour femme"}
           </Text>
         </View>
 
-        <Text className="font-medium ">{stringPrice} €</Text>
+        <Text style={{ fontFamily: "HelveticaMedium" }}>{stringPrice} €</Text>
       </View>
     </TouchableOpacity>
   );

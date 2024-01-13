@@ -27,7 +27,10 @@ const payment = () => {
         }}
         className="w-40 h-40"
       />
-      <Text className="text-xl font-semibold text-emerald-500">
+      <Text
+        style={{ fontFamily: "HelveticaBold" }}
+        className="text-xl text-emerald-500"
+      >
         Paiement réussi
       </Text>
     </View>

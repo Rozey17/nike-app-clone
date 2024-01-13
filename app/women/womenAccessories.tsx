@@ -10,7 +10,9 @@ const womenAccessories = () => {
           onPress={() => router.push("/women/womenAccessoriesList")}
           className="py-8"
         >
-          <Text>Tous les accessoires</Text>
+          <Text style={{ fontFamily: "HelveticaRegular" }}>
+            Tous les accessoires
+          </Text>
         </TouchableOpacity>
       </View>
     </View>

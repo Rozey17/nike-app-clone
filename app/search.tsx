@@ -7,19 +7,16 @@ import {
   ActivityIndicator,
 } from "react-native";
 import React, { useEffect, useState } from "react";
-
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import {
   ListProductsBySearchDocument,
   Product,
-  useListProductsBySearchQuery,
 } from "../src/components/ApolloComponents";
 import ProductCard from "../src/components/ProductCard";
 import SearchInput from "../src/components/SearchInput";
 import { client } from "../src/lib/graphql";
-// import { client } from "../src/lib/sanity.server";
 
 const Search = () => {
   const [searchString, setSearchString] = useState("");

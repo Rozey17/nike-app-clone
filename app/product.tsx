@@ -96,6 +96,9 @@ const Product = () => {
       <Stack.Screen
         options={{
           title: params?.name as string,
+          headerTitleStyle: {
+            fontFamily: "HelveticaBold",
+          },
         }}
       />
       {/* Product image */}
@@ -108,19 +111,42 @@ const Product = () => {
       />
       <View className="px-6 py-10 space-y-5">
         <View>
-          <Text className="text-[16px]">
+          <Text
+            className="text-[16px] pb-1"
+            style={{ fontFamily: "HelveticaRegular" }}
+          >
             {params?.sub_category as string}{" "}
             {params?.gender === "male" && "pour homme"}
             {params?.gender === "female" && "pour femme"}
           </Text>
-          <Text className="text-2xl font-bold capitalize">{params?.name}</Text>
+          <Text
+            className="text-2xl capitalize "
+            style={{
+              fontFamily: "HelveticaBold",
+            }}
+          >
+            {params?.name}
+          </Text>
         </View>
 
-        <Text className="text-[16px]">{stringPrice} €</Text>
-        <Text className="text-[16px]">{params?.description}</Text>
+        <Text
+          className="text-[16px]"
+          style={{ fontFamily: "HelveticaRegular" }}
+        >
+          {stringPrice} €
+        </Text>
+        <Text
+          className="text-[16px] leading-7"
+          style={{ fontFamily: "HelveticaRegular" }}
+        >
+          {params?.description}
+        </Text>
         <View className="pt-5 space-y-3">
           {params.sub_category.includes("Sac") ? (
-            <Text className="font-bold text-center uppercase">
+            <Text
+              className="text-center uppercase "
+              style={{ fontFamily: "HelveticaBold" }}
+            >
               taille unique{" "}
             </Text>
           ) : (
@@ -137,7 +163,11 @@ const Product = () => {
               buttonTextAfterSelection={(selectedItem, index) => {
                 return `Taille ${selectedItem.title} `;
               }}
-              buttonTextStyle={{ fontSize: 18, fontWeight: "600" }}
+              buttonTextStyle={{
+                fontSize: 18,
+
+                fontFamily: "HelveticaMedium",
+              }}
               buttonStyle={{
                 borderRadius: 9999,
                 borderColor: "#d1d5db",
@@ -178,7 +208,12 @@ const Product = () => {
                   render: () => {
                     return (
                       <View className="p-4 bg-gray-800 rounded w-96">
-                        <Text className="font-semibold text-white">
+                        <Text
+                          className="text-white "
+                          style={{
+                            fontFamily: "HelveticaMedium",
+                          }}
+                        >
                           Veuillez choisir une taille
                         </Text>
                       </View>
@@ -205,19 +240,34 @@ const Product = () => {
             }}
             className="justify-center bg-black rounded-full h-[65px]"
           >
-            <Text className="text-lg font-semibold text-center text-white">
+            <Text
+              className="text-lg text-center text-white"
+              style={{
+                fontFamily: "HelveticaMedium",
+              }}
+            >
               Ajouter au panier
             </Text>
           </TouchableOpacity>
           <View className="flex-row items-center ">
             <TouchableOpacity className="flex-1 justify-center border border-gray-300 rounded-full h-[65px]">
-              <Text className="text-lg font-semibold text-center">Acheter</Text>
+              <Text
+                className="text-lg text-center"
+                style={{
+                  fontFamily: "HelveticaMedium",
+                }}
+              >
+                Acheter
+              </Text>
             </TouchableOpacity>
             <Favorite productId={params.id as string} />
           </View>
         </View>
 
-        <Text className="text-[16px] leading-loose text-center text-gray-400 p-14">
+        <Text
+          style={{ fontFamily: "HelveticaRegular" }}
+          className="text-[16px] leading-6 text-center text-gray-400 p-14"
+        >
           Ce produit est exclus de toutes les promotions et réductions.
         </Text>
       </View>

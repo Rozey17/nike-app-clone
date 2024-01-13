@@ -42,8 +42,11 @@ const CartItem = ({
       <View className="flex-row space-x-3">
         <Image source={{ uri: item.image as string }} className="w-28 h-28" />
         <View className="space-y-2">
-          <Text className="font-semibold font">{item.name}</Text>
-          <Text className="text-neutral-400">
+          <Text style={{ fontFamily: "HelveticaBold" }}>{item.name}</Text>
+          <Text
+            className="text-neutral-400"
+            style={{ fontFamily: "HelveticaRegular" }}
+          >
             {item?.sub_category} {item?.gender?.name === "male" && "pour homme"}
             {item?.gender?.name === "female" && "pour femme"}
           </Text>
@@ -52,11 +55,17 @@ const CartItem = ({
             <Text className="font-bold text-center uppercase">
               taille unique{" "}
             </Text>} */}
-            {item.category?.name === "shoes"
-              ? `Pointure ${item?.size}`
-              : `Taille ${
+            {item.category?.name === "shoes" ? (
+              <Text style={{ fontFamily: "HelveticaRegular" }}>
+                {`Pointure ${item?.size}`}
+              </Text>
+            ) : (
+              <Text style={{ fontFamily: "HelveticaRegular" }}>
+                {`Taille ${
                   item?.sub_category?.includes("Sac") ? "unique" : item.size
                 }`}
+              </Text>
+            )}
           </Text>
         </View>
       </View>
@@ -72,7 +81,9 @@ const CartItem = ({
               <Text className="text-xl">-</Text>
             )}
           </TouchableOpacity>
-          <Text className="font-medium">Qté {item.quantity}</Text>
+          <Text style={{ fontFamily: "HelveticaMedium" }}>
+            Qté {item.quantity}
+          </Text>
           <TouchableOpacity
             className="items-center justify-center w-10 h-10 border border-gray-200 rounded-md"
             onPress={() => addProduct(item)}
@@ -80,7 +91,10 @@ const CartItem = ({
             <Text className="text-xl">+</Text>
           </TouchableOpacity>
         </View>
-        <Text className="font-medium text-green-700">
+        <Text
+          style={{ fontFamily: "HelveticaMedium" }}
+          className="text-green-700"
+        >
           {subtotal(item.price!, item.quantity as number)
             .toString()
             .replace(".", ",")}{" "}
