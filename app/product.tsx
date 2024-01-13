@@ -11,9 +11,7 @@ import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import BuyProductBottomSheet from "../src/components/BuyProductBottomSheet";
 
 const Product = () => {
-  const toast = useToast();
   const { addProduct } = useCartStore();
-  const [selected, setSelected] = useState(false);
   const params = useLocalSearchParams();
   const [size, setSize] = useState(null);
   const shoeSizes = [
