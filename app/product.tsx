@@ -1,5 +1,5 @@
 import { View, Text, ScrollView, Image, TouchableOpacity } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Entypo, MaterialIcons } from "@expo/vector-icons";
 import { Stack, router, useLocalSearchParams, useRouter } from "expo-router";
 import SelectDropdown from "react-native-select-dropdown";
@@ -7,6 +7,8 @@ import { Toast, useToast } from "native-base";
 import useCartStore from "../src/store/cartStore";
 import Favorite from "../src/components/Favorite";
 import { urlForImage } from "../src/lib/sanity";
+import { BottomSheetModal } from "@gorhom/bottom-sheet";
+import BuyProductBottomSheet from "../src/components/BuyProductBottomSheet";
 
 const Product = () => {
   const toast = useToast();
@@ -85,193 +87,243 @@ const Product = () => {
 
   let stringPrice = params?.price.toString().replace(".", ",");
 
-  return (
-    <ScrollView
-      className="bg-white"
-      showsVerticalScrollIndicator={false}
-      overScrollMode="never"
-    >
-      {/* Display the name of the product as header title */}
+  const modalSheetBottomref = useRef<BottomSheetModal>(null);
+  function handlePresentModal() {
+    modalSheetBottomref.current?.present();
+  }
 
-      <Stack.Screen
-        options={{
-          title: params?.name as string,
-          headerTitleStyle: {
-            fontFamily: "HelveticaMedium",
-          },
-        }}
-      />
-      {/* Product image */}
-      <Image
-        source={{
-          // uri: urlForImage(params?.image).url() as any,
-          uri: params?.image as string,
-        }}
-        className="object-cover h-96"
-      />
-      <View className="px-6 py-10 space-y-5">
-        <View>
+  return (
+    <>
+      <ScrollView
+        className="bg-white"
+        showsVerticalScrollIndicator={false}
+        overScrollMode="never"
+      >
+        {/* Display the name of the product as header title */}
+
+        <Stack.Screen
+          options={{
+            title: params?.name as string,
+            headerTitleStyle: {
+              fontFamily: "HelveticaMedium",
+            },
+          }}
+        />
+        {/* Product image */}
+        <Image
+          source={{
+            // uri: urlForImage(params?.image).url() as any,
+            uri: params?.image as string,
+          }}
+          className="object-cover h-96"
+        />
+        <View className="px-6 py-10 space-y-5">
+          <View>
+            <Text
+              className="text-[16px] pb-1"
+              style={{ fontFamily: "HelveticaRegular" }}
+            >
+              {params?.sub_category as string}{" "}
+              {params?.gender === "male" && "pour homme"}
+              {params?.gender === "female" && "pour femme"}
+            </Text>
+            <Text
+              className="text-2xl capitalize "
+              style={{
+                fontFamily: "HelveticaBold",
+              }}
+            >
+              {params?.name}
+            </Text>
+          </View>
+
           <Text
-            className="text-[16px] pb-1"
+            className="text-[16px]"
             style={{ fontFamily: "HelveticaRegular" }}
           >
-            {params?.sub_category as string}{" "}
-            {params?.gender === "male" && "pour homme"}
-            {params?.gender === "female" && "pour femme"}
+            {stringPrice} €
           </Text>
           <Text
-            className="text-2xl capitalize "
-            style={{
-              fontFamily: "HelveticaBold",
-            }}
+            className="text-[16px] leading-7"
+            style={{ fontFamily: "HelveticaRegular" }}
           >
-            {params?.name}
+            {params?.description}
           </Text>
-        </View>
-
-        <Text
-          className="text-[16px]"
-          style={{ fontFamily: "HelveticaRegular" }}
-        >
-          {stringPrice} €
-        </Text>
-        <Text
-          className="text-[16px] leading-7"
-          style={{ fontFamily: "HelveticaRegular" }}
-        >
-          {params?.description}
-        </Text>
-        <View className="pt-5 space-y-3">
-          {params.sub_category.includes("Sac") ? (
-            <Text
-              className="text-center uppercase "
-              style={{ fontFamily: "HelveticaBold" }}
-            >
-              taille unique{" "}
-            </Text>
-          ) : (
-            <SelectDropdown
-              defaultValue={"Sélectionner la taille"}
-              data={getSizes(
-                params?.category as string,
-                params?.sub_category as string
-              )}
-              onSelect={(selectedItem, index) => {
-                setSize(selectedItem.value);
-              }}
-              defaultButtonText={"Sélectionner la taille"}
-              buttonTextAfterSelection={(selectedItem, index) => {
-                return `Taille ${selectedItem.title} `;
-              }}
-              buttonTextStyle={{
-                fontSize: 18,
-
-                fontFamily: "HelveticaMedium",
-              }}
-              buttonStyle={{
-                borderRadius: 9999,
-                borderColor: "#d1d5db",
-                justifyContent: "space-between",
-                borderWidth: 1,
-                width: "100%",
-                height: 65,
-                backgroundColor: "white",
-              }}
-              dropdownIconPosition={"right"}
-              renderDropdownIcon={() => {
-                return (
-                  <Entypo name="chevron-small-down" size={24} color="black" />
-                );
-              }}
-              rowTextForSelection={(item, index) => {
-                return item.title;
-              }}
-              rowTextStyle={{ textAlign: "left" }}
-              // renderCustomizedRowChild={(item, index) => {
-              //   return (
-              //     <View className="flex-row items-center justify-between">
-              //       <Text>{item}</Text>
-              //       <Ionicons name="checkmark" size={24} color="black" />
-              //     </View>
-              //   );
-              // }}
-            />
-          )}
-
-          <TouchableOpacity
-            onPress={() => {
-              if (
-                size === null &&
-                params?.sub_category.includes("Sac") === false
-              ) {
-                Toast.show({
-                  render: () => {
-                    return (
-                      <View className="p-4 bg-gray-800 rounded w-96">
-                        <Text
-                          className="text-white "
-                          style={{
-                            fontFamily: "HelveticaMedium",
-                          }}
-                        >
-                          Veuillez choisir une taille
-                        </Text>
-                      </View>
-                    );
-                  },
-                });
-              } else
-                addProduct({
-                  _id: params._id as string,
-                  description: params.description as string,
-                  gender: {
-                    name: params.gender as string,
-                  },
-                  image: params.image as object,
-                  name: params.name as string,
-                  size: size as any,
-                  price: params.price as any,
-                  category: {
-                    name: params.category as string,
-                  },
-                  sub_category: params.sub_category as any,
-                }),
-                  router.push("/addedToCartModal");
-            }}
-            className="justify-center bg-black rounded-full h-[65px]"
-          >
-            <Text
-              className="text-lg text-center text-white"
-              style={{
-                fontFamily: "HelveticaMedium",
-              }}
-            >
-              Ajouter au panier
-            </Text>
-          </TouchableOpacity>
-          <View className="flex-row items-center ">
-            <TouchableOpacity className="flex-1 justify-center border border-gray-300 rounded-full h-[65px]">
+          <View className="pt-5 space-y-3">
+            {params.sub_category.includes("Sac") ? (
               <Text
-                className="text-lg text-center"
+                className="text-center uppercase "
+                style={{ fontFamily: "HelveticaBold" }}
+              >
+                taille unique{" "}
+              </Text>
+            ) : (
+              <SelectDropdown
+                defaultValue={"Sélectionner la taille"}
+                data={getSizes(
+                  params?.category as string,
+                  params?.sub_category as string
+                )}
+                onSelect={(selectedItem, index) => {
+                  setSize(selectedItem.value);
+                }}
+                defaultButtonText={"Sélectionner la taille"}
+                buttonTextAfterSelection={(selectedItem, index) => {
+                  return `Taille ${selectedItem.title} `;
+                }}
+                buttonTextStyle={{
+                  fontSize: 18,
+
+                  fontFamily: "HelveticaMedium",
+                }}
+                buttonStyle={{
+                  borderRadius: 9999,
+                  borderColor: "#d1d5db",
+                  justifyContent: "space-between",
+                  borderWidth: 1,
+                  width: "100%",
+                  height: 65,
+                  backgroundColor: "white",
+                }}
+                dropdownIconPosition={"right"}
+                renderDropdownIcon={() => {
+                  return (
+                    <Entypo name="chevron-small-down" size={24} color="black" />
+                  );
+                }}
+                rowTextForSelection={(item, index) => {
+                  return item.title;
+                }}
+                rowTextStyle={{ textAlign: "left" }}
+                // renderCustomizedRowChild={(item, index) => {
+                //   return (
+                //     <View className="flex-row items-center justify-between">
+                //       <Text>{item}</Text>
+                //       <Ionicons name="checkmark" size={24} color="black" />
+                //     </View>
+                //   );
+                // }}
+              />
+            )}
+
+            <TouchableOpacity
+              onPress={() => {
+                if (
+                  size === null &&
+                  params?.sub_category.includes("Sac") === false
+                ) {
+                  Toast.show({
+                    render: () => {
+                      return (
+                        <View className="p-5 bg-black rounded-md w-[360px] opacity-90">
+                          <Text
+                            className="text-center text-white text-[16px]"
+                            style={{
+                              fontFamily: "HelveticaMedium",
+                            }}
+                          >
+                            Veuillez choisir une taille
+                          </Text>
+                        </View>
+                      );
+                    },
+                  });
+                } else
+                  addProduct({
+                    _id: params._id as string,
+                    description: params.description as string,
+                    gender: {
+                      name: params.gender as string,
+                    },
+                    image: params.image as object,
+                    name: params.name as string,
+                    size: size as any,
+                    price: params.price as any,
+                    category: {
+                      name: params.category as string,
+                    },
+                    sub_category: params.sub_category as any,
+                  }),
+                    router.push("/addedToCartModal");
+              }}
+              className="justify-center bg-black rounded-full h-[65px]"
+            >
+              <Text
+                className="text-lg text-center text-white"
                 style={{
                   fontFamily: "HelveticaMedium",
                 }}
               >
-                Acheter
+                Ajouter au panier
               </Text>
             </TouchableOpacity>
-            <Favorite productId={params.id as string} />
+            <View className="flex-row items-center ">
+              <TouchableOpacity
+                onPress={() => {
+                  if (
+                    size === null &&
+                    params?.sub_category.includes("Sac") === false
+                  ) {
+                    Toast.show({
+                      render: () => {
+                        return (
+                          <View className="p-5 bg-black rounded-md w-[360px] opacity-90">
+                            <Text
+                              className="text-center text-white text-[16px]"
+                              style={{
+                                fontFamily: "HelveticaMedium",
+                              }}
+                            >
+                              Veuillez choisir une taille
+                            </Text>
+                          </View>
+                        );
+                      },
+                    });
+                  } else handlePresentModal();
+                }}
+                className="flex-1 justify-center border border-gray-300 rounded-full h-[65px]"
+              >
+                <Text
+                  className="text-lg text-center"
+                  style={{
+                    fontFamily: "HelveticaMedium",
+                  }}
+                >
+                  Acheter
+                </Text>
+              </TouchableOpacity>
+              <Favorite productId={params.id as string} />
+            </View>
           </View>
-        </View>
 
-        <Text
-          style={{ fontFamily: "HelveticaRegular" }}
-          className="text-[16px] leading-6 text-center text-gray-400 p-14"
-        >
-          Ce produit est exclus de toutes les promotions et réductions.
-        </Text>
-      </View>
-    </ScrollView>
+          <Text
+            style={{ fontFamily: "HelveticaRegular" }}
+            className="text-[16px] leading-6 text-center text-gray-400 p-14"
+          >
+            Ce produit est exclus de toutes les promotions et réductions.
+          </Text>
+        </View>
+      </ScrollView>
+      <BuyProductBottomSheet
+        item={{
+          _id: params._id as string,
+          description: params.description as string,
+          gender: {
+            name: params.gender as string,
+          },
+          image: params.image as object,
+          name: params.name as string,
+          size: size as any,
+          price: params.price as any,
+          category: {
+            name: params.category as string,
+          },
+          sub_category: params.sub_category as any,
+        }}
+        ref={modalSheetBottomref}
+      />
+    </>
   );
 };
 
