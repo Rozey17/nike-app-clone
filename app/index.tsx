@@ -32,7 +32,9 @@ export default function Home() {
       overScrollMode="never"
     >
       <View className="p-5 py-8 space-y-5">
-        <Text className="text-xl">Indispensable, meilleures ventes...</Text>
+        <Text className="text-xl" style={{ fontFamily: "HelveticaMedium" }}>
+          Indispensable, meilleures ventes...
+        </Text>
         <View className="flex-row items-center space-x-1">
           <TouchableOpacity className="space-y-3">
             <Image
@@ -41,7 +43,9 @@ export default function Home() {
               }}
               className="w-40 h-40 rounded-md"
             />
-            <Text>Cartes cadeaux</Text>
+            <Text style={{ fontFamily: "HelveticaMedium" }}>
+              Cartes cadeaux
+            </Text>
           </TouchableOpacity>
           <View className="space-y-3">
             <Image
@@ -50,7 +54,9 @@ export default function Home() {
               }}
               className="w-40 h-40 rounded-md"
             />
-            <Text>Chaussures de foot</Text>
+            <Text style={{ fontFamily: "HelveticaMedium" }}>
+              Chaussures de foot
+            </Text>
           </View>
         </View>
       </View>
@@ -59,7 +65,12 @@ export default function Home() {
           onPress={() => router.push("/men/menShoes")}
           className="flex-row items-center justify-between px-5 bg-blue-800 h-28"
         >
-          <Text className="text-xl text-white">Chaussures</Text>
+          <Text
+            className="text-xl text-white"
+            style={{ fontFamily: "HelveticaMedium" }}
+          >
+            Chaussures
+          </Text>
           <Image
             source={{
               uri: "https://pngimg.com/d/running_shoes_PNG5816.png",
@@ -71,7 +82,12 @@ export default function Home() {
           onPress={() => router.push("/men/menClothes")}
           className="flex-row items-center justify-between px-5 bg-blue-800 h-28"
         >
-          <Text className="text-xl text-white">Vêtements</Text>
+          <Text
+            className="text-xl text-white"
+            style={{ fontFamily: "HelveticaMedium" }}
+          >
+            Vêtements
+          </Text>
           <Image
             source={{
               uri: "https://www.addictmiami.com/cdn/shop/products/CU4489-016_1_1200x1200.png?v=1627482486",
@@ -83,7 +99,12 @@ export default function Home() {
           onPress={() => router.push("/men/menAccessories")}
           className="flex-row items-center justify-between px-5 bg-blue-800 h-28"
         >
-          <Text className="text-xl text-white">Accessoires et équipement</Text>
+          <Text
+            className="text-xl text-white"
+            style={{ fontFamily: "HelveticaMedium" }}
+          >
+            Accessoires et équipement
+          </Text>
           <Image
             source={{
               uri: "https://www.pngkey.com/png/full/316-3169157_nike-hat.png",
@@ -92,7 +113,12 @@ export default function Home() {
           />
         </TouchableOpacity>
         <TouchableOpacity className="flex-row items-center justify-between px-5 bg-blue-800 h-28">
-          <Text className="text-xl text-white">Offres et réductions</Text>
+          <Text
+            className="text-xl text-white"
+            style={{ fontFamily: "HelveticaMedium" }}
+          >
+            Offres et réductions
+          </Text>
         </TouchableOpacity>
       </View>
     </ScrollView>
@@ -104,7 +130,9 @@ export default function Home() {
       overScrollMode="never"
     >
       <View className="p-5 py-8 space-y-5">
-        <Text className="text-xl">Indispensable, meilleures ventes...</Text>
+        <Text className="text-xl" style={{ fontFamily: "HelveticaMedium" }}>
+          Indispensable, meilleures ventes...
+        </Text>
         <View className="flex-row items-center space-x-1">
           <View className="space-y-3">
             <Image
@@ -113,7 +141,9 @@ export default function Home() {
               }}
               className="w-40 h-40 rounded-md"
             />
-            <Text>Cartes cadeaux</Text>
+            <Text style={{ fontFamily: "HelveticaMedium" }}>
+              Cartes cadeaux
+            </Text>
           </View>
           <View className="space-y-3">
             <Image
@@ -122,7 +152,9 @@ export default function Home() {
               }}
               className="w-40 h-40 rounded-md"
             />
-            <Text>Chaussures de foot</Text>
+            <Text style={{ fontFamily: "HelveticaMedium" }}>
+              Chaussures de foot
+            </Text>
           </View>
         </View>
       </View>
@@ -131,7 +163,12 @@ export default function Home() {
           onPress={() => router.push("/women/womenShoes")}
           className="flex-row items-center justify-between px-5 bg-pink-500 h-28"
         >
-          <Text className="text-xl text-white">Chaussures</Text>
+          <Text
+            className="text-xl text-white"
+            style={{ fontFamily: "HelveticaMedium" }}
+          >
+            Chaussures
+          </Text>
         </TouchableOpacity>
         <LinearGradient
           // Button Linear Gradient
@@ -141,7 +178,12 @@ export default function Home() {
             onPress={() => router.push("/women/womenClothes")}
             className="flex-row items-center justify-between px-5 h-28"
           >
-            <Text className="text-xl text-white">Vêtements</Text>
+            <Text
+              className="text-xl text-white"
+              style={{ fontFamily: "HelveticaMedium" }}
+            >
+              Vêtements
+            </Text>
           </TouchableOpacity>
         </LinearGradient>
 
@@ -149,10 +191,20 @@ export default function Home() {
           onPress={() => router.push("/women/womenAccessories")}
           className="flex-row items-center justify-between px-5 bg-pink-500 h-28"
         >
-          <Text className="text-xl text-white">Accessoires et équipement</Text>
+          <Text
+            className="text-xl text-white"
+            style={{ fontFamily: "HelveticaMedium" }}
+          >
+            Accessoires et équipement
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity className="flex-row items-center justify-between px-5 bg-pink-500 h-28">
-          <Text className="text-xl text-white">Offres et réductions</Text>
+          <Text
+            className="text-xl text-white"
+            style={{ fontFamily: "HelveticaMedium" }}
+          >
+            Offres et réductions
+          </Text>
         </TouchableOpacity>
       </View>
     </ScrollView>
@@ -187,7 +239,11 @@ export default function Home() {
         // shadowColor: "transparent",
       }}
       tabStyle={{ width: 97, paddingBottom: 15, paddingLeft: 20 }}
-      labelStyle={{ textTransform: "capitalize", fontSize: 16 }}
+      labelStyle={{
+        textTransform: "capitalize",
+        fontSize: 16,
+        fontFamily: "HelveticaMedium",
+      }}
       pressColor="white"
     />
   );
@@ -238,7 +294,12 @@ export default function Home() {
             <TouchableOpacity onPress={() => setOpen((prevOpen) => !prevOpen)}>
               <Ionicons name="menu-sharp" size={24} color="black" />
             </TouchableOpacity>
-            <Text className="text-[16px] text-medium">Boutique</Text>
+            <Text
+              className="text-[16px]"
+              style={{ fontFamily: "HelveticaMedium" }}
+            >
+              Boutique
+            </Text>
           </View>
 
           <View className="flex-row items-center">

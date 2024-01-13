@@ -65,9 +65,7 @@ function RootLayoutNav() {
           <Stack.Screen
             name="index"
             options={{
-              title: "Boutique",
               headerShown: false,
-
               headerRight: () => {
                 return (
                   <View className="flex-row items-center">
