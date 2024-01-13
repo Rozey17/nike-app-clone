@@ -16,9 +16,12 @@ const CartIcon = () => {
       <Text
         className={
           items <= 9
-            ? `absolute text-[13px] font-semibold left-2 top-[5px]`
-            : `absolute text-[11px] font-semibold left-[6px] top-[6px]`
+            ? `absolute text-[13px]  left-2 top-[5px]`
+            : `absolute text-[11px]  left-[6px] top-[6px]`
         }
+        style={{
+          fontFamily: "HelveticaMedium",
+        }}
       >
         {items <= 9 ? items : "9+"}
       </Text>

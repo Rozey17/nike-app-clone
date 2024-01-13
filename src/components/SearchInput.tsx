@@ -18,6 +18,7 @@ const SearchInput = ({ value, onChange }: props) => {
       clearTextOnFocus={true}
       placeholder="Rechercher un produit"
       className="flex-1 px-3 py-2 m-5 rounded-md text-[16px]"
+      style={{ fontFamily: "HelveticaMedium" }}
     />
   );
 };

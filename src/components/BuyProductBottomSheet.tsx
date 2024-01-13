@@ -4,23 +4,21 @@ import {
   BottomSheetModal,
   BottomSheetModalProvider,
 } from "@gorhom/bottom-sheet";
+import CustomBackdrop from "./BackdropComponent";
 import BottomSheetFooter from "./BottomSheetFooter";
 import moment from "moment";
 import { Product } from "./ApolloComponents";
-import CustomBackdrop from "./BackdropComponent";
 
 interface BottomSheetprops {
   item: Product;
-  items: number;
-  total: number;
 }
 moment.locale("fr");
 const date = moment();
 
-// forwardRef is because we are not allowed to pass refs to a component
-const BottomSheetComponent = forwardRef<BottomSheetModal, BottomSheetprops>(
+const BuyProductBottomSheet = forwardRef<BottomSheetModal, BottomSheetprops>(
   (props, ref) => {
-    const snapPoints = useMemo(() => ["25%", "70%"], []);
+    const snapPoints = useMemo(() => ["25%", "75%"], []);
+    let total = props.item?.price?.toString().replace(".", ",");
 
     return (
       <BottomSheetModalProvider>
@@ -34,39 +32,20 @@ const BottomSheetComponent = forwardRef<BottomSheetModal, BottomSheetprops>(
           >
             <View className="divide-y divide-gray-100">
               <View className="p-5 space-y-1">
-                {props.items === 1 ? (
-                  <>
-                    <Text
-                      className="text-lg font-semibold text-center"
-                      style={{ fontFamily: "HelveticaMedium" }}
-                    >
-                      {props.item?.name}
-                    </Text>
-                    <Text
-                      style={{ fontFamily: "HelveticaRegular" }}
-                      className="text-center text-neutral-400"
-                    >
-                      {props.item?.sub_category}{" "}
-                      {props.item?.gender?.name === "male" && "pour homme"}
-                      {props.item?.gender?.name === "female" && "pour femme"}
-                    </Text>
-                  </>
-                ) : (
-                  <>
-                    <Text
-                      className="text-lg text-center"
-                      style={{ fontFamily: "HelveticaBold" }}
-                    >
-                      Paiement
-                    </Text>
-                    <Text
-                      style={{ fontFamily: "HelveticaRegular" }}
-                      className="text-center text-neutral-400"
-                    >
-                      {props.items} article(s)
-                    </Text>
-                  </>
-                )}
+                <Text
+                  className="text-lg font-semibold text-center"
+                  style={{ fontFamily: "HelveticaMedium" }}
+                >
+                  {props.item?.name}
+                </Text>
+                <Text
+                  style={{ fontFamily: "HelveticaRegular" }}
+                  className="text-center text-neutral-400"
+                >
+                  {props.item?.sub_category}{" "}
+                  {props.item?.gender?.name === "male" && "pour homme"}
+                  {props.item?.gender?.name === "female" && "pour femme"}
+                </Text>
               </View>
               <View className="flex-row justify-between p-5">
                 <Text
@@ -129,7 +108,7 @@ const BottomSheetComponent = forwardRef<BottomSheetModal, BottomSheetprops>(
                   style={{ fontFamily: "HelveticaRegular" }}
                   className="text-center text-neutral-400"
                 >
-                  {props.total.toFixed(2).toString().replace(".", ",")} €
+                  {total} €
                 </Text>
               </View>
             </View>
@@ -140,4 +119,4 @@ const BottomSheetComponent = forwardRef<BottomSheetModal, BottomSheetprops>(
   }
 );
 
-export default BottomSheetComponent;
+export default BuyProductBottomSheet;

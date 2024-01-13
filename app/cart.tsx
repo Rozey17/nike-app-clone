@@ -1,13 +1,10 @@
 import { SimpleLineIcons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { Text, TouchableOpacity, View } from "react-native";
-
 import { useEffect, useRef, useState } from "react";
 import { ScrollView } from "native-base";
-
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import useCartStore from "../src/store/cartStore";
-import { ProductType } from "../src/store/interfaces";
 import CartItem from "../src/components/CartItem";
 import BottomSheetComponent from "../src/components/BottomSheetComponent";
 import { Product } from "../src/components/ApolloComponents";
@@ -41,8 +38,16 @@ const Cart = () => {
             <View className="items-center p-3 mb-3 border rounded-full h-14 w-14">
               <SimpleLineIcons name="bag" size={24} color="black" />
             </View>
-            <Text className="text-center">Ton panier est vide.</Text>
-            <Text className="text-center">
+            <Text
+              className="text-center"
+              style={{ fontFamily: "HelveticaRegular" }}
+            >
+              Ton panier est vide.
+            </Text>
+            <Text
+              className="text-center"
+              style={{ fontFamily: "HelveticaRegular" }}
+            >
               Les produits ajoutés apparaîtront ici.
             </Text>
           </View>
@@ -50,7 +55,10 @@ const Cart = () => {
             onPress={() => router.push("/")}
             className="p-5 bg-black rounded-full"
           >
-            <Text className="text-lg font-semibold text-center text-white">
+            <Text
+              style={{ fontFamily: "HelveticaMedium" }}
+              className="text-lg text-center text-white"
+            >
               Acheter
             </Text>
           </TouchableOpacity>
@@ -72,8 +80,18 @@ const Cart = () => {
             ))}
 
             <View className="flex-row items-center justify-between py-10">
-              <Text className="font-semibold">Total estimé</Text>
-              <Text className="font-semibold">{stringTotal} €</Text>
+              <Text
+                className="text-[16px]"
+                style={{ fontFamily: "HelveticaBold" }}
+              >
+                Total estimé
+              </Text>
+              <Text
+                className="text-[16px]"
+                style={{ fontFamily: "HelveticaBold" }}
+              >
+                {stringTotal} €
+              </Text>
             </View>
           </ScrollView>
           <View className="fixed bottom-0 p-5 bg-white border-t border-gray-200 -">
@@ -81,7 +99,10 @@ const Cart = () => {
               onPress={handlePresentModal}
               className="p-5 bg-black rounded-full"
             >
-              <Text className="text-lg font-semibold text-center text-white">
+              <Text
+                className="text-lg text-center text-white"
+                style={{ fontFamily: "HelveticaMedium" }}
+              >
                 Paiement
               </Text>
             </TouchableOpacity>

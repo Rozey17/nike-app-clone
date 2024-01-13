@@ -25,8 +25,10 @@ SplashScreen.preventAutoHideAsync();
 export default function RootLayout() {
   const [loaded, error] = useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
-    Helvetica: require("../assets/fonts/Helvetica.ttf"),
-    Helvetica_Bold: require("../assets/fonts/Helvetica-Bold.ttf"),
+    HelveticaRegular: require("../assets/fonts/HelveticaNowDisplay-Regular.ttf"),
+    HelveticaMedium: require("../assets/fonts/HelveticaNowDisplay-Medium.ttf"),
+    HelveticaBold: require("../assets/fonts/HelveticaNowDisplay-Bold.ttf"),
+    HelveticaHairline: require("../assets/fonts/HelveticaNowDisplay-Hairline.ttf"),
     ...FontAwesome.font,
   });
 
@@ -57,15 +59,13 @@ function RootLayoutNav() {
           screenOptions={{
             headerShadowVisible: false,
             animation: "slide_from_right",
-            headerTitleStyle: { fontSize: 16 },
+            headerTitleStyle: { fontSize: 16, fontFamily: "HelveticaMedium" },
           }}
         >
           <Stack.Screen
             name="index"
             options={{
-              title: "Boutique",
               headerShown: false,
-
               headerRight: () => {
                 return (
                   <View className="flex-row items-center">
