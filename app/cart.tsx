@@ -73,7 +73,10 @@ const Cart = () => {
             {cartState.map((item) => (
               <CartItem
                 key={item._id}
-                item={item}
+                item={{
+                  ...item,
+                  images: item.images?.toString().split(",") as any[],
+                }}
                 addProduct={addProduct}
                 removeProduct={removeProduct}
               />

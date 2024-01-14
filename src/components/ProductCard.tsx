@@ -16,22 +16,24 @@ const ProductCard = ({ item }: { item: Product }) => {
         router.push({
           pathname: "/product",
           params: {
-            id: item?._id as string,
+            _id: item?._id as string,
             name: item?.name as string,
             gender: item?.gender?.name as string,
             price: item?.price as number,
-            image: item?.image?.asset?.url as string,
+            images: item?.images?.map((x) => x?.asset?.url) as string[],
             description: item?.description as string,
             category: item?.category?.name as string,
             sub_category: item?.sub_category as string,
+            color: item?.color as string,
           },
         })
       }
     >
       <ProductCardFavorite productId={item?._id!} />
+
       <Image
         source={{
-          uri: urlForImage(item?.image as string).url(),
+          uri: urlForImage(item?.images?.[0] as string).url(),
         }}
         className="h-52"
       />

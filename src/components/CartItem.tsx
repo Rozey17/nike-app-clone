@@ -40,7 +40,10 @@ const CartItem = ({
       className="py-5 space-y-3 border-b border-gray-200"
     >
       <View className="flex-row space-x-3">
-        <Image source={{ uri: item.image as string }} className="w-28 h-28" />
+        <Image
+          source={{ uri: item?.images?.[0] as string }}
+          className="w-28 h-28"
+        />
         <View className="space-y-2">
           <Text style={{ fontFamily: "HelveticaBold" }}>{item.name}</Text>
           <Text

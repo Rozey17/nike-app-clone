@@ -16,7 +16,6 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { TabView, TabBar, SceneMap } from "react-native-tab-view";
-
 import { Drawer } from "react-native-drawer-layout";
 import { LinearGradient } from "expo-linear-gradient";
 import CartIcon from "../src/components/CartIcon";

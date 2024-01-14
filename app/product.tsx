@@ -1,18 +1,28 @@
-import { View, Text, ScrollView, Image, TouchableOpacity } from "react-native";
-import React, { useEffect, useRef, useState } from "react";
-import { Entypo, MaterialIcons } from "@expo/vector-icons";
+import {
+  View,
+  Text,
+  ScrollView,
+  Image,
+  TouchableOpacity,
+  Dimensions,
+  FlatList,
+  ListRenderItem,
+} from "react-native";
+import React, { useRef, useState } from "react";
+import { Entypo } from "@expo/vector-icons";
 import { Stack, router, useLocalSearchParams, useRouter } from "expo-router";
 import SelectDropdown from "react-native-select-dropdown";
-import { Toast, useToast } from "native-base";
+import { Toast } from "native-base";
 import useCartStore from "../src/store/cartStore";
 import Favorite from "../src/components/Favorite";
-import { urlForImage } from "../src/lib/sanity";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import BuyProductBottomSheet from "../src/components/BuyProductBottomSheet";
 
 const Product = () => {
   const { addProduct } = useCartStore();
   const params = useLocalSearchParams();
+  const pictures = params.images?.toString().split(",");
+
   const [size, setSize] = useState(null);
   const shoeSizes = [
     { title: "EU 35.5", value: 35.5 },
@@ -90,6 +100,24 @@ const Product = () => {
     modalSheetBottomref.current?.present();
   }
 
+  const { width, height } = Dimensions.get("window");
+  const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+
+  function updateCurrentSlideIndex(e: any) {
+    const contentOffsetX = e.nativeEvent.contentOffset.x;
+    const currentIndex = Math.round(contentOffsetX / width);
+    setCurrentSlideIndex(currentIndex);
+  }
+
+  const renderItem: ListRenderItem<string> = ({ item }) => (
+    <Image
+      source={{ uri: item }}
+      style={{
+        width: width,
+        height: 500,
+      }}
+    />
+  );
   return (
     <>
       <ScrollView
@@ -108,12 +136,14 @@ const Product = () => {
           }}
         />
         {/* Product image */}
-        <Image
-          source={{
-            // uri: urlForImage(params?.image).url() as any,
-            uri: params?.image as string,
-          }}
-          className="object-cover h-96"
+        <FlatList
+          data={pictures}
+          horizontal={true}
+          pagingEnabled={true}
+          showsHorizontalScrollIndicator={false}
+          onMomentumScrollEnd={updateCurrentSlideIndex}
+          bounces={false}
+          renderItem={renderItem}
         />
         <View className="px-6 py-10 space-y-5">
           <View>
@@ -147,6 +177,17 @@ const Product = () => {
           >
             {params?.description}
           </Text>
+          <View>
+            <Text
+              className="text-[16px]"
+              style={{ fontFamily: "HelveticaRegular" }}
+            >{`\u2022  Présenté en : ${params.color}`}</Text>
+            {/* <Text
+              className="text-[16px]"
+              style={{ fontFamily: "HelveticaRegular" }}
+            >{`\u2022  Article : ${params._id}`}</Text> */}
+          </View>
+
           <View className="pt-5 space-y-3">
             {params.sub_category.includes("Sac") ? (
               <Text
@@ -226,23 +267,24 @@ const Product = () => {
                       );
                     },
                   });
-                } else
-                  addProduct({
-                    _id: params._id as string,
-                    description: params.description as string,
-                    gender: {
-                      name: params.gender as string,
-                    },
-                    image: params.image as object,
-                    name: params.name as string,
-                    size: size as any,
-                    price: params.price as any,
-                    category: {
-                      name: params.category as string,
-                    },
-                    sub_category: params.sub_category as any,
-                  }),
-                    router.push("/addedToCartModal");
+                }
+                addProduct({
+                  _id: params._id as string,
+                  description: params.description as string,
+                  gender: {
+                    name: params.gender as string,
+                  },
+                  images: params.images as any,
+                  name: params.name as string,
+                  size: size as any,
+                  price: params.price as any,
+                  category: {
+                    name: params.category as string,
+                  },
+                  sub_category: params.sub_category as any,
+                  color: params.color as string,
+                }),
+                  router.push("/addedToCartModal");
               }}
               className="justify-center bg-black rounded-full h-[65px]"
             >
@@ -310,7 +352,7 @@ const Product = () => {
           gender: {
             name: params.gender as string,
           },
-          image: params.image as object,
+          images: params.images as any,
           name: params.name as string,
           size: size as any,
           price: params.price as any,
@@ -318,6 +360,7 @@ const Product = () => {
             name: params.category as string,
           },
           sub_category: params.sub_category as any,
+          color: params.color as string,
         }}
         ref={modalSheetBottomref}
       />

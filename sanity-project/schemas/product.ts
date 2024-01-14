@@ -41,7 +41,13 @@ export default {
     },
     {
       name: 'sub_category',
-      title: ' SubCategory',
+      title: 'SubCategory',
+      type: 'string',
+      validation: (Rule: any) => Rule.required(),
+    },
+    {
+      name: 'color',
+      title: 'Color',
       type: 'string',
       validation: (Rule: any) => Rule.required(),
     },
@@ -66,12 +72,19 @@ export default {
     },
 
     {
-      name: 'image',
-      title: 'Image',
-      type: 'image',
-      options: {
-        hotspot: true,
-      },
+      name: 'images',
+      type: 'array',
+      title: 'Images',
+      of: [
+        {
+          name: 'image',
+          type: 'image',
+          title: 'Image',
+          options: {
+            hotspot: true,
+          },
+        },
+      ],
     },
   ],
 }
