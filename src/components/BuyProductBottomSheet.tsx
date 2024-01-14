@@ -19,7 +19,7 @@ const BuyProductBottomSheet = forwardRef<BottomSheetModal, BottomSheetprops>(
   (props, ref) => {
     const snapPoints = useMemo(() => ["25%", "75%"], []);
     let total = props.item?.price?.toString().replace(".", ",");
-console.log(props.item?.color);
+
 
 return (
   <BottomSheetModalProvider>
