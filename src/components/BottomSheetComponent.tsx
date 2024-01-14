@@ -46,9 +46,7 @@ const BottomSheetComponent = forwardRef<BottomSheetModal, BottomSheetprops>(
                       style={{ fontFamily: "HelveticaRegular" }}
                       className="text-center text-neutral-400"
                     >
-                      {props.item?.sub_category}{" "}
-                      {props.item?.gender?.name === "male" && "pour homme"}
-                      {props.item?.gender?.name === "female" && "pour femme"}
+                      {props.item?.color}{" "}
                     </Text>
                   </>
                 ) : (
