@@ -135,7 +135,7 @@ const Product = () => {
             },
           }}
         />
-        {/* Product image */}
+        {/* Product images */}
         <FlatList
           data={pictures}
           horizontal={true}
@@ -145,6 +145,27 @@ const Product = () => {
           bounces={false}
           renderItem={renderItem}
         />
+        <View
+          style={{
+            alignItems: "center",
+            justifyContent: "center",
+            flexDirection: "row",
+            position: "absolute",
+            top: 470,
+            alignSelf: "center",
+          }}
+        >
+          {pictures.map((_, index) => {
+            return (
+              <View
+                key={index}
+                className={`h-[2px] w-10 ${
+                  currentSlideIndex == index ? "bg-black" : "bg-gray-300"
+                }`}
+              />
+            );
+          })}
+        </View>
         <View className="px-6 py-10 space-y-5">
           <View>
             <Text
