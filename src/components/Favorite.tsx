@@ -24,9 +24,9 @@ const Favorite: TFavoriteComp = ({ productId }) => {
     toastIdRef.current = toast.show({
       render: () => {
         return (
-          <View className="relative p-5 bg-black rounded-md w-[360px] opacity-90">
+          <View className="relative px-5 py-4 bg-black rounded-md w-[360px] opacity-90">
             <Text
-              className="z-20  text-center text-[16px] text-white"
+              className="z-20 text-white"
               style={{ fontFamily: "HelveticaMedium" }}
             >
               Ajouté aux favoris
@@ -41,8 +41,8 @@ const Favorite: TFavoriteComp = ({ productId }) => {
     toastIdRef2.current = toast.show({
       render: () => {
         return (
-          <View className="p-5 bg-black rounded-md w-[360px] opacity-90">
-            <Text className="font-semibold text-center text-[16px] text-white">
+          <View className="px-5 py-4 bg-black rounded-md w-[360px] opacity-90">
+            <Text className="font-semibold text-white">
               Supprimé des favoris
             </Text>
           </View>
