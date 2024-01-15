@@ -21,7 +21,7 @@ const ProductCardFavorite: TFavoriteComp = ({ productId }) => {
     toastIdRef.current = toast.show({
       render: () => {
         return (
-          <View className="relative p-5 bg-black rounded-md w-[360px] opacity-90">
+          <View className="relative px-5 py-4 bg-black rounded-md w-[360px] opacity-90">
             <Text
               className="z-20  text-center text-[16px] text-white"
               style={{ fontFamily: "HelveticaMedium" }}
@@ -38,9 +38,9 @@ const ProductCardFavorite: TFavoriteComp = ({ productId }) => {
     toastIdRef2.current = toast.show({
       render: () => {
         return (
-          <View className="p-5 bg-black rounded-md w-[360px] opacity-90">
+          <View className="px-5 py-4 bg-black rounded-md w-[360px] opacity-90">
             <Text
-              className=" text-center text-[16px] text-white"
+              className="text-white "
               style={{ fontFamily: "HelveticaMedium" }}
             >
               Supprimé des favoris

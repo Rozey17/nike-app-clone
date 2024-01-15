@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import React, { useRef, useState } from "react";
 import { Entypo } from "@expo/vector-icons";
-import { Stack, router, useLocalSearchParams, useRouter } from "expo-router";
+import { Stack, router, useLocalSearchParams } from "expo-router";
 import SelectDropdown from "react-native-select-dropdown";
 import { Toast } from "native-base";
 import useCartStore from "../src/store/cartStore";
@@ -100,7 +100,7 @@ const Product = () => {
     modalSheetBottomref.current?.present();
   }
 
-  const { width, height } = Dimensions.get("window");
+  const { width } = Dimensions.get("window");
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
 
   function updateCurrentSlideIndex(e: any) {
@@ -275,9 +275,9 @@ const Product = () => {
                   Toast.show({
                     render: () => {
                       return (
-                        <View className="p-5 bg-black rounded-md w-[360px] opacity-90">
+                        <View className="px-5 py-4 bg-black rounded-md w-[360px] opacity-90">
                           <Text
-                            className="text-center text-white text-[16px]"
+                            className="text-white "
                             style={{
                               fontFamily: "HelveticaMedium",
                             }}
@@ -288,24 +288,24 @@ const Product = () => {
                       );
                     },
                   });
-                }
-                addProduct({
-                  _id: params._id as string,
-                  description: params.description as string,
-                  gender: {
-                    name: params.gender as string,
-                  },
-                  images: params.images as any,
-                  name: params.name as string,
-                  size: size as any,
-                  price: params.price as any,
-                  category: {
-                    name: params.category as string,
-                  },
-                  sub_category: params.sub_category as any,
-                  color: params.color as string,
-                }),
-                  router.push("/addedToCartModal");
+                } else
+                  addProduct({
+                    _id: params._id as string,
+                    description: params.description as string,
+                    gender: {
+                      name: params.gender as string,
+                    },
+                    images: params.images as any,
+                    name: params.name as string,
+                    size: size as any,
+                    price: params.price as any,
+                    category: {
+                      name: params.category as string,
+                    },
+                    sub_category: params.sub_category as any,
+                    color: params.color as string,
+                  }),
+                    router.push("/addedToCartModal");
               }}
               className="justify-center bg-black rounded-full h-[65px]"
             >
@@ -328,9 +328,9 @@ const Product = () => {
                     Toast.show({
                       render: () => {
                         return (
-                          <View className="p-5 bg-black rounded-md w-[360px] opacity-90">
+                          <View className="py-4 px-5 bg-black rounded-md w-[360px] opacity-90">
                             <Text
-                              className="text-center text-white text-[16px]"
+                              className="text-white "
                               style={{
                                 fontFamily: "HelveticaMedium",
                               }}
@@ -354,7 +354,7 @@ const Product = () => {
                   Acheter
                 </Text>
               </TouchableOpacity>
-              <Favorite productId={params.id as string} />
+              <Favorite productId={params._id as string} />
             </View>
           </View>
 
