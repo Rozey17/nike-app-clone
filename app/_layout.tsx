@@ -282,13 +282,13 @@ function RootLayoutNav() {
               },
             }}
           />
-          <Stack.Screen name="modal" options={{ presentation: "modal" }} />
+
           <Stack.Screen name="favorites" options={{ title: "Favoris" }} />
           <Stack.Screen
             name="addedToCartModal"
             options={{
               presentation: "modal",
-              animation: "slide_from_bottom",
+              animation: "fade",
               headerShown: false,
             }}
           />

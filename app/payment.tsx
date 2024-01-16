@@ -2,7 +2,7 @@ import { View, Text, Image } from "react-native";
 import React, { useEffect } from "react";
 import { Stack, router } from "expo-router";
 import useCartStore from "../src/store/cartStore";
-
+import LottieView from "lottie-react-native";
 
 const payment = () => {
   const { clearCart } = useCartStore();
@@ -10,7 +10,7 @@ const payment = () => {
     setTimeout(() => {
       router.push("/");
       clearCart();
-    }, 2000);
+    }, 3000);
   }, []);
 
   return (
@@ -21,15 +21,14 @@ const payment = () => {
         }}
       />
 
-      <Image
-        source={{
-          uri: "https://www.pngall.com/wp-content/uploads/13/Check-Background-PNG.png",
-        }}
-        className="w-40 h-40"
+      <LottieView
+        style={{ backgroundColor: "black" }}
+        source={require("./../assets/animations/Animation - 1705424644989.json")}
+        autoPlay
       />
       <Text
         style={{ fontFamily: "HelveticaBold" }}
-        className="text-xl text-emerald-500"
+        className="text-xl pt-80 text-emerald-500"
       >
         Paiement réussi
       </Text>

@@ -5,7 +5,6 @@ import {
   Text,
   ActivityIndicator,
 } from "react-native";
-import React, { useState } from "react";
 import { MaterialIcons } from "@expo/vector-icons";
 import {
   Product,
@@ -13,7 +12,6 @@ import {
 } from "../src/components/ApolloComponents";
 import { useFavoriteStore } from "../src/store/wishlistStore";
 import ProductCard from "../src/components/ProductCard";
-import { client } from "../src/lib/sanity.server";
 
 const favourites = () => {
   const { data: products, loading } = useListProductsQuery();
