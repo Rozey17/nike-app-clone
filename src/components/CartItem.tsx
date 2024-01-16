@@ -1,9 +1,6 @@
 import { View, Text, Pressable, Image, TouchableOpacity } from "react-native";
 import React from "react";
-import { ProductType } from "../store/interfaces";
 import { AntDesign } from "@expo/vector-icons";
-import { router } from "expo-router";
-import { urlForImage } from "../lib/sanity";
 import { Product } from "./ApolloComponents";
 
 const subtotal = (price: number, quantity: number) => {

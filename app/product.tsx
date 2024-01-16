@@ -1,6 +1,3 @@
-npx create-expo-app@latest --template tabs@49
-
-
 import {
   View,
   Text,
