@@ -21,7 +21,7 @@ const useCartStore = create<CartState>((set) => ({
       if (hasProduct) {
         return {
           products: state.products.map((p) => {
-            if (p._id === product._id && p.size === product.size) {
+            if (p._id === product._id && p.size?.value === product.size?.value) {
               return { ...p, quantity: p.quantity + 1 };
             }
             return p;
@@ -38,7 +38,7 @@ const useCartStore = create<CartState>((set) => ({
       return {
         products: state.products
           .map((p) => {
-            if (p._id === product._id && p.size === product.size) {
+            if (p._id === product._id && p.size?.value === product.size?.value) {
               state.items--;
               return { ...p, quantity: p.quantity - 1 };
             }

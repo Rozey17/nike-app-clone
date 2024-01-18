@@ -31,7 +31,9 @@ query ListProducts{
          
         },
         sub_category,
-        size,
+        size{
+          name,value
+        },
         color
        
        
@@ -69,7 +71,9 @@ query ListProductsByCategoryAndGender($category:String!,$gender:String!){
           }
          
         }
-        sub_category,size,color
+        sub_category,size{
+          name,value
+        },color
     }
 }
 
@@ -104,7 +108,9 @@ query ListProductsByCategory($category:String!){
          
         }
         sub_category,
-        size,color
+        size{
+          name,value
+        },color
     }
 }
 

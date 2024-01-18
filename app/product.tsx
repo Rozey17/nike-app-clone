@@ -7,79 +7,110 @@ import {
   Dimensions,
   FlatList,
   ListRenderItem,
+  Pressable,
+  Modal,
+  TouchableHighlight,
 } from "react-native";
 import React, { useRef, useState } from "react";
 import { Entypo } from "@expo/vector-icons";
 import { Stack, router, useLocalSearchParams } from "expo-router";
-import SelectDropdown from "react-native-select-dropdown";
 import { Toast } from "native-base";
 import useCartStore from "../src/store/cartStore";
 import Favorite from "../src/components/Favorite";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import BuyProductBottomSheet from "../src/components/BuyProductBottomSheet";
+import { SafeAreaView } from "react-native-safe-area-context";
+
+type Size = {
+  name: string;
+  value: string | number;
+};
 
 const Product = () => {
   const { addProduct } = useCartStore();
   const params = useLocalSearchParams();
   const pictures = params.images?.toString().split(",");
 
-  const [size, setSize] = useState(null);
+  const handleSizeChange = (value: Size) => {
+    setSize(value);
+    setModalVisible(false);
+  };
+
+  const renderSizeItem = ({ item }: { item: Size }) => (
+    <TouchableOpacity
+      className="px-5 py-8 border-b border-neutral-300 "
+      onPress={() => handleSizeChange(item)}
+    >
+      <View className="flex-row justify-between">
+        <Text
+          className="uppercase "
+          style={{
+            fontFamily: "HelveticaMedium",
+          }}
+        >
+          {item.name}
+        </Text>
+      </View>
+    </TouchableOpacity>
+  );
+
+  const [size, setSize] = useState<Size>();
   const shoeSizes = [
-    { title: "EU 35.5", value: 35.5 },
-    { title: "EU 36", value: 36 },
-    { title: "EU 36.5", value: 36.5 },
-    { title: "EU 37", value: 37 },
-    { title: "EU 37.5", value: 37.5 },
-    { title: "EU 38", value: 38 },
-    { title: "EU 38.5", value: 38.5 },
-    { title: "EU 39", value: 39 },
-    { title: "EU 39.5", value: 39.5 },
-    { title: "EU 40", value: 40 },
-    { title: "EU 40.5", value: 40.5 },
-    { title: "EU 41", value: 41 },
-    { title: "EU 41.5", value: 41.5 },
-    { title: "EU 42", value: 42 },
-    { title: "EU 42.5", value: 42.5 },
-    { title: "EU 43", value: 43 },
-    { title: "EU 43.5", value: 43.5 },
-    { title: "EU 44", value: 44 },
-    { title: "EU 44.5", value: 44.5 },
-    { title: "EU 45", value: 45 },
-    { title: "EU 45.5", value: 45.5 },
-    { title: "EU 46", value: 46 },
+    { name: "EU 35.5", value: 35.5 },
+    { name: "EU 36", value: 36 },
+    { name: "EU 36.5", value: 36.5 },
+    { name: "EU 37", value: 37 },
+    { name: "EU 37.5", value: 37.5 },
+    { name: "EU 38", value: 38 },
+    { name: "EU 38.5", value: 38.5 },
+    { name: "EU 39", value: 39 },
+    { name: "EU 39.5", value: 39.5 },
+    { name: "EU 40", value: 40 },
+    { name: "EU 40.5", value: 40.5 },
+    { name: "EU 41", value: 41 },
+    { name: "EU 41.5", value: 41.5 },
+    { name: "EU 42", value: 42 },
+    { name: "EU 42.5", value: 42.5 },
+    { name: "EU 43", value: 43 },
+    { name: "EU 43.5", value: 43.5 },
+    { name: "EU 44", value: 44 },
+    { name: "EU 44.5", value: 44.5 },
+    { name: "EU 45", value: 45 },
+    { name: "EU 45.5", value: 45.5 },
+    { name: "EU 46", value: 46 },
   ];
   const capSizes = [
-    { title: "S/M", value: "S/M" },
-    { title: "M/L", value: "M/L" },
-    { title: "L/XL", value: "L/XL" },
+    { name: "S/M", value: "S/M" },
+    { name: "M/L", value: "M/L" },
+    { name: "L/XL", value: "L/XL" },
   ];
   const gloveSizes = [
-    { title: "S", value: "S" },
-    { title: "M", value: "M" },
-    { title: "L", value: "L" },
-    { title: "XL", value: "XL" },
+    { name: "S", value: "S" },
+    { name: "M", value: "M" },
+    { name: "L", value: "L" },
+    { name: "XL", value: "XL" },
   ];
   const clothSizes = [
-    { title: "XS", value: "XS" },
-    { title: "S", value: "S" },
-    { title: "M", value: "" },
-    { title: "L", value: "L" },
-    { title: "XL", value: "XL" },
-    { title: "XXL", value: "XXL" },
-    { title: "XXXL", value: "XXXL" },
+    { name: "XS", value: "XS" },
+    { name: "S", value: "S" },
+    { name: "M", value: "" },
+    { name: "L", value: "L" },
+    { name: "XL", value: "XL" },
+    { name: "XXL", value: "XXL" },
+    { name: "XXXL", value: "XXXL" },
   ];
   const sockSizes = [
-    { title: "EU 34-38", value: "34-38" },
-    { title: "EU 38-42", value: "38-42" },
-    { title: "EU 42-46", value: "42-46" },
-    { title: "EU 46-50", value: "46-50" },
+    { name: "EU 34-38", value: "34-38" },
+    { name: "EU 38-42", value: "38-42" },
+    { name: "EU 42-46", value: "42-46" },
+    { name: "EU 46-50", value: "46-50" },
   ];
   const sleevesSizes = [
-    { title: "S/M", value: "S/M" },
-    { title: "L/XL", value: "L/XL" },
+    { name: "S/M", value: "S/M" },
+    { name: "L/XL", value: "L/XL" },
   ];
 
-  const getSizes = (category: string, sub_category: string): any[] => {
+  const getSizes = (category: string, sub_category: string): Size[] => {
     if (category === "shoes") {
       return shoeSizes;
     } else if (sub_category.includes("Chaussettes")) {
@@ -94,6 +125,8 @@ const Product = () => {
   };
 
   let stringPrice = params?.price.toString().replace(".", ",");
+
+  const [isModalVisible, setModalVisible] = useState(false);
 
   const modalSheetBottomref = useRef<BottomSheetModal>(null);
   function handlePresentModal() {
@@ -135,7 +168,9 @@ const Product = () => {
             },
           }}
         />
-        {/* Product images */}
+
+        {/* Images of the product */}
+
         <FlatList
           data={pictures}
           horizontal={true}
@@ -160,7 +195,7 @@ const Product = () => {
               <View
                 key={index}
                 className={`h-[2px] w-10 ${
-                  currentSlideIndex == index ? "bg-black" : "bg-gray-300"
+                  currentSlideIndex == index ? "bg-black" : "bg-neutral-300"
                 }`}
               />
             );
@@ -209,6 +244,8 @@ const Product = () => {
             >{`\u2022  Article : ${params._id}`}</Text> */}
           </View>
 
+          {/* Select product size */}
+
           <View className="pt-5 space-y-3">
             {params.sub_category.includes("Sac") ? (
               <Text
@@ -218,54 +255,77 @@ const Product = () => {
                 taille unique{" "}
               </Text>
             ) : (
-              <SelectDropdown
-                defaultValue={"Sélectionner la taille"}
-                data={getSizes(
-                  params?.category as string,
-                  params?.sub_category as string
-                )}
-                onSelect={(selectedItem, index) => {
-                  setSize(selectedItem.value);
-                }}
-                defaultButtonText={"Sélectionner la taille"}
-                buttonTextAfterSelection={(selectedItem, index) => {
-                  return `Taille ${selectedItem.title} `;
-                }}
-                buttonTextStyle={{
-                  fontSize: 18,
-
-                  fontFamily: "HelveticaMedium",
-                }}
-                buttonStyle={{
-                  borderRadius: 9999,
-                  borderColor: "#d1d5db",
-                  justifyContent: "space-between",
-                  borderWidth: 1,
-                  width: "100%",
-                  height: 65,
-                  backgroundColor: "white",
-                }}
-                dropdownIconPosition={"right"}
-                renderDropdownIcon={() => {
-                  return (
+              <TouchableOpacity
+                onPress={() => setModalVisible(true)}
+                className="justify-center flex-row items-center bg-white rounded-full h-[65px] border border-neutral-300"
+              >
+                {size?.value === undefined ? (
+                  <>
+                    <Text
+                      className="text-lg text-center "
+                      style={{
+                        fontFamily: "HelveticaMedium",
+                      }}
+                    >
+                      Sélectionner la taille{" "}
+                    </Text>
                     <Entypo name="chevron-small-down" size={24} color="black" />
-                  );
-                }}
-                rowTextForSelection={(item, index) => {
-                  return item.title;
-                }}
-                rowTextStyle={{ textAlign: "left" }}
-                // renderCustomizedRowChild={(item, index) => {
-                //   return (
-                //     <View className="flex-row items-center justify-between">
-                //       <Text>{item}</Text>
-                //       <Ionicons name="checkmark" size={24} color="black" />
-                //     </View>
-                //   );
-                // }}
-              />
+                  </>
+                ) : (
+                  <>
+                    <Text
+                      className="text-lg text-center "
+                      style={{
+                        fontFamily: "HelveticaMedium",
+                      }}
+                    >
+                      {`Taille ${size?.name}`}
+                    </Text>
+                    <Entypo name="chevron-small-down" size={24} color="black" />
+                  </>
+                )}
+              </TouchableOpacity>
             )}
 
+            {/* the select size modal */}
+
+            <Modal
+              visible={isModalVisible}
+              animationType="slide"
+              onRequestClose={() => setModalVisible(false)}
+            >
+              <SafeAreaView className="flex-1 overflow-hidden bg-white">
+                <View className="flex-row items-center justify-between px-5 py-8 border-b border-neutral-300">
+                  <Text
+                    className="text-neutral-400 "
+                    style={{
+                      fontFamily: "HelveticaMedium",
+                    }}
+                  >
+                    Tailles
+                  </Text>
+                  <Pressable onPress={() => setModalVisible(false)}>
+                    <Text
+                      className="text-neutral-400"
+                      style={{
+                        fontFamily: "HelveticaMedium",
+                      }}
+                    >
+                      Annuler
+                    </Text>
+                  </Pressable>
+                </View>
+
+                <FlatList
+                  data={getSizes(
+                    params?.category as string,
+                    params?.sub_category as string
+                  )}
+                  renderItem={renderSizeItem}
+                  showsVerticalScrollIndicator={false}
+                />
+              </SafeAreaView>
+            </Modal>
             <TouchableOpacity
               onPress={() => {
                 if (
@@ -343,7 +403,7 @@ const Product = () => {
                     });
                   } else handlePresentModal();
                 }}
-                className="flex-1 justify-center border border-gray-300 rounded-full h-[65px]"
+                className="flex-1 justify-center border border-neutral-300 rounded-full h-[65px]"
               >
                 <Text
                   className="text-lg text-center"
@@ -360,12 +420,13 @@ const Product = () => {
 
           <Text
             style={{ fontFamily: "HelveticaRegular" }}
-            className="text-[16px] leading-6 text-center text-gray-400 p-14"
+            className="text-[16px] leading-6 text-center text-neutral-400 p-14"
           >
             Ce produit est exclus de toutes les promotions et réductions.
           </Text>
         </View>
       </ScrollView>
+
       <BuyProductBottomSheet
         item={{
           _id: params._id as string,

@@ -57,12 +57,14 @@ const CartItem = ({
             </Text>} */}
             {item.category?.name === "shoes" ? (
               <Text style={{ fontFamily: "HelveticaRegular" }}>
-                {`Pointure ${item?.size}`}
+                {`Pointure ${item?.size?.value}`}
               </Text>
             ) : (
               <Text style={{ fontFamily: "HelveticaRegular" }}>
                 {`Taille ${
-                  item?.sub_category?.includes("Sac") ? "unique" : item.size
+                  item?.sub_category?.includes("Sac")
+                    ? "unique"
+                    : item.size?.value
                 }`}
               </Text>
             )}

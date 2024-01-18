@@ -54,7 +54,9 @@ export default {
     {
       name: 'size',
       title: ' Size',
-      type: 'string',
+      type: 'reference',
+      weak: true,
+      to: [{type: 'size'}],
     },
     {
       name: 'gender',
