@@ -257,7 +257,7 @@ const Product = () => {
             ) : (
               <TouchableOpacity
                 onPress={() => setModalVisible(true)}
-                className="justify-center flex-row items-center bg-white rounded-full h-[65px] border border-neutral-300"
+                className="justify-center flex-row items-center bg-white rounded-full h-[65px] border border-neutral-300 "
               >
                 {size?.value === undefined ? (
                   <>
@@ -329,25 +329,10 @@ const Product = () => {
             <TouchableOpacity
               onPress={() => {
                 if (
-                  size === null &&
+                  size?.value === undefined &&
                   params?.sub_category.includes("Sac") === false
                 ) {
-                  Toast.show({
-                    render: () => {
-                      return (
-                        <View className="px-5 py-4 bg-black rounded-md w-[360px] opacity-90">
-                          <Text
-                            className="text-white "
-                            style={{
-                              fontFamily: "HelveticaMedium",
-                            }}
-                          >
-                            Veuillez choisir une taille
-                          </Text>
-                        </View>
-                      );
-                    },
-                  });
+                  setModalVisible(true);
                 } else
                   addProduct({
                     _id: params._id as string,
@@ -382,25 +367,10 @@ const Product = () => {
               <TouchableOpacity
                 onPress={() => {
                   if (
-                    size === null &&
+                    size?.value === undefined &&
                     params?.sub_category.includes("Sac") === false
                   ) {
-                    Toast.show({
-                      render: () => {
-                        return (
-                          <View className="py-4 px-5 bg-black rounded-md w-[360px] opacity-90">
-                            <Text
-                              className="text-white "
-                              style={{
-                                fontFamily: "HelveticaMedium",
-                              }}
-                            >
-                              Veuillez choisir une taille
-                            </Text>
-                          </View>
-                        );
-                      },
-                    });
+                    setModalVisible(true);
                   } else handlePresentModal();
                 }}
                 className="flex-1 justify-center border border-neutral-300 rounded-full h-[65px]"

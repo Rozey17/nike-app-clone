@@ -22,7 +22,6 @@ const payment = () => {
       />
 
       <LottieView
-        style={{ backgroundColor: "black" }}
         source={require("./../assets/animations/Animation - 1705424644989.json")}
         autoPlay
       />
