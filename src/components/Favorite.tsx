@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, Pressable } from "react-native";
 import React from "react";
 import { useFavoriteStore } from "../store/wishlistStore";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -72,27 +72,30 @@ const Favorite: TFavoriteComp = ({ productId }) => {
     }
   };
   return (
-    <TouchableOpacity
-      onPress={handleFavorites}
-      className="items-center flex-1 justify-center border border-gray-300 rounded-full h-[65px] ml-2"
-    >
-      <View className="absolute inset-1/2">
-        <MaterialIcons name="favorite-outline" size={26} color="black" />
-      </View>
+    <View className="flex-1 ml-2 overflow-hidden rounded-full">
+      <Pressable
+        android_ripple={{ color: "#d4d4d4", borderless: false }}
+        onPress={handleFavorites}
+        className="items-center justify-center border border-gray-300 rounded-full h-[65px]"
+      >
+        <View className="absolute inset-1/2">
+          <MaterialIcons name="favorite-outline" size={26} color="black" />
+        </View>
 
-      {favoriteItems.map((itemId) => {
-        if (itemId === productId) {
-          return (
-            <MaterialIcons
-              key={itemId}
-              name="favorite"
-              size={26}
-              color="black"
-            />
-          );
-        }
-      })}
-    </TouchableOpacity>
+        {favoriteItems.map((itemId) => {
+          if (itemId === productId) {
+            return (
+              <MaterialIcons
+                key={itemId}
+                name="favorite"
+                size={26}
+                color="black"
+              />
+            );
+          }
+        })}
+      </Pressable>
+    </View>
   );
 };
 
