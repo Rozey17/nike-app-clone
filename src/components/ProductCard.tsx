@@ -11,7 +11,7 @@ const ProductCard = ({ item }: { item: Product }) => {
 
   return (
     <Pressable
-      android_ripple={{ color: "#374151", foreground: true }}
+      android_ripple={{ color: "#d1d5db", foreground: true }}
       className="relative w-1/2"
       onPress={() =>
         router.push({
