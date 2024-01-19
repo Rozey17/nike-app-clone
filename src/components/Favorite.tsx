@@ -42,7 +42,10 @@ const Favorite: TFavoriteComp = ({ productId }) => {
       render: () => {
         return (
           <View className="px-5 py-4 bg-black rounded-md w-[360px] opacity-90">
-            <Text className="font-semibold text-white">
+            <Text
+              className="text-white "
+              style={{ fontFamily: "HelveticaMedium" }}
+            >
               Supprimé des favoris
             </Text>
           </View>
