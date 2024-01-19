@@ -3,32 +3,21 @@ import {
   Text,
   ScrollView,
   Image,
-  TouchableOpacity,
   Dimensions,
   FlatList,
   ListRenderItem,
   Pressable,
   Modal,
-  TouchableHighlight,
 } from "react-native";
 import React, { useRef, useState } from "react";
 import { Entypo, Feather } from "@expo/vector-icons";
 import { Stack, router, useLocalSearchParams } from "expo-router";
-import { Toast } from "native-base";
 import useCartStore from "../src/store/cartStore";
 import Favorite from "../src/components/Favorite";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import BuyProductBottomSheet from "../src/components/BuyProductBottomSheet";
 import { SafeAreaView } from "react-native-safe-area-context";
-import {
-  capSizes,
-  clothSizes,
-  getSizes,
-  gloveSizes,
-  shoeSizes,
-  sleevesSizes,
-  sockSizes,
-} from "../src/utils/sizes";
+import { getSizes } from "../src/utils/sizes";
 
 const Product = () => {
   const { addProduct } = useCartStore();
@@ -168,7 +157,7 @@ const Product = () => {
             {stringPrice} €
           </Text>
           <Text
-            className="text-[16px] leading-7"
+            className="text-[16px] leading-6"
             style={{ fontFamily: "HelveticaRegular" }}
           >
             {params?.description}
@@ -182,7 +171,7 @@ const Product = () => {
 
           {/* Select product size */}
 
-          <View className="pt-5 space-y-3">
+          <View className="pt-5 space-y-4">
             {params.sub_category.includes("Sac") ? (
               <Text
                 className="text-center uppercase "
