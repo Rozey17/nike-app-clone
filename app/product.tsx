@@ -12,7 +12,7 @@ import {
   TouchableHighlight,
 } from "react-native";
 import React, { useRef, useState } from "react";
-import { Entypo } from "@expo/vector-icons";
+import { Entypo, Feather } from "@expo/vector-icons";
 import { Stack, router, useLocalSearchParams } from "expo-router";
 import { Toast } from "native-base";
 import useCartStore from "../src/store/cartStore";
@@ -20,11 +20,15 @@ import Favorite from "../src/components/Favorite";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import BuyProductBottomSheet from "../src/components/BuyProductBottomSheet";
 import { SafeAreaView } from "react-native-safe-area-context";
-
-type Size = {
-  name: string;
-  value: string | number;
-};
+import {
+  capSizes,
+  clothSizes,
+  getSizes,
+  gloveSizes,
+  shoeSizes,
+  sleevesSizes,
+  sockSizes,
+} from "../src/utils/sizes";
 
 const Product = () => {
   const { addProduct } = useCartStore();
@@ -37,7 +41,8 @@ const Product = () => {
   };
 
   const renderSizeItem = ({ item }: { item: Size }) => (
-    <TouchableOpacity
+    <Pressable
+      android_ripple={{ color: "#d4d4d4" }}
       className="px-5 py-8 border-b border-neutral-300 "
       onPress={() => handleSizeChange(item)}
     >
@@ -50,79 +55,14 @@ const Product = () => {
         >
           {item.name}
         </Text>
+        {size?.name === item.name && (
+          <Feather name="check" size={24} color="black" />
+        )}
       </View>
-    </TouchableOpacity>
+    </Pressable>
   );
 
   const [size, setSize] = useState<Size>();
-  const shoeSizes = [
-    { name: "EU 35.5", value: 35.5 },
-    { name: "EU 36", value: 36 },
-    { name: "EU 36.5", value: 36.5 },
-    { name: "EU 37", value: 37 },
-    { name: "EU 37.5", value: 37.5 },
-    { name: "EU 38", value: 38 },
-    { name: "EU 38.5", value: 38.5 },
-    { name: "EU 39", value: 39 },
-    { name: "EU 39.5", value: 39.5 },
-    { name: "EU 40", value: 40 },
-    { name: "EU 40.5", value: 40.5 },
-    { name: "EU 41", value: 41 },
-    { name: "EU 41.5", value: 41.5 },
-    { name: "EU 42", value: 42 },
-    { name: "EU 42.5", value: 42.5 },
-    { name: "EU 43", value: 43 },
-    { name: "EU 43.5", value: 43.5 },
-    { name: "EU 44", value: 44 },
-    { name: "EU 44.5", value: 44.5 },
-    { name: "EU 45", value: 45 },
-    { name: "EU 45.5", value: 45.5 },
-    { name: "EU 46", value: 46 },
-  ];
-  const capSizes = [
-    { name: "S/M", value: "S/M" },
-    { name: "M/L", value: "M/L" },
-    { name: "L/XL", value: "L/XL" },
-  ];
-  const gloveSizes = [
-    { name: "S", value: "S" },
-    { name: "M", value: "M" },
-    { name: "L", value: "L" },
-    { name: "XL", value: "XL" },
-  ];
-  const clothSizes = [
-    { name: "XS", value: "XS" },
-    { name: "S", value: "S" },
-    { name: "M", value: "" },
-    { name: "L", value: "L" },
-    { name: "XL", value: "XL" },
-    { name: "XXL", value: "XXL" },
-    { name: "XXXL", value: "XXXL" },
-  ];
-  const sockSizes = [
-    { name: "EU 34-38", value: "34-38" },
-    { name: "EU 38-42", value: "38-42" },
-    { name: "EU 42-46", value: "42-46" },
-    { name: "EU 46-50", value: "46-50" },
-  ];
-  const sleevesSizes = [
-    { name: "S/M", value: "S/M" },
-    { name: "L/XL", value: "L/XL" },
-  ];
-
-  const getSizes = (category: string, sub_category: string): Size[] => {
-    if (category === "shoes") {
-      return shoeSizes;
-    } else if (sub_category.includes("Chaussettes")) {
-      return sockSizes;
-    } else if (sub_category.includes("Casquette")) {
-      return capSizes;
-    } else if (sub_category.includes("Gants")) {
-      return gloveSizes;
-    } else if (sub_category.includes("Manchons")) {
-      return sleevesSizes;
-    } else return clothSizes;
-  };
 
   let stringPrice = params?.price.toString().replace(".", ",");
 
@@ -142,7 +82,7 @@ const Product = () => {
     setCurrentSlideIndex(currentIndex);
   }
 
-  const renderItem: ListRenderItem<string> = ({ item }) => (
+  const renderImageItem: ListRenderItem<string> = ({ item }) => (
     <Image
       source={{ uri: item }}
       style={{
@@ -178,7 +118,7 @@ const Product = () => {
           showsHorizontalScrollIndicator={false}
           onMomentumScrollEnd={updateCurrentSlideIndex}
           bounces={false}
-          renderItem={renderItem}
+          renderItem={renderImageItem}
         />
         <View
           style={{
@@ -238,10 +178,6 @@ const Product = () => {
               className="text-[16px]"
               style={{ fontFamily: "HelveticaRegular" }}
             >{`\u2022  Présenté en : ${params.color}`}</Text>
-            {/* <Text
-              className="text-[16px]"
-              style={{ fontFamily: "HelveticaRegular" }}
-            >{`\u2022  Article : ${params._id}`}</Text> */}
           </View>
 
           {/* Select product size */}
@@ -255,36 +191,47 @@ const Product = () => {
                 taille unique{" "}
               </Text>
             ) : (
-              <TouchableOpacity
-                onPress={() => setModalVisible(true)}
-                className="justify-center flex-row items-center bg-white rounded-full h-[65px] border border-neutral-300 "
-              >
-                {size?.value === undefined ? (
-                  <>
-                    <Text
-                      className="text-lg text-center "
-                      style={{
-                        fontFamily: "HelveticaMedium",
-                      }}
-                    >
-                      Sélectionner la taille{" "}
-                    </Text>
-                    <Entypo name="chevron-small-down" size={24} color="black" />
-                  </>
-                ) : (
-                  <>
-                    <Text
-                      className="text-lg text-center "
-                      style={{
-                        fontFamily: "HelveticaMedium",
-                      }}
-                    >
-                      {`Taille ${size?.name}`}
-                    </Text>
-                    <Entypo name="chevron-small-down" size={24} color="black" />
-                  </>
-                )}
-              </TouchableOpacity>
+              <View className="overflow-hidden rounded-full">
+                <Pressable
+                  android_ripple={{ color: "#d4d4d4", borderless: false }}
+                  onPress={() => setModalVisible(true)}
+                  className="justify-center flex-row items-center bg-white rounded-full h-[65px] border border-neutral-300 "
+                >
+                  {size?.value === undefined ? (
+                    <>
+                      <Text
+                        className="text-lg text-center "
+                        style={{
+                          fontFamily: "HelveticaMedium",
+                        }}
+                      >
+                        Sélectionner la taille{" "}
+                      </Text>
+                      <Entypo
+                        name="chevron-small-down"
+                        size={24}
+                        color="black"
+                      />
+                    </>
+                  ) : (
+                    <>
+                      <Text
+                        className="text-lg text-center "
+                        style={{
+                          fontFamily: "HelveticaMedium",
+                        }}
+                      >
+                        {`Taille ${size?.name}`}
+                      </Text>
+                      <Entypo
+                        name="chevron-small-down"
+                        size={24}
+                        color="black"
+                      />
+                    </>
+                  )}
+                </Pressable>
+              </View>
             )}
 
             {/* the select size modal */}
@@ -321,69 +268,79 @@ const Product = () => {
                     params?.category as string,
                     params?.sub_category as string
                   )}
+                  keyExtractor={(item) => item.name}
                   renderItem={renderSizeItem}
                   showsVerticalScrollIndicator={false}
                 />
               </SafeAreaView>
             </Modal>
-            <TouchableOpacity
-              onPress={() => {
-                if (
-                  size?.value === undefined &&
-                  params?.sub_category.includes("Sac") === false
-                ) {
-                  setModalVisible(true);
-                } else
-                  addProduct({
-                    _id: params._id as string,
-                    description: params.description as string,
-                    gender: {
-                      name: params.gender as string,
-                    },
-                    images: params.images as any,
-                    name: params.name as string,
-                    size: size as any,
-                    price: params.price as any,
-                    category: {
-                      name: params.category as string,
-                    },
-                    sub_category: params.sub_category as any,
-                    color: params.color as string,
-                  }),
-                    router.push("/addedToCartModal");
-              }}
-              className="justify-center bg-black rounded-full h-[65px]"
-            >
-              <Text
-                className="text-lg text-center text-white"
-                style={{
-                  fontFamily: "HelveticaMedium",
-                }}
-              >
-                Ajouter au panier
-              </Text>
-            </TouchableOpacity>
-            <View className="flex-row items-center ">
-              <TouchableOpacity
+
+            <View className="flex-1 overflow-hidden rounded-full">
+              <Pressable
+                android_ripple={{ color: "#4b5563", borderless: false }}
                 onPress={() => {
                   if (
                     size?.value === undefined &&
                     params?.sub_category.includes("Sac") === false
                   ) {
                     setModalVisible(true);
-                  } else handlePresentModal();
+                  } else
+                    addProduct({
+                      _id: params._id as string,
+                      description: params.description as string,
+                      gender: {
+                        name: params.gender as string,
+                      },
+                      images: params.images as any,
+                      name: params.name as string,
+                      size: size as any,
+                      price: params.price as any,
+                      category: {
+                        name: params.category as string,
+                      },
+                      sub_category: params.sub_category as any,
+                      color: params.color as string,
+                    }),
+                      router.push("/addedToCartModal");
                 }}
-                className="flex-1 justify-center border border-neutral-300 rounded-full h-[65px]"
+                className="justify-center bg-black rounded-full h-[65px]"
               >
                 <Text
-                  className="text-lg text-center"
+                  className="text-lg text-center text-white"
                   style={{
                     fontFamily: "HelveticaMedium",
                   }}
                 >
-                  Acheter
+                  Ajouter au panier
                 </Text>
-              </TouchableOpacity>
+              </Pressable>
+            </View>
+
+            <View className="flex-row items-center ">
+              <View className="flex-1 overflow-hidden rounded-full">
+                <Pressable
+                  android_ripple={{ color: "#d4d4d4", borderless: false }}
+                  onPress={() => {
+                    if (
+                      size?.value === undefined &&
+                      params?.sub_category.includes("Sac") === false
+                    ) {
+                      setModalVisible(true);
+                    } else handlePresentModal();
+                  }}
+                  className=" justify-center border border-neutral-300 rounded-full h-[65px] "
+                >
+                  <Text
+                    className="text-lg text-center"
+                    style={{
+                      fontFamily: "HelveticaMedium",
+                    }}
+                  >
+                    Acheter
+                  </Text>
+                </Pressable>
+              </View>
+
               <Favorite productId={params._id as string} />
             </View>
           </View>

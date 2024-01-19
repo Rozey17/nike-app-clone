@@ -1,4 +1,4 @@
-import { View, Text, Image, TouchableOpacity } from "react-native";
+import { View, Text, Image, TouchableOpacity, Pressable } from "react-native";
 import React from "react";
 import { useRouter } from "expo-router";
 import ProductCardFavorite from "./ProductCardFavorite";
@@ -10,7 +10,8 @@ const ProductCard = ({ item }: { item: Product }) => {
   let stringPrice = item.price?.toString().replace(".", ",");
 
   return (
-    <TouchableOpacity
+    <Pressable
+      android_ripple={{ color: "#374151", foreground: true }}
       className="relative w-1/2"
       onPress={() =>
         router.push({
@@ -51,7 +52,7 @@ const ProductCard = ({ item }: { item: Product }) => {
 
         <Text style={{ fontFamily: "HelveticaMedium" }}>{stringPrice} €</Text>
       </View>
-    </TouchableOpacity>
+    </Pressable>
   );
 };
 
