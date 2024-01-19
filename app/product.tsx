@@ -178,10 +178,6 @@ const Product = () => {
               className="text-[16px]"
               style={{ fontFamily: "HelveticaRegular" }}
             >{`\u2022  Présenté en : ${params.color}`}</Text>
-            {/* <Text
-              className="text-[16px]"
-              style={{ fontFamily: "HelveticaRegular" }}
-            >{`\u2022  Article : ${params._id}`}</Text> */}
           </View>
 
           {/* Select product size */}
