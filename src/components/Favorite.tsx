@@ -1,4 +1,10 @@
-import { View, Text, TouchableOpacity, Pressable } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Pressable,
+  Dimensions,
+} from "react-native";
 import React from "react";
 import { useFavoriteStore } from "../store/wishlistStore";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -6,8 +12,8 @@ import { useToast } from "native-base";
 
 type TFavoriteComp = (props: { productId: string }) => JSX.Element;
 
-const id = "test-toast";
-const id2 = "test-toast";
+const { width } = Dimensions.get("window");
+const toastWidth = Math.round(width / 6) * 5;
 
 const Favorite: TFavoriteComp = ({ productId }) => {
   const favoriteItems = useFavoriteStore((state) => state.favoriteItems);
@@ -24,7 +30,10 @@ const Favorite: TFavoriteComp = ({ productId }) => {
     toastIdRef.current = toast.show({
       render: () => {
         return (
-          <View className="relative px-5 py-4 bg-black rounded-md w-[360px] opacity-90">
+          <View
+            className="relative px-5 py-4 bg-black rounded-md opacity-90"
+            style={{ width: toastWidth }}
+          >
             <Text
               className="z-20 text-white"
               style={{ fontFamily: "HelveticaMedium" }}
@@ -41,7 +50,10 @@ const Favorite: TFavoriteComp = ({ productId }) => {
     toastIdRef2.current = toast.show({
       render: () => {
         return (
-          <View className="px-5 py-4 bg-black rounded-md w-[360px] opacity-90">
+          <View
+            className="px-5 py-4 bg-black rounded-md opacity-90"
+            style={{ width: toastWidth }}
+          >
             <Text
               className="text-white "
               style={{ fontFamily: "HelveticaMedium" }}

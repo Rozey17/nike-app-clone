@@ -1,13 +1,13 @@
 export const getSizes = (category: string, sub_category: string): Size[] => {
   if (category === "shoes") {
     return shoeSizes;
-  } else if (sub_category.includes("Chaussettes")) {
+  } else if (sub_category?.includes("Chaussettes")) {
     return sockSizes;
-  } else if (sub_category.includes("Casquette")) {
+  } else if (sub_category?.includes("Casquette")) {
     return capSizes;
-  } else if (sub_category.includes("Gants")) {
+  } else if (sub_category?.includes("Gants")) {
     return gloveSizes;
-  } else if (sub_category.includes("Manchons")) {
+  } else if (sub_category?.includes("Manchons")) {
     return sleevesSizes;
   } else return clothSizes;
 };

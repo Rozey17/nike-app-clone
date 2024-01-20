@@ -29,31 +29,9 @@ const Product = () => {
     setModalVisible(false);
   };
 
-  const renderSizeItem = ({ item }: { item: Size }) => (
-    <Pressable
-      android_ripple={{ color: "#d4d4d4" }}
-      className="px-5 py-8 border-b border-neutral-300 "
-      onPress={() => handleSizeChange(item)}
-    >
-      <View className="flex-row justify-between">
-        <Text
-          className="uppercase "
-          style={{
-            fontFamily: "HelveticaMedium",
-          }}
-        >
-          {item.name}
-        </Text>
-        {size?.name === item.name && (
-          <Feather name="check" size={24} color="black" />
-        )}
-      </View>
-    </Pressable>
-  );
-
   const [size, setSize] = useState<Size>();
 
-  let stringPrice = params?.price.toString().replace(".", ",");
+  let stringPrice = params?.price?.toString().replace(".", ",");
 
   const [isModalVisible, setModalVisible] = useState(false);
 
@@ -80,6 +58,29 @@ const Product = () => {
       }}
     />
   );
+
+  const renderSizeItem = ({ item }: { item: Size }) => (
+    <Pressable
+      android_ripple={{ color: "#d4d4d4" }}
+      className="px-5 py-8 border-b border-neutral-300 "
+      onPress={() => handleSizeChange(item)}
+    >
+      <View className="flex-row justify-between">
+        <Text
+          className="uppercase "
+          style={{
+            fontFamily: "HelveticaMedium",
+          }}
+        >
+          {item.name}
+        </Text>
+        {size?.name === item.name && (
+          <Feather name="check" size={24} color="black" />
+        )}
+      </View>
+    </Pressable>
+  );
+
   return (
     <>
       <ScrollView
@@ -109,27 +110,30 @@ const Product = () => {
           bounces={false}
           renderItem={renderImageItem}
         />
-        <View
-          style={{
-            alignItems: "center",
-            justifyContent: "center",
-            flexDirection: "row",
-            position: "absolute",
-            top: 470,
-            alignSelf: "center",
-          }}
-        >
-          {pictures.map((_, index) => {
-            return (
-              <View
-                key={index}
-                className={`h-[2px] w-10 ${
-                  currentSlideIndex == index ? "bg-black" : "bg-neutral-300"
-                }`}
-              />
-            );
-          })}
-        </View>
+        {pictures?.length > 1 && (
+          <View
+            style={{
+              alignItems: "center",
+              justifyContent: "center",
+              flexDirection: "row",
+              position: "absolute",
+              top: 470,
+              alignSelf: "center",
+            }}
+          >
+            {pictures.map((_, index) => {
+              return (
+                <View
+                  key={index}
+                  className={`h-[2px] w-10 ${
+                    currentSlideIndex == index ? "bg-black" : "bg-neutral-300"
+                  }`}
+                />
+              );
+            })}
+          </View>
+        )}
+
         <View className="px-6 py-10 space-y-5">
           <View>
             <Text
@@ -172,7 +176,7 @@ const Product = () => {
           {/* Select product size */}
 
           <View className="pt-5 space-y-4">
-            {params.sub_category.includes("Sac") ? (
+            {params?.sub_category?.includes("Sac") ? (
               <Text
                 className="text-center uppercase "
                 style={{ fontFamily: "HelveticaBold" }}
@@ -312,7 +316,7 @@ const Product = () => {
                   onPress={() => {
                     if (
                       size?.value === undefined &&
-                      params?.sub_category.includes("Sac") === false
+                      params?.sub_category?.includes("Sac") === false
                     ) {
                       setModalVisible(true);
                     } else handlePresentModal();
