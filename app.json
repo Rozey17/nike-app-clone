@@ -9,7 +9,7 @@
     "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./assets/images/Nike-Logo-PNG.png",
-      "resizeMode": "contain",
+      "resizeMode": "native",
       "backgroundColor": "#0a0a0a"
     },
     "assetBundlePatterns": ["**/*"],
