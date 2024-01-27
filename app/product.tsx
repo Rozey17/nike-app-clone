@@ -18,6 +18,7 @@ import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import BuyProductBottomSheet from "../src/components/BuyProductBottomSheet";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { getSizes } from "../src/utils/sizes";
+import ProductImages from "../src/components/ProductImages";
 
 const Product = () => {
   const { addProduct } = useCartStore();
@@ -39,25 +40,6 @@ const Product = () => {
   function handlePresentModal() {
     modalSheetBottomref.current?.present();
   }
-
-  const { width } = Dimensions.get("window");
-  const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
-
-  function updateCurrentSlideIndex(e: any) {
-    const contentOffsetX = e.nativeEvent.contentOffset.x;
-    const currentIndex = Math.round(contentOffsetX / width);
-    setCurrentSlideIndex(currentIndex);
-  }
-
-  const renderImageItem: ListRenderItem<string> = ({ item }) => (
-    <Image
-      source={{ uri: item }}
-      style={{
-        width: width,
-        height: 500,
-      }}
-    />
-  );
 
   const renderSizeItem = ({ item }: { item: Size }) => (
     <Pressable
@@ -101,38 +83,7 @@ const Product = () => {
 
         {/* Images of the product */}
 
-        <FlatList
-          data={pictures}
-          horizontal={true}
-          pagingEnabled={true}
-          showsHorizontalScrollIndicator={false}
-          onMomentumScrollEnd={updateCurrentSlideIndex}
-          bounces={false}
-          renderItem={renderImageItem}
-        />
-        {pictures?.length > 1 && (
-          <View
-            style={{
-              alignItems: "center",
-              justifyContent: "center",
-              flexDirection: "row",
-              position: "absolute",
-              top: 470,
-              alignSelf: "center",
-            }}
-          >
-            {pictures.map((_, index) => {
-              return (
-                <View
-                  key={index}
-                  className={`h-[2px] w-10 ${
-                    currentSlideIndex == index ? "bg-black" : "bg-neutral-300"
-                  }`}
-                />
-              );
-            })}
-          </View>
-        )}
+        <ProductImages pictures={pictures} />
 
         <View className="px-6 py-10 space-y-5">
           <View>

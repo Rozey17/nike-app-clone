@@ -29,7 +29,7 @@ const ProductCardFavorite: TFavoriteComp = ({ productId }) => {
             style={{ width: toastWidth }}
           >
             <Text
-              className="z-20  text-center text-[16px] text-white"
+              className="z-20 text-white"
               style={{ fontFamily: "HelveticaMedium" }}
             >
               Ajouté aux favoris

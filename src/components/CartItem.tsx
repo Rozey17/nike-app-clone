@@ -34,15 +34,21 @@ const CartItem = ({
       //     },
       //   })
       // }
-      className="py-5 space-y-3 border-b border-gray-200"
+      className="py-5 space-y-3 border-b-[0.6px] border-gray-200 "
     >
       <View className="flex-row space-x-3">
         <Image
           source={{ uri: item?.images?.[0] as string }}
           className="w-28 h-28"
         />
-        <View className="space-y-2">
-          <Text style={{ fontFamily: "HelveticaBold" }}>{item.name}</Text>
+        <View className="space-y-1">
+          <Text
+            numberOfLines={2}
+            ellipsizeMode="tail"
+            style={{ fontFamily: "HelveticaBold" }}
+          >
+            {item.name}
+          </Text>
           <Text
             className="text-neutral-400"
             style={{ fontFamily: "HelveticaRegular" }}
